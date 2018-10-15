@@ -20,7 +20,9 @@ require('./routes')(app)
 */
 
 sequelize.sync({force: true})
-  .then(initializedb())
+  .then(async () => {
+    await initializedb()
+  })
   .then(() => {
     app.listen(process.env.PORT || config.port)
     console.log(`Server started on port ${config.port}`)
