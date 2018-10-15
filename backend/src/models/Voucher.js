@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     validity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   }, {
     freezeTableName: true
   })
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE'
     })
 
-    voucher.belongsTo(models.Order,{
+    voucher.belongsTo(models.Order, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     })

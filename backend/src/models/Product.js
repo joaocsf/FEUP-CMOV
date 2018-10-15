@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   }, {
     freezeTableName: true
   })

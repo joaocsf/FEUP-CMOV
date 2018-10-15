@@ -17,13 +17,12 @@ function hashPassword (user, options) {
     })
 }
 
-
 module.exports = (sequelize, DataTypes) => {
   const costumer = sequelize.define('Costumer', {
     uuid: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
-        primaryKey: true   
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
@@ -38,17 +37,18 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     }
   }, {
     freezeTableName: true,
     hooks: {
-        beforeCreate: hashPassword,
-        beforeUpdate: hashPassword,
-        beforeSave: hashPassword
+      beforeCreate: hashPassword,
+      beforeUpdate: hashPassword,
+      beforeSave: hashPassword
     }
   })
 
@@ -59,13 +59,13 @@ module.exports = (sequelize, DataTypes) => {
     })
 
     costumer.hasMany(models.Ticket, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     })
 
     costumer.hasMany(models.Order, {
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     })
   }
 

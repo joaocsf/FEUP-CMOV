@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     validity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   }, {
     freezeTableName: true
   })
