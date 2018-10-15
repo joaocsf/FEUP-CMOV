@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  api:
+    build: .
+    environment:
+      DB_URL: postgres://root:pw@db/postgres
+    command: bash -c "npm install && ./wait-for-it.sh db:5432 -- npm run dev"
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./:/code
+      - api-deps:/code/node_modules
+    depends_on:
+      - db
+  db:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: pw
+      POSTGRES_DB: postgres
+    volumes:
+      - /db
+  
+volumes:
+  api-deps:
+
