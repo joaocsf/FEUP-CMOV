@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    publicKey: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     freezeTableName: true,

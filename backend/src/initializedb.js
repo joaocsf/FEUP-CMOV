@@ -13,7 +13,8 @@ module.exports = async () => {
     name: 'Hello',
     nif: '213123123',
     username: 'UserName',
-    password: 'password'
+    password: 'password',
+    publicKey: '1231232iioaiod1o2io12oi321'
   })
 
   await costumer.setCard(card)
