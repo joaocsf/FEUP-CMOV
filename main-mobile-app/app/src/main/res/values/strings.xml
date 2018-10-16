@@ -2,4 +2,8 @@
     <string name="app_name">CasaDaMusica</string>
     <string name="user_registration">User Registration</string>
     <string name="name">Name</string>
+    <string name="bottom_show">Shows</string>
+    <string name="bottom_tickets">Tickets</string>
+    <string name="bottom_bar">Bar</string>
+    <string name="bottom_settings">Settings</string>
 </resources>
