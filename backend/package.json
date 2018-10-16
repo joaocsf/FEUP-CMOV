@@ -25,6 +25,7 @@
     "express-fileupload": "0.3.0",
     "joi": "11.3.4",
     "jsonwebtoken": "^8.1.0",
+    "moment": "^2.22.2",
     "morgan": "1.9.0",
     "pg": "6.4.2",
     "pg-hstore": "2.3.2",

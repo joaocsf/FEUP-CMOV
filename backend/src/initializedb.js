@@ -1,4 +1,4 @@
-const {Costumer, Card, Show} = require('./models')
+const {Costumer, Card, Show, Ticket} = require('./models')
 
 function printSeparator (section) {
   console.log(`############\n# ${section}\n###########`)
@@ -42,11 +42,34 @@ module.exports = async () => {
   console.log(JSON.stringify(all))
   printSeparator('Shows')
 
-  var show = await Show.create({
+  var show1 = await Show.create({
     name: 'Example Show',
-    date: '1999/12/10',
+    date: '2019/01/01',
+    price: 12.3
+  })
+  var show2 = await Show.create({
+    name: 'Example Show2',
+    date: '2030/12/10',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show2',
+    date: '2019/12/10',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show3',
+    date: '2019/12/11',
     price: 12.3
   })
 
-  console.log(JSON.stringify(show))
+  printSeparator('Tickets')
+  var ticket = await Ticket.create()
+  await ticket.setShow(show1)
+  var ticket2 = await Ticket.create()
+  await ticket2.setShow(show1)
+  var ticket3 = await Ticket.create()
+  await ticket3.setShow(show2)
+
+  console.log(JSON.stringify(show1))
 }

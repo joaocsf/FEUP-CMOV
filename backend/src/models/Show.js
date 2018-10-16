@@ -13,7 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    indexes: [
+      {
+        name: 'date_index',
+        method: 'BTREE',
+        fields: [{attribute: 'date', order: 'DESC'}]
+      }
+    ]
   })
 
   show.associate = (models) => {
