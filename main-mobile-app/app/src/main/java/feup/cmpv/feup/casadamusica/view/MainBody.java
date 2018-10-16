@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.adapters.BottomFragmentPagerAdapter;
 
 public class MainBody extends AppCompatActivity {
 
@@ -21,12 +24,21 @@ public class MainBody extends AppCompatActivity {
     private final int[] colors = {R.color.bottomtab_0, R.color.bottomtab_1, R.color.bottomtab_2, R.color.bottomtab_3};
     private AHBottomNavigationItem item1, item2, item3, item4;
     private AHBottomNavigation bottomNavigation;
+    private FloatingActionButton floatingActionButton;
+    private BottomFragmentPagerAdapter adapter;
+    private AHBottomNavigationViewPager pager;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_body);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        floatingActionButton = findViewById(R.id.floating_action_button);
+        pager = findViewById(R.id.view_pager);
+
+
+        adapter = new BottomFragmentPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
 
 
         bottomNavigation.setDefaultBackgroundColor(fetchColor(R.color.colorPrimary));
@@ -36,6 +48,7 @@ public class MainBody extends AppCompatActivity {
         bottomNavigation.setColoredModeColors(Color.WHITE, fetchColor(R.color.bottomTabResting));
         // bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setBehaviorTranslationEnabled(true);
+        bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
 
         item1 = new AHBottomNavigationItem(R.string.bottom_show, R.drawable.ic_music_note_black_24dp, colors[0]);
@@ -48,13 +61,15 @@ public class MainBody extends AppCompatActivity {
         bottomNavigation.addItem(item3);
         bottomNavigation.addItem(item4);
 
-        View fragment = findViewById(R.id.frame);
+        bottomNavigation.setOnTabSelectedListener(
+                (position, wasSelected) -> {
+                    pager.setCurrentItem(position,false);
+                    return true;
+                }
+        );
 
-//        bottomNavigation.setOnTabSelectedListener(
-//                (position, wasSelected) -> {
-//                    return;
-//                }
-//        );
+        
+
 
         bottomNavigation.setCurrentItem(0);
 
