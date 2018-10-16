@@ -1,7 +1,13 @@
-const {Costumer, Card} = require('./models')
+const {Costumer, Card, Show} = require('./models')
+
+function printSeparator (section) {
+  console.log(`############\n# ${section}\n###########`)
+}
 
 module.exports = async () => {
+  console.log('\n\n\n\n\n')
   console.log('Initializing Data')
+  printSeparator('Costumers')
 
   var card = await Card.create({
     type: '123',
@@ -19,11 +25,9 @@ module.exports = async () => {
 
   await costumer.setCard(card)
 
-  console.log('\n\n\n\n\n')
   console.log('User Created')
   console.log(JSON.stringify(costumer))
   console.log(JSON.stringify(await costumer.getCard()))
-  console.log('\n\n\n\n\n')
 
   var all = await Costumer.findAll(
     {
@@ -34,8 +38,15 @@ module.exports = async () => {
       ]
     })
 
-  console.log('\n\n\n\n\n')
   console.log('All')
   console.log(JSON.stringify(all))
-  console.log('\n\n\n\n\n')
+  printSeparator('Shows')
+
+  var show = await Show.create({
+    name: 'Example Show',
+    date: '1999/12/10',
+    price: 12.3
+  })
+
+  console.log(JSON.stringify(show))
 }

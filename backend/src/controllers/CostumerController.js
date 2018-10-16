@@ -8,9 +8,9 @@ module.exports = {
       // var nif = req.body.nif
       // var password = req.body.password
       console.log(JSON.stringify(req.body))
-      res.status(200).send('Success')
+      res.status(200).send({msg: 'Success'})
     } catch (error) {
-      res.status(500).send('Invalid Data')
+      res.status(500).send({msg: 'Invalid Data'})
     }
   }
 }
