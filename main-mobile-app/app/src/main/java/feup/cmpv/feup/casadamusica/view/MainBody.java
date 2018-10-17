@@ -69,11 +69,8 @@ public class MainBody extends AppCompatActivity {
                 }
         );
 
-        
-
 
         bottomNavigation.setCurrentItem(0);
-
 
     }
 
