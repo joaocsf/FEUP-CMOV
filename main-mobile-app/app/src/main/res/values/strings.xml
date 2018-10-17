@@ -11,5 +11,9 @@
     <string name="next">Next</string>
     <string name="username">Username</string>
     <string name="user_registration">User Registration</string>
-    <string name="registe">Registe</string>
+    <string name="registration">Registration</string>
+    <string name="credit_card">Credit</string>
+    <string name="debit_card">Debit</string>
+    <string name="card_number">Card number</string>
+    <string name="card_number_validation">Card number validation</string>
 </resources>
