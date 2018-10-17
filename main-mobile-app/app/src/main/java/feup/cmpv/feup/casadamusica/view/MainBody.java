@@ -1,15 +1,12 @@
 package feup.cmpv.feup.casadamusica.view;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -39,7 +36,7 @@ public class MainBody extends AppCompatActivity {
 
         adapter = new BottomFragmentPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
-
+        pager.setOffscreenPageLimit(4);
 
         bottomNavigation.setDefaultBackgroundColor(fetchColor(R.color.colorPrimary));
         bottomNavigation.setAccentColor(fetchColor(R.color.colorAccent));
@@ -48,6 +45,7 @@ public class MainBody extends AppCompatActivity {
         bottomNavigation.setColoredModeColors(Color.WHITE, fetchColor(R.color.bottomTabResting));
         // bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setBehaviorTranslationEnabled(true);
+        bottomNavigation.setTranslucentNavigationEnabled(true);
         bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
 
@@ -55,6 +53,8 @@ public class MainBody extends AppCompatActivity {
         item2 = new AHBottomNavigationItem(R.string.bottom_tickets, R.drawable.ic_local_activity_black_24dp, colors[1]);
         item3 = new AHBottomNavigationItem(R.string.bottom_bar, R.drawable.ic_local_bar_black_24dp, colors[2]);
         item4 = new AHBottomNavigationItem(R.string.bottom_settings, R.drawable.ic_settings_black_24dp, colors[3]);
+
+        //pager.setOffscreenPageLimit(4);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
@@ -64,6 +64,7 @@ public class MainBody extends AppCompatActivity {
         bottomNavigation.setOnTabSelectedListener(
                 (position, wasSelected) -> {
                     pager.setCurrentItem(position,false);
+
                     return true;
                 }
         );
