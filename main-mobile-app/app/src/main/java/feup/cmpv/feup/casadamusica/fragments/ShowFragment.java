@@ -6,13 +6,20 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
+import feup.cmpv.feup.casadamusica.structures.Show;
 
 public class ShowFragment extends Fragment {
 
-    private static Fragment instance;
+    private ListView listView;
+    private ArrayAdapter<Show> adapter;
 
     public static Fragment getInstance(String value) {
         Fragment fragment = new ShowFragment();
@@ -31,7 +38,23 @@ public class ShowFragment extends Fragment {
     }
 
     private void InitializeView(View view){
-        TextView tv = view.findViewById(R.id.textView2);
-        tv.setText(getArguments().getString("value"));
+        listView = view.findViewById(R.id.show_list_view);
+
+        ArrayList<Show> showList = new ArrayList<>();
+        Show show = new Show("Show Name", "2010/01/03", 27.30f);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        showList.add(show);
+        adapter = new ShowListAdapter(view.getContext(), showList);
+
+        listView.setAdapter(adapter);
     }
 }
