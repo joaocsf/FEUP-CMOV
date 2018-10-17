@@ -45,5 +45,42 @@ public class CardInfoRegister extends Fragment {
 
     private void finalizeRegistration(){
 
+        if(!verifyFields()){
+            return;
+        }
+
+        if(getArguments() != null) {
+
+            Registration registration = (Registration) getArguments().getSerializable("registration");
+
+            registration.setCardNumber(Integer.parseInt(card_number.getText().toString()));
+            registration.setCardValidationNumber(Integer.parseInt(card_validation_number.getText().toString()));
+
+            switch (card_type.getCheckedRadioButtonId()) {
+                case R.id.credit_type:
+                    registration.setCardType("Credit");
+                    break;
+                case R.id.debit_type:
+                    registration.setCardType("Debit");
+                    break;
+            }
+        }
+    }
+
+
+    private boolean verifyFields(){
+        boolean valid = true;
+
+        if(card_number.getText().toString().isEmpty()){
+            card_number.setError("Can not be empty");
+            valid = false;
+        }
+
+        if(card_validation_number.getText().toString().isEmpty()){
+            card_validation_number.setError("Can not be empty");
+            valid = false;
+        }
+
+        return valid;
     }
 }
