@@ -63,7 +63,6 @@ public class ShowFragment extends Fragment {
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Snackbar
                     }
                 },
                 (error -> {

@@ -12,12 +12,13 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import feup.cmpv.feup.casadamusica.Config;
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 
 public class Api {
 
     private static RequestQueue queue;
-    private static final String host = "http://192.168.1.117:8080";
+    private static final String host = Config.HOST;
 
 
     private static RequestQueue getQueue(){

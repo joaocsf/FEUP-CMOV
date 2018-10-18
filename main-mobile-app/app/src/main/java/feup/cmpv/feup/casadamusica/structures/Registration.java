@@ -95,4 +95,18 @@ public class Registration implements Serializable {
     public void setCardValidationNumber(int cardValidationNumber) {
         this.cardValidationNumber = cardValidationNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nif=" + nif +
+                ", publicKey='" + publicKey + '\'' +
+                ", cardType='" + cardType + '\'' +
+                ", cardNumber=" + cardNumber +
+                ", cardValidationNumber=" + cardValidationNumber +
+                '}';
+    }
 }

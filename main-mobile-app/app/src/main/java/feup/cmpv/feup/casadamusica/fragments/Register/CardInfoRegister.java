@@ -2,6 +2,7 @@ package feup.cmpv.feup.casadamusica.fragments.Register;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Objects;
+
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.services.Api;
+import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Registration;
 
 public class CardInfoRegister extends Fragment {
@@ -64,6 +72,24 @@ public class CardInfoRegister extends Fragment {
                     registration.setCardType("Debit");
                     break;
             }
+
+
+            CostumerServices.Register(registration,
+                    response -> {
+                        try {
+                            Snackbar snackbar = null;
+                            snackbar = Snackbar.make(Objects.requireNonNull(getView()), "User Created Successfuly!" + response.getString("msg"), Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> {
+                        JSONObject obj = Api.getBodyFromError(error);
+
+                        Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getView()), "Error Adding User! " + obj, Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    });
         }
     }
 

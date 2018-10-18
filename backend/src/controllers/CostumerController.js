@@ -1,12 +1,26 @@
-// const {Costumer, Card} = require('../models')
+const {Costumer, Card} = require('../models')
 
 module.exports = {
-  async createCostumer (req, res) {
+  async registration (req, res) {
     try {
-      // var name = req.body.name
-      // var username = req.body.username
-      // var nif = req.body.nif
-      // var password = req.body.password
+      
+      console.log(JSON.stringify(req.body))
+
+      let costumer = await Costumer.create({
+        name: req.body.name,
+        username: req.body.username,
+        password: req.body.password,
+        nif: req.body.nif
+      });
+
+      console.log("Hello");
+
+      await Card.create({
+        type: req.body.card_type,
+        number: req.body.card_number,
+        validity: req.body.card_validation_number,
+      })
+
       console.log(JSON.stringify(req.body))
       res.status(200).send({msg: 'Success'})
     } catch (error) {
