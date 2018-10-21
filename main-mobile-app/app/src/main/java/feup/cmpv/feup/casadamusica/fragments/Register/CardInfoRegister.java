@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.fragments.ShowFragment;
 import feup.cmpv.feup.casadamusica.structures.Registration;
 
 public class CardInfoRegister extends Fragment {
