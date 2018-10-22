@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
+const NodeRSA = require('node-rsa')
 // const Like = require('../models').Like
 
 function hashPassword (user, options) {
@@ -75,6 +76,12 @@ module.exports = (sequelize, DataTypes) => {
 
   costumer.prototype.comparePassword = function (password) {
     return bcrypt.compareAsync(password, this.password)
+  }
+
+  costumer.prototype.verify = function (data, signature) {
+    var key = new NodeRSA()
+    key.importKey(this.publicKey)
+    return key.verify(data, signature)
   }
 
   return costumer
