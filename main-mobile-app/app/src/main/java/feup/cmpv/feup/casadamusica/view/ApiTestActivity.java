@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
+import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
 
 public class ApiTestActivity extends AppCompatActivity {
@@ -31,8 +32,9 @@ public class ApiTestActivity extends AppCompatActivity {
             (click) -> {
 
                 Costumer tmp = new Costumer("Bolacha", "BolachaTest", "bolachas", 92314515, "RSA....");
+                Card card = new Card("Bolacha", 123, "bolachas");
 
-                CostumerServices.Register(tmp,
+                CostumerServices.Register(tmp, card,
                     response -> {
                         try {
                             Snackbar snackbar = null;

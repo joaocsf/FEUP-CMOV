@@ -62,6 +62,36 @@ module.exports = async () => {
     date: '2019/12/11',
     price: 12.3
   })
+  await Show.create({
+    name: 'Example Show4',
+    date: '2019/12/11',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show5',
+    date: '2019/12/11',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show6',
+    date: '2019/12/11',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show7',
+    date: '2019/12/11',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show8',
+    date: '2019/12/11',
+    price: 12.3
+  })
+  await Show.create({
+    name: 'Example Show9',
+    date: '2019/12/11',
+    price: 12.3
+  })
 
   printSeparator('Tickets')
   var ticket = await Ticket.create()

@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -24,6 +26,13 @@ public class MainBody extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private BottomFragmentPagerAdapter adapter;
     private AHBottomNavigationViewPager pager;
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

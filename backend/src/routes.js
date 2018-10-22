@@ -7,7 +7,7 @@ module.exports = (app) => {
   // *****************
   // * Costumers
   // *****************
-  app.post('/registration',
+  app.post('/costumer/create',
     CostumerPolicies.createCostumer,
     CostumerController.registration
   )

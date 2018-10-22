@@ -3,27 +3,32 @@ const {Costumer, Card} = require('../models')
 module.exports = {
   async registration (req, res) {
     try {
-      
-      console.log(JSON.stringify(req.body))
+      // var name = req.body.name
+      // var username = req.body.username
+      // var nif = req.body.nif
+      // var password = req.body.password
+      var user = req.body.user
+      var card = req.body.card
 
-      let costumer = await Costumer.create({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        nif: req.body.nif
-      });
-
-      console.log("Hello");
-
-      await Card.create({
-        type: req.body.card_type,
-        number: req.body.card_number,
-        validity: req.body.card_validation_number,
+      var createdUser = await Costumer.create({
+        nif: user.nif,
+        name: user.name,
+        username: user.username,
+        password: user.password,
+        publicKey: user.publicKey
       })
 
-      console.log(JSON.stringify(req.body))
+      var createdCard = await Card.create({
+        type: card.type,
+        number: card.number,
+        validity: card.validity
+      })
+
+      createdUser.setCard(createdCard)
+
       res.status(200).send({msg: 'Success'})
     } catch (error) {
+      console.log(error)
       res.status(500).send({msg: 'Invalid Data'})
     }
   }

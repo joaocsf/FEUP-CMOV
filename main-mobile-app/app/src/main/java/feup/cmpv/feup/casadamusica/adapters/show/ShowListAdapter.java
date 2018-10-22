@@ -41,10 +41,12 @@ public class ShowListAdapter extends ArrayAdapter<Show> {
         TextView title = listItem.findViewById(R.id.show_list_item_title);
         TextView date = listItem.findViewById(R.id.show_list_item_date);
         TextView price = listItem.findViewById(R.id.show_list_item_price);
+        TextView atendees = listItem.findViewById(R.id.show_list_item_atendees);
 
+        atendees.setText(currentShow.atendees + "");
         title.setText(currentShow.name);
         date.setText(currentShow.date);
-        price.setText(currentShow.price + "");
+        price.setText(currentShow.price + "€");
 
         return listItem;
 

@@ -6,7 +6,8 @@ module.exports = {
   async listShows (req, res) {
     try {
       var shows = await Show.findAll({
-        attributes: ['name', 'date', 'price'],
+        attributes: ['name', 'date', 'price',
+          [literal('(SELECT Count(*) FROM "Ticket" WHERE "Ticket"."ShowId"="Show".id)'), 'atendees']],
         where: {
           date: {
             [Op.gte]: moment().toDate()

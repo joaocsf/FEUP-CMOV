@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import feup.cmpv.feup.casadamusica.fragments.ShowFragment;
+import feup.cmpv.feup.casadamusica.fragments.show.ShowFragment;
 
 public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,10 +16,10 @@ public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public BottomFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(ShowFragment.getInstance("Shows"));
-        fragments.add(ShowFragment.getInstance("Tickets"));
-        fragments.add(ShowFragment.getInstance("Bar"));
-        fragments.add(ShowFragment.getInstance("Settings"));
+        fragments.add(ShowFragment.getInstance());
+        fragments.add(ShowFragment.getInstance());
+        fragments.add(ShowFragment.getInstance());
+        fragments.add(ShowFragment.getInstance());
     }
 
     @Override
