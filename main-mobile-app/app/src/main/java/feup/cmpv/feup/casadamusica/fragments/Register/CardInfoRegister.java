@@ -13,12 +13,14 @@ import android.widget.RadioGroup;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.KeyPairGenerator;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
-import feup.cmpv.feup.casadamusica.structures.Registration;
+import feup.cmpv.feup.casadamusica.structures.Card;
+import feup.cmpv.feup.casadamusica.structures.Costumer;
 
 public class CardInfoRegister extends Fragment {
 
@@ -28,10 +30,10 @@ public class CardInfoRegister extends Fragment {
     private EditText card_validation_number;
     private RadioGroup card_type;
 
-    public static Fragment getInstance(Registration registration) {
+    public static Fragment getInstance(Costumer costumer) {
         Fragment fragment = new CardInfoRegister();
         Bundle b = new Bundle();
-        b.putSerializable("registration", registration);
+        b.putSerializable("costumer", costumer);
         fragment.setArguments(b);
         return fragment;
     }
@@ -59,27 +61,29 @@ public class CardInfoRegister extends Fragment {
 
         if(getArguments() != null) {
 
-            Registration registration = (Registration) getArguments().getSerializable("registration");
+            Costumer costumer = (Costumer) getArguments().getSerializable("costumer");
 
-            registration.setCardNumber(Integer.parseInt(card_number.getText().toString()));
-            registration.setCardValidationNumber(Integer.parseInt(card_validation_number.getText().toString()));
-
+            Card card = new Card();
+            card.setValidity(Integer.parseInt(card_validation_number.getText().toString()));
+            card.setNumber(card_number.getText().toString());
             switch (card_type.getCheckedRadioButtonId()) {
                 case R.id.credit_type:
-                    registration.setCardType("Credit");
+                    card.setType("Credit");
                     break;
                 case R.id.debit_type:
-                    registration.setCardType("Debit");
+                    card.setType("Debit");
                     break;
             }
 
+            KeyPairGenerator kpg = KeyPairGenerator.getInstance()
 
-            CostumerServices.Register(registration,
+            CostumerServices.Register(costumer,card,
                     response -> {
                         try {
                             Snackbar snackbar = null;
                             snackbar = Snackbar.make(Objects.requireNonNull(getView()), "User Created Successfuly!" + response.getString("msg"), Snackbar.LENGTH_LONG);
                             snackbar.show();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

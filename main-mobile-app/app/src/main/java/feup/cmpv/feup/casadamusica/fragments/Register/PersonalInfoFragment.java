@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.structures.Registration;
+import feup.cmpv.feup.casadamusica.structures.Costumer;
 
 public class PersonalInfoFragment extends Fragment {
 
@@ -48,14 +48,15 @@ public class PersonalInfoFragment extends Fragment {
             return;
         }
 
-        Registration registration = new Registration();
+        Costumer costumer = new Costumer();
 
-        registration.setName(name.getText().toString());
-        registration.setUsername(username.getText().toString());
-        registration.setPassword(password.getText().toString());
-        registration.setNif(Integer.parseInt(nif.getText().toString()));
+        costumer.setName(name.getText().toString());
+        costumer.setUsername(username.getText().toString());
+        costumer.setPassword(password.getText().toString());
+        costumer.setNif(Integer.parseInt(nif.getText().toString()));
 
-        CardInfoRegister cardInfoRegister = (CardInfoRegister)CardInfoRegister.getInstance(registration);
+        CardInfoRegister cardInfoRegister = (CardInfoRegister)CardInfoRegister.getInstance(costumer);
+
 
         getFragmentManager().beginTransaction().replace(R.id.fragment_host, cardInfoRegister).commit();
     }

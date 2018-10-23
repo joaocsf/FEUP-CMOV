@@ -6,6 +6,10 @@ public class Card {
     private int validity;
     private String type;
 
+    public Card(){
+
+    }
+
     public Card(String number, int validity, String type) {
         this.number = number;
         this.validity = validity;

@@ -35,6 +35,7 @@ public class Api {
 
     public static JSONObject getBodyFromError(VolleyError error){
         JSONObject object;
+
         try {
             object = new JSONObject(new String(error.networkResponse.data));
         } catch (JSONException e) {

@@ -1,12 +1,18 @@
 package feup.cmpv.feup.casadamusica.structures;
 
-public class Costumer {
+import java.io.Serializable;
+
+public class Costumer implements Serializable {
 
     private String name;
     private String username;
     private String password;
     private int nif;
     private String publicKey;
+
+    public Costumer(){
+
+    }
 
     public Costumer(String name, String username, String password, int nif, String publicKey) {
         this.name = name;

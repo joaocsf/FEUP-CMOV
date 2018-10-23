@@ -27,7 +27,7 @@ public class ApiTestActivity extends AppCompatActivity {
 
         coordinatorLayout = (CoordinatorLayout)findViewById(R.id.coordinator_layout);
         Button btn = (Button)findViewById(R.id.button);
-/*
+
         btn.setOnClickListener(
             (click) -> {
 
@@ -52,6 +52,6 @@ public class ApiTestActivity extends AppCompatActivity {
                     });
             }
         );
-*/
+
     }
 }

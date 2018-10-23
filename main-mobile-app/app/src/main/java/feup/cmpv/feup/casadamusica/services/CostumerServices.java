@@ -6,7 +6,6 @@ import com.android.volley.Response;
 
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
-import feup.cmpv.feup.casadamusica.structures.Registration;
 
 public class CostumerServices {
 
