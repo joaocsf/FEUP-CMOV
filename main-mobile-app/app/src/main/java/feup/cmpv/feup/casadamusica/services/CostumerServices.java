@@ -9,7 +9,7 @@ import feup.cmpv.feup.casadamusica.structures.Costumer;
 
 public class CostumerServices {
 
-    public static void Register(Costumer costumer, Card card, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+    public static void Register(Costumer costumer, Card cd, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         try {
             JSONObject user = new JSONObject();
 
@@ -19,14 +19,16 @@ public class CostumerServices {
             user.put("nif", costumer.getNif());
             user.put("publicKey", costumer.getPublicKey());
 
-            JSONObject cd = new JSONObject();
-            cd.put("number", card.getNumber());
-            cd.put("validity", card.getValidity());
-            cd.put("type", card.getType());
+            JSONObject card = new JSONObject();
+            card.put("number", cd.getNumber());
+            card.put("validity", cd.getValidity());
+            card.put("type", cd.getType());
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("user",user);
             jsonObject.put("card",card);
+
+            System.out.println(jsonObject);
 
             Api.Post("/costumer/create", jsonObject, success, fail);
         } catch (JSONException e) {

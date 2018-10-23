@@ -3,13 +3,11 @@ const {Costumer, Card} = require('../models')
 module.exports = {
   async registration (req, res) {
     try {
-      // var name = req.body.name
-      // var username = req.body.username
-      // var nif = req.body.nif
-      // var password = req.body.password
+
       var user = req.body.user
       var card = req.body.card
 
+      console.log("I am here")
       var createdUser = await Costumer.create({
         nif: user.nif,
         name: user.name,

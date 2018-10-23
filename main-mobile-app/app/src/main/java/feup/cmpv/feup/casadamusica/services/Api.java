@@ -12,8 +12,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import feup.cmpv.feup.casadamusica.Config;
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
+import feup.cmpv.feup.casadamusica.utils.Config;
 
 public class Api {
 
@@ -62,7 +62,7 @@ public class Api {
     }
 
     public  static void Post(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-         String url = host + path;
+        String url = host + path;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonRequest, success, fail);
 

@@ -25,6 +25,7 @@ module.exports = {
     const {error} = Joi.validate(req.body, schema, config.joiOptions)
 
     if (error) {
+      console.log(error)
       res.status(400).send({error: 'Structure Error'})
     } else next()
   }

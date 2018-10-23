@@ -1,9 +1,9 @@
-package feup.cmpv.feup.casadamusica;
+package feup.cmpv.feup.casadamusica.utils;
 
-class Constants {
-  static final int KEY_SIZE = 512;
-  static final String ANDROID_KEYSTORE = "AndroidKeyStore";
-  static final String KEY_ALGO = "RSA";
-  static final String SIGN_ALGO = "SHA256WithRSA";
-  static String keyname = "casadamusicakey";
+public class Constants {
+  public static final int KEY_SIZE = 512;
+  public static final String ANDROID_KEYSTORE = "AndroidKeyStore";
+  public static final String KEY_ALGO = "RSA";
+  public static final String SIGN_ALGO = "SHA256WithRSA";
+  public static String keyname = "casadamusicakey";
 }
