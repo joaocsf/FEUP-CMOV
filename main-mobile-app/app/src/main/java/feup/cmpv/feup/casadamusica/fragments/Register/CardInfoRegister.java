@@ -75,7 +75,8 @@ public class CardInfoRegister extends Fragment {
                     break;
             }
 
-            KeyPairGenerator kpg = KeyPairGenerator.getInstance()
+            PublicKey pubKey = createKeyPair();
+            costumer.setPublicKey(pubKey);
 
             CostumerServices.Register(costumer,card,
                     response -> {
@@ -112,5 +113,36 @@ public class CardInfoRegister extends Fragment {
         }
 
         return valid;
+    }
+
+    private PublicKey createKeyPair(){
+        try {
+            KeyStore ks = KeyStore.getInstance(Constants.ANDROID_KEYSTORE);
+            ks.load(null);
+            KeyStore.Entry entry = ks.getEntry(Constants.keyname, null);
+     
+            if (entry == null) {
+                Calendar start = new GregorianCalendar();
+                Calendar end = new GregorianCalendar();
+                end.add(Calendar.YEAR, 20);
+
+                KeyPairGenerator kgen = KeyPairGenerator.getInstance(Constants.KEY_ALGO, Constants.ANDROID_KEYSTORE);
+                AlgorithmParameterSpec spec = new KeyPairGeneratorSpec.Builder(this)
+                    .setKeySize(Constants.KEY_SIZE)
+                    .setAlias(Constants.keyname)
+                    .setSubject(new X500Principal("CN=" + Constants.keyname))
+                    .setSerialNumber(BigInteger.valueOf(555555555))
+                    .setStartDate(start.getTime())
+                    .setEndDate(end.getTime())
+                    .build();
+                kgen.initialize(spec);
+                
+                KeyPair kp = kgen.generateKeyPair();
+                return kp.getPublicKey();
+            }
+        }
+        catch (Exception ex) {
+        Log.d(TAG, ex.getMessage());
+        }
     }
 }
