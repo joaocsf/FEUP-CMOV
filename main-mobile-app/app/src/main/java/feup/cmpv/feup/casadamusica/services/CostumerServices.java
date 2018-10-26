@@ -28,8 +28,6 @@ public class CostumerServices {
             jsonObject.put("user",user);
             jsonObject.put("card",card);
 
-            System.out.println(jsonObject);
-
             Api.Post("/costumer/create", jsonObject, success, fail);
         } catch (JSONException e) {
             e.printStackTrace();

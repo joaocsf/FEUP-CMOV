@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.utils.Config;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class Api {
 
@@ -49,8 +50,8 @@ public class Api {
         String url = host + path;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, success, fail);
-
         addRequest(request);
+
     }
 
     public static void Delete(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
@@ -69,8 +70,8 @@ public class Api {
         addRequest(request);
     }
 
-     public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-         String url = host + path;
+    public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        String url = host + path;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest, success, fail);
 

@@ -7,8 +7,6 @@ module.exports = {
       var user = req.body.user
       var card = req.body.card
 
-      console.log("I am here")
-      
       var createdUser = await Costumer.create({
         nif: user.nif,
         name: user.name,

@@ -27,6 +27,8 @@ public class MainBody extends AppCompatActivity {
     private BottomFragmentPagerAdapter adapter;
     private AHBottomNavigationViewPager pager;
 
+
+
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
