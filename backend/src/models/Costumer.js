@@ -1,7 +1,6 @@
 const Promise = require('bluebird')
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 const NodeRSA = require('node-rsa')
-// const Like = require('../models').Like
 
 function hashPassword (user, options) {
   const SALT_FACTOR = 8
@@ -30,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     nif: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true
 

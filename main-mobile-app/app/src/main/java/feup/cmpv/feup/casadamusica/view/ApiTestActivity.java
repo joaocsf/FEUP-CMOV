@@ -31,8 +31,8 @@ public class ApiTestActivity extends AppCompatActivity {
         btn.setOnClickListener(
             (click) -> {
 
-                Costumer tmp = new Costumer("Bolacha", "BolachaTest", "bolachas", 92314515, "RSA....");
-                Card card = new Card("Bolacha", 123, "bolachas");
+                Costumer tmp = new Costumer("Bolacha", "BolachaTest", "bolachas", "514565", "RSA....");
+                Card card = new Card("Bolacha", "654", "bolachas");
 
                 CostumerServices.Register(tmp, card,
                     response -> {

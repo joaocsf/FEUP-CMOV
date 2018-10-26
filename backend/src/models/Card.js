@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     number: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     validity: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, {

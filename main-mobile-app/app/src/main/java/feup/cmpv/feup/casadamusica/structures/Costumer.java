@@ -1,21 +1,20 @@
 package feup.cmpv.feup.casadamusica.structures;
 
 import java.io.Serializable;
-import java.security.PublicKey;
 
 public class Costumer implements Serializable {
 
     private String name;
     private String username;
     private String password;
-    private int nif;
+    private String nif;
     private String publicKey;
 
     public Costumer(){
 
     }
 
-    public Costumer(String name, String username, String password, int nif, String publicKey) {
+    public Costumer(String name, String username, String password, String nif, String publicKey) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -47,11 +46,11 @@ public class Costumer implements Serializable {
         this.password = password;
     }
 
-    public int getNif() {
+    public String getNif() {
         return nif;
     }
 
-    public void setNif(int nif) {
+    public void setNif(String nif) {
         this.nif = nif;
     }
 

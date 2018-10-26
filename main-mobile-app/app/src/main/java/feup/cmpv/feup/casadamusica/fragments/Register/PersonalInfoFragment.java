@@ -53,7 +53,7 @@ public class PersonalInfoFragment extends Fragment {
         costumer.setName(name.getText().toString());
         costumer.setUsername(username.getText().toString());
         costumer.setPassword(password.getText().toString());
-        costumer.setNif(Integer.parseInt(nif.getText().toString()));
+        costumer.setNif(nif.getText().toString());
 
         CardInfoRegister cardInfoRegister = (CardInfoRegister)CardInfoRegister.getInstance(costumer);
 

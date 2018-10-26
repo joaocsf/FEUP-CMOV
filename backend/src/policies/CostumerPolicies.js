@@ -7,14 +7,14 @@ module.exports = {
       username: Joi.string().regex(config.regex.username).required(),
       name: Joi.string().regex(config.regex.name).required(),
       password: Joi.string().regex(config.regex.password).required(),
-      nif: Joi.number().max(999999999).min(0).required(),
+      nif: Joi.string().min(0).max(9).required(),
       publicKey: Joi.string().required()
     }
 
     const cardSchema = {
-      type: Joi.string().alphanum().required(),
+      type: Joi.string().required(),
       number: Joi.string().regex(/^[0-9]{16}$/).required(),
-      validity: Joi.number()
+      validity: Joi.string().required()
     }
 
     const schema = {

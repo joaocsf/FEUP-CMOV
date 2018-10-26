@@ -81,7 +81,7 @@ public class CardInfoRegister extends Fragment {
             if(costumer != null) {
 
                 Card card = new Card();
-                card.setValidity(Integer.parseInt(card_validation_number.getText().toString()));
+                card.setValidity(card_validation_number.getText().toString());
                 card.setNumber(card_number.getText().toString());
                 switch (card_type.getCheckedRadioButtonId()) {
                     case R.id.credit_type:

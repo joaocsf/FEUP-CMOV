@@ -3,14 +3,14 @@ package feup.cmpv.feup.casadamusica.structures;
 public class Card {
 
     private String number;
-    private int validity;
+    private String validity;
     private String type;
 
     public Card(){
 
     }
 
-    public Card(String number, int validity, String type) {
+    public Card(String number, String validity, String type) {
         this.number = number;
         this.validity = validity;
         this.type = type;
@@ -24,11 +24,11 @@ public class Card {
         this.number = number;
     }
 
-    public int getValidity() {
+    public String getValidity() {
         return validity;
     }
 
-    public void setValidity(int validity) {
+    public void setValidity(String validity) {
         this.validity = validity;
     }
 
