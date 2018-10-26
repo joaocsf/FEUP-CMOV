@@ -1,10 +1,14 @@
 package feup.cmpv.feup.casadamusica.fragments.Register;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +22,6 @@ import org.json.JSONObject;
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.PublicKey;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,7 +34,7 @@ import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
-import feup.cmpv.feup.casadamusica.utils.Constants;
+import feup.cmpv.feup.casadamusica.utils.SecurityConstants;
 
 public class CardInfoRegister extends Fragment {
 
@@ -90,12 +92,9 @@ public class CardInfoRegister extends Fragment {
                         break;
                 }
 
-                PublicKey pubKey = createKeyPair();
+                String pubKey = createKeyPair();
 
-                if (pubKey != null)
-                    costumer.setPublicKey(pubKey.toString());
-                else
-                    costumer.setPublicKey("Something is not wright");
+                costumer.setPublicKey(pubKey);
 
                 CostumerServices.Register(costumer, card,
                         response -> {
@@ -110,7 +109,7 @@ public class CardInfoRegister extends Fragment {
                         },
                         error -> {
                             JSONObject obj = Api.getBodyFromError(error);
-
+                            Log.d("ERROR", obj.toString());
                             Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getView()), "Error Adding User! " + obj, Snackbar.LENGTH_LONG);
                             snackbar.show();
                         });
@@ -125,41 +124,63 @@ public class CardInfoRegister extends Fragment {
         if(card_number.getText().toString().isEmpty()){
             card_number.setError("Can not be empty");
             valid = false;
+        }else if(card_number.getText().toString().length() != 16){
+            card_number.setError("Not valid, must have 16 digits");
+            valid = false;
         }
+
 
         if(card_validation_number.getText().toString().isEmpty()){
             card_validation_number.setError("Can not be empty");
+            valid = false;
+        }else if(card_validation_number.getText().toString().length() > 4){
+            card_validation_number.setError("Not valid, can not have more than 4 digits");
             valid = false;
         }
 
         return valid;
     }
 
-    private PublicKey createKeyPair(){
+    private String createKeyPair(){
         try {
-            KeyStore ks = KeyStore.getInstance(Constants.ANDROID_KEYSTORE);
-            ks.load(null);
-            KeyStore.Entry entry = ks.getEntry(Constants.keyname, null);
 
-            if (entry == null) {
-                Calendar start = new GregorianCalendar();
-                Calendar end = new GregorianCalendar();
-                end.add(Calendar.YEAR, 20);
+            Calendar start = new GregorianCalendar();
+            Calendar end = new GregorianCalendar();
+            end.add(Calendar.YEAR, 20);
 
-                KeyPairGenerator kgen = KeyPairGenerator.getInstance(Constants.KEY_ALGO, Constants.ANDROID_KEYSTORE);
-                AlgorithmParameterSpec spec = new KeyPairGeneratorSpec.Builder(Objects.requireNonNull(this.getContext()))
-                        .setKeySize(Constants.KEY_SIZE)
-                        .setAlias(Constants.keyname)
-                        .setSubject(new X500Principal("CN=" + Constants.keyname))
-                        .setSerialNumber(BigInteger.valueOf(555555555))
+            KeyPairGenerator kgen = KeyPairGenerator.getInstance(SecurityConstants.TYPE_RSA, SecurityConstants.ANDROID_KEYSTORE);
+
+            AlgorithmParameterSpec spec ;
+
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                spec = new KeyPairGeneratorSpec.Builder(Objects.requireNonNull(this.getContext()))
+                        .setKeySize(SecurityConstants.KEY_SIZE)
+                        .setAlias(SecurityConstants.KEY_NAME)
+                        .setSubject(new X500Principal("CN=" + SecurityConstants.KEY_NAME))
+                        .setSerialNumber(BigInteger.valueOf(1338))
                         .setStartDate(start.getTime())
                         .setEndDate(end.getTime())
                         .build();
-                kgen.initialize(spec);
-
-                KeyPair kp = kgen.generateKeyPair();
-                return kp.getPublic();
+            } else {
+                spec = new KeyGenParameterSpec.Builder(SecurityConstants.KEY_NAME, KeyProperties.PURPOSE_SIGN)
+                        .setCertificateSubject(new X500Principal("CN=" + SecurityConstants.KEY_NAME))
+                        .setDigests(KeyProperties.DIGEST_SHA256)
+                        .setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1)
+                        .setCertificateSerialNumber(BigInteger.valueOf(1337))
+                        .setCertificateNotBefore(start.getTime())
+                        .setCertificateNotAfter(end.getTime())
+                        .build();
             }
+
+
+            kgen.initialize(spec);
+
+            KeyPair kp = kgen.generateKeyPair();
+
+            byte[] publicKeyEnc = kp.getPublic().getEncoded();
+
+            return Base64.encodeToString(publicKeyEnc, Base64.DEFAULT);
+
         }
         catch (Exception ex) {
             Log.d(TAG, ex.getMessage());

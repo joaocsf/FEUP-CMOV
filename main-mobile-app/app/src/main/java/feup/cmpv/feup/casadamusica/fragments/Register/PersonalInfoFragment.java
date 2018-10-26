@@ -67,17 +67,28 @@ public class PersonalInfoFragment extends Fragment {
         if(name.getText().toString().isEmpty()){
             name.setError("Name can not be empty");
             valid = false;
+        }else if(name.getText().toString().length() < 3){
+            name.setError("Must have at least 3 characters");
+            valid = false;
         }
 
         if(username.getText().toString().isEmpty()){
             username.setError("Username can not be empty");
             valid = false;
+        }else if(username.getText().toString().length() < 4){
+            username.setError("Must have at least 4 characters");
+            valid = false;
         }
+
 
         if(password.getText().toString().isEmpty()){
             password.setError("Password can not be empty");
             valid = false;
+        }else if(password.getText().toString().length() < 5){
+            password.setError("Must have at least 5 characters");
+            valid = false;
         }
+
 
         if(confirm_password.getText().toString().isEmpty()){
             confirm_password.setError("Confirm password can not be empty");
@@ -87,7 +98,11 @@ public class PersonalInfoFragment extends Fragment {
         if(nif.getText().toString().isEmpty()){
             nif.setError("NIF can not be empty");
             valid = false;
+        }else if(nif.getText().toString().length() > 9){
+            nif.setError("Can not have more than 9 digits");
+            valid = false;
         }
+
 
         if(!confirm_password.getText().toString().equals(password.getText().toString())){
             confirm_password.setError("It has to be equal to password");
