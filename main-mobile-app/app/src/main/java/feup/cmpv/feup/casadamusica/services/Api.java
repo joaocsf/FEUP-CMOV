@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.utils.Config;
-import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class Api {
 

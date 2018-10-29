@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.fragments.Register;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;
@@ -15,13 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,6 +42,7 @@ import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
 import feup.cmpv.feup.casadamusica.utils.SecurityConstants;
+import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class CardInfoRegister extends Fragment {
 
@@ -99,19 +107,17 @@ public class CardInfoRegister extends Fragment {
                 CostumerServices.Register(costumer, card,
                         response -> {
                             try {
-                                Snackbar snackbar = null;
-                                snackbar = Snackbar.make(Objects.requireNonNull(getView()), "User Created Successfuly!" + response.getString("msg"), Snackbar.LENGTH_LONG);
-                                snackbar.show();
-
+                                Toast.makeText( getContext(), "Successfully added! " + response.getString("msg"), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getContext(), MainBody.class);
+                                startActivity(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         },
                         error -> {
+                            this.deleteKey();
                             JSONObject obj = Api.getBodyFromError(error);
-                            Log.d("ERROR", obj.toString());
-                            Snackbar snackbar = Snackbar.make(Objects.requireNonNull(getView()), "Error Adding User! " + obj, Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Toast.makeText( getContext(), "Error adding customer " + obj.toString(), Toast.LENGTH_SHORT).show();
                         });
             }
         }
@@ -187,5 +193,18 @@ public class CardInfoRegister extends Fragment {
         }
 
         return null;
+    }
+
+    private void deleteKey(){
+        KeyStore keyStore = null;
+        try {
+            keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);
+            keyStore.load(null);
+
+            keyStore.deleteEntry(SecurityConstants.KEY_NAME);
+
+        } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
+            e.printStackTrace();
+        }
     }
 }
