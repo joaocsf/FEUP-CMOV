@@ -28,5 +28,16 @@ module.exports = {
       console.log(error)
       res.status(500).send({msg: 'Invalid Data'})
     }
+  },
+
+  async showAllCostumers(req, res){
+    try {
+      var costumers = await Costumer.findAll()
+      res.status(200).send({costumers: costumers})
+
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({msg: 'Invalid Data'})
+    }
   }
 }

@@ -12,6 +12,10 @@ module.exports = (app) => {
     CostumerController.registration
   )
 
+  app.get('/costumers',
+    CostumerController.showAllCostumers
+  )
+
   // *************
   // * Shows
   // *************
