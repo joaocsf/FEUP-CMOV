@@ -1,5 +1,7 @@
-package feup.cmpv.feup.casadamusica.fragments.show;
+package feup.cmpv.feup.casadamusica.fragments;
 
+import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,41 +13,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TableLayout;
 
 import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.ViewPagerAdapter;
 import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
+import feup.cmpv.feup.casadamusica.fragments.show.ShowTopicFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
-public class ShowFragment extends Fragment {
+public abstract class TabFragment extends Fragment {
 
     private ArrayAdapter<Show> adapter;
 
-    public static Fragment getInstance() {
-        Fragment fragment = new ShowFragment();
-        Bundle b = new Bundle();
-        fragment.setArguments(b);
-        return fragment;
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.show_fragment, container,false);
+        View view = inflater.inflate(R.layout.tab_fragment, container,false);
         initializeView(view);
         return view;
     }
 
+    protected abstract void setupViewPagerAdapter(ViewPagerAdapter pvadapter);
+
     private void setupPager(ViewPager pager){
-        ArrayList<Fragment> shows = new ArrayList<>();
         ViewPagerAdapter pvadapter = new ViewPagerAdapter(getChildFragmentManager());
-        pvadapter.addFragment(
-                ShowTopicFragment.getInstance(true), "Newest");
-        pvadapter.addFragment(
-                ShowTopicFragment.getInstance(false), "Popular");
+
+        setupViewPagerAdapter(pvadapter);
+
         pager.setAdapter(pvadapter);
     }
 
@@ -57,6 +53,8 @@ public class ShowFragment extends Fragment {
         setupPager(viewPager);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,6 +62,10 @@ public class ShowFragment extends Fragment {
         activity.getSupportActionBar().setTitle(null);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        int color = getArguments().getInt("color");
+        tabLayout.setBackgroundResource(color);
+
 
     }
 }
