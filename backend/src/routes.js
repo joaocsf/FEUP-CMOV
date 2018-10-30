@@ -3,6 +3,9 @@ const CostumerPolicies = require('./policies/CostumerPolicies')
 
 const ShowController = require('./controllers/ShowController')
 
+const TicketController = require('./controllers/TicketController')
+const TicketPolicies = require('./policies/TicketPolicies')
+
 module.exports = (app) => {
   // *****************
   // * Costumers
@@ -26,5 +29,17 @@ module.exports = (app) => {
   app.get('/shows/popular',
     ShowController.listShowsPopular
   )
-  //
+
+  // *************
+  // * Ticket
+  // *************
+
+  app.post('/ticket/buy',
+    TicketPolicies.buyTicket,
+    TicketController.buyTicket
+  )
+
+  app.get('/ticket/costumer',
+    TicketController.getTickets
+  )
 }

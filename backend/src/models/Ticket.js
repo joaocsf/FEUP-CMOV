@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     ticket.belongsTo(models.Show, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
+    }),
+    ticket.belongsTo(models.Costumer, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     })
   }
 

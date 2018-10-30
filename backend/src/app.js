@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 require('./routes')(app)
+
 /*
 * Clear Database
   sequelize.sync({force: true})

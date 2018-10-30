@@ -1,12 +1,12 @@
-const {Show} = require('../models')
-const {Op, literal} = require('sequelize')
+const { Show } = require('../models')
+const { Op, literal } = require('sequelize')
 const moment = require('moment')
 
 module.exports = {
-  async listShows (req, res) {
+  async listShows(req, res) {
     try {
       var shows = await Show.findAll({
-        attributes: ['name', 'date', 'price',
+        attributes: ['id', 'name', 'date', 'price',
           [literal('(SELECT Count(*) FROM "Ticket" WHERE "Ticket"."ShowId"="Show".id)'), 'atendees']],
         where: {
           date: {
@@ -18,15 +18,15 @@ module.exports = {
         ]
       })
       console.log(JSON.stringify(shows))
-      res.status(200).send({shows: shows})
+      res.status(200).send({ shows: shows })
     } catch (error) {
-      res.status(500).send({msg: 'Invalid Data'})
+      res.status(500).send({ msg: 'Invalid Data' })
     }
   },
-  async listShowsPopular (req, res) {
+  async listShowsPopular(req, res) {
     try {
       var shows = await Show.findAll({
-        attributes: ['name', 'date', 'price',
+        attributes: ['id', 'name', 'date', 'price',
           [literal('(SELECT Count(*) FROM "Ticket" WHERE "Ticket"."ShowId"="Show".id)'), 'atendees']],
         where: {
           date: {
@@ -39,10 +39,10 @@ module.exports = {
         ]
       })
       console.log(JSON.stringify(shows))
-      res.status(200).send({shows: shows})
+      res.status(200).send({ shows: shows })
     } catch (error) {
       console.log(error)
-      res.status(500).send({msg: 'Invalid Data'})
+      res.status(500).send({ msg: 'Invalid Data' })
     }
-  }
+  },
 }

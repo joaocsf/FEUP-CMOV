@@ -96,10 +96,13 @@ module.exports = async () => {
   printSeparator('Tickets')
   var ticket = await Ticket.create()
   await ticket.setShow(show1)
+  await ticket.setCostumer(costumer)
   var ticket2 = await Ticket.create()
   await ticket2.setShow(show1)
+  await ticket2.setCostumer(costumer)
   var ticket3 = await Ticket.create()
   await ticket3.setShow(show2)
+  await ticket3.setCostumer(costumer)
 
   console.log(JSON.stringify(show1))
 }
