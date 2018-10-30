@@ -1,13 +1,14 @@
 package feup.cmpv.feup.casadamusica.fragments.Register;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.util.Log;
@@ -108,6 +109,11 @@ public class CardInfoRegister extends Fragment {
                         response -> {
                             try {
                                 Toast.makeText( getContext(), "Successfully added! " + response.getString("msg"), Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences.Editor editor = Objects.requireNonNull(getContext()).getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).edit();
+                                editor.putString(SecurityConstants.UUID, response.get("uuid").toString());
+                                editor.apply();
+
                                 Intent intent = new Intent(getContext(), MainBody.class);
                                 startActivity(intent);
                             } catch (JSONException e) {

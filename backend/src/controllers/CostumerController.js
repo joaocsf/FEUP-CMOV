@@ -23,7 +23,7 @@ module.exports = {
 
       createdUser.setCard(createdCard)
 
-      res.status(200).send({msg: 'Success'})
+      res.status(200).send({msg: 'Success', uuid: createdUser.uuid})
     } catch (error) {
       console.log(error)
       res.status(500).send({msg: 'Invalid Data'})
