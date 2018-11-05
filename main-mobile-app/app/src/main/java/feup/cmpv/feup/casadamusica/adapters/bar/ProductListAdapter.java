@@ -33,17 +33,14 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if(listItem == null){
-            listItem = LayoutInflater.from(contex).inflate(R.layout.show_list_item, parent, false);
+            listItem = LayoutInflater.from(contex).inflate(R.layout.bar_list_item, parent, false);
         }
 
         Product currentProduct = productList.get(position);
         ImageView image = listItem.findViewById(R.id.show_list_item_image);
-        TextView title = listItem.findViewById(R.id.show_list_item_title);
-        TextView date = listItem.findViewById(R.id.show_list_item_date);
-        TextView price = listItem.findViewById(R.id.show_list_item_price);
-        TextView atendees = listItem.findViewById(R.id.show_list_item_atendees);
+        TextView title = listItem.findViewById(R.id.product_list_item_title);
+        TextView price = listItem.findViewById(R.id.product_list_item_price);
 
-        // atendees.setText(currentShow.atendees + "");
         title.setText(currentProduct.name);
         price.setText(currentProduct.price + "€");
 
