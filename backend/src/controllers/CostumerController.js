@@ -3,7 +3,6 @@ const {Costumer, Card} = require('../models')
 module.exports = {
   async registration (req, res) {
     try {
-
       var user = req.body.user
       var card = req.body.card
 
@@ -30,11 +29,10 @@ module.exports = {
     }
   },
 
-  async showAllCostumers(req, res){
+  async showAllCostumers (req, res) {
     try {
       var costumers = await Costumer.findAll()
       res.status(200).send({costumers: costumers})
-
     } catch (error) {
       console.log(error)
       res.status(500).send({msg: 'Invalid Data'})

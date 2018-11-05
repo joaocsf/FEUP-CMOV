@@ -3,6 +3,8 @@ const CostumerPolicies = require('./policies/CostumerPolicies')
 
 const ShowController = require('./controllers/ShowController')
 
+const ProductController = require('./controllers/ProductController')
+
 const TicketController = require('./controllers/TicketController')
 const TicketPolicies = require('./policies/TicketPolicies')
 
@@ -41,5 +43,13 @@ module.exports = (app) => {
 
   app.get('/ticket/costumer',
     TicketController.getTickets
+  )
+
+  // *************
+  // * Products
+  // *************
+
+  app.get('/products',
+    ProductController.list
   )
 }

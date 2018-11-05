@@ -3,7 +3,7 @@ const { Op, literal } = require('sequelize')
 const moment = require('moment')
 
 module.exports = {
-  async listShows(req, res) {
+  async listShows (req, res) {
     try {
       var shows = await Show.findAll({
         attributes: ['id', 'name', 'date', 'price',
@@ -23,7 +23,7 @@ module.exports = {
       res.status(500).send({ msg: 'Invalid Data' })
     }
   },
-  async listShowsPopular(req, res) {
+  async listShowsPopular (req, res) {
     try {
       var shows = await Show.findAll({
         attributes: ['id', 'name', 'date', 'price',
@@ -44,5 +44,5 @@ module.exports = {
       console.log(error)
       res.status(500).send({ msg: 'Invalid Data' })
     }
-  },
+  }
 }

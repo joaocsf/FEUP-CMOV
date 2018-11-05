@@ -4,9 +4,9 @@ const config = require('../config/config')
 module.exports = {
   createCostumer (req, res, next) {
     const costumerSchema = {
-      username: Joi.string().regex(config.regex.username).required(),
-      name: Joi.string().regex(config.regex.name).required(),
-      password: Joi.string().regex(config.regex.password).required(),
+      username: Joi.string().regex(config.regex.username).required().trim(),
+      name: Joi.string().regex(config.regex.name).required().trim(),
+      password: Joi.string().regex(config.regex.password).required().trim(),
       nif: Joi.string().min(0).max(9).required(),
       publicKey: Joi.string().required()
     }
