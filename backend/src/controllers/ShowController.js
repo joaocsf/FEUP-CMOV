@@ -6,7 +6,7 @@ module.exports = {
   async listShows (req, res) {
     try {
       var shows = await Show.findAll({
-        attributes: ['id', 'name', 'date', 'price',
+        attributes: ['id', 'name', 'date', 'price', 'duration',
           [literal('(SELECT Count(*) FROM "Ticket" WHERE "Ticket"."ShowId"="Show".id)'), 'atendees']],
         where: {
           date: {
@@ -26,7 +26,7 @@ module.exports = {
   async listShowsPopular (req, res) {
     try {
       var shows = await Show.findAll({
-        attributes: ['id', 'name', 'date', 'price',
+        attributes: ['id', 'name', 'date', 'price', 'duration',
           [literal('(SELECT Count(*) FROM "Ticket" WHERE "Ticket"."ShowId"="Show".id)'), 'atendees']],
         where: {
           date: {

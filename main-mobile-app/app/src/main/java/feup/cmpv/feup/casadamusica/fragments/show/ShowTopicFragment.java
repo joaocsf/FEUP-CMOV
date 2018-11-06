@@ -52,7 +52,8 @@ public class ShowTopicFragment extends Fragment {
                         obj.getString("name"),
                         obj.getString("date"),
                         (float)obj.getDouble("price"),
-                        obj.getInt("atendees")
+                        obj.getInt("atendees"),
+                        obj.getInt("duration")
                 );
                 adapter.add(newShow);
             }

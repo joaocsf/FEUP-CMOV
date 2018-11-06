@@ -1,15 +1,17 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Show {
-    public String name;
-    public String date;
-    public float price;
-    public int atendees;
+public class Show implements Serializable {
+    private String name;
+    private String date;
+    private float price;
+    private int atendees;
+    private int duration;
 
-    public Show(String name, String date, float price, int atendees) {
+    public Show(String name, String date, float price, int atendees, int duration) {
         this.name = name;
         this.price = price;
         this.atendees = atendees;
@@ -20,5 +22,47 @@ public class Show {
             this.date = m.group(1);
         }else
             this.date = date;
+
+        this.duration = duration;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public int getAtendees() {
+        return atendees;
+    }
+
+    public void setAtendees(int atendees) {
+        this.atendees = atendees;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

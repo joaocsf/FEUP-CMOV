@@ -16,4 +16,11 @@
     <string name="debit_card">Debit</string>
     <string name="card_number">Card number</string>
     <string name="card_number_validation">Card number validation</string>
+    <string name="buy_ticket">Buy Ticket</string>
+    <string name="show_title">Title:</string>
+    <string name="show_price">Price:</string>
+    <string name="show_duration">Duration:</string>
+    <string name="show_date">Date:</string>
+    <string name="show_buy">Buy</string>
+    <string name="cancel">Cancel</string>
 </resources>
