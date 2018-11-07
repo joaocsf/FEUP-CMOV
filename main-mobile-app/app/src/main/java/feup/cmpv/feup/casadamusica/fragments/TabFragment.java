@@ -22,6 +22,7 @@ import feup.cmpv.feup.casadamusica.structures.Show;
 public abstract class TabFragment extends Fragment {
 
     private ArrayAdapter<Show> adapter;
+    private ViewPager viewPager;
 
 
     @Nullable
@@ -32,7 +33,16 @@ public abstract class TabFragment extends Fragment {
         return view;
     }
 
+    public void onSelected(){}
+    public void onDeselected(){}
+
+
+
     protected abstract void setupViewPagerAdapter(ViewPagerAdapter pvadapter);
+
+    protected ViewPager getViewPager(){
+        return viewPager;
+    }
 
     private void setupPager(ViewPager pager){
         ViewPagerAdapter pvadapter = new ViewPagerAdapter(getChildFragmentManager());
@@ -47,6 +57,7 @@ public abstract class TabFragment extends Fragment {
         adapter = new ShowListAdapter(view.getContext(), showList);
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
+        this.viewPager = viewPager;
         setupPager(viewPager);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);

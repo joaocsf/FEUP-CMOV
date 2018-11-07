@@ -35,6 +35,10 @@ public class MainBody extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
+    public FloatingActionButton getFloatingActionButton(){
+        return floatingActionButton;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,7 @@ public class MainBody extends AppCompatActivity {
 
         bottomNavigation.setOnTabSelectedListener(
                 (position, wasSelected) -> {
+                    adapter.setSelected(position);
                     pager.setCurrentItem(position,false);
 
                     return true;

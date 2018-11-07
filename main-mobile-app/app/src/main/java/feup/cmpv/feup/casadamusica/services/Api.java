@@ -38,7 +38,7 @@ public class Api {
 
         try {
             object = new JSONObject(new String(error.networkResponse.data));
-        } catch (JSONException e) {
+        } catch (Exception e) {
             object = new JSONObject();
         }
 

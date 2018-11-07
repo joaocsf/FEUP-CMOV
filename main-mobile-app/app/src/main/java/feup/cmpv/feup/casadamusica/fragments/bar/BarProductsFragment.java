@@ -2,6 +2,7 @@ package feup.cmpv.feup.casadamusica.fragments.bar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +17,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
 import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
+import feup.cmpv.feup.casadamusica.listeners.IProductListener;
 import feup.cmpv.feup.casadamusica.services.ProductServices;
 import feup.cmpv.feup.casadamusica.services.ShowServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
-public class BarProductsFragment extends Fragment {
+public class BarProductsFragment extends Fragment implements IProductListener {
 
     private ListView listView;
     private ArrayAdapter<Product> adapter;
+    private FloatingActionButton fab;
 
     public static Fragment getInstance() {
         Fragment fragment = new BarProductsFragment();
@@ -55,6 +59,7 @@ public class BarProductsFragment extends Fragment {
                         obj.getString("name"),
                         (float)obj.getDouble("price")
                 );
+                newProduct.setProductListener(this);
                 adapter.add(newProduct);
             }
         } catch (JSONException e) {
@@ -66,11 +71,44 @@ public class BarProductsFragment extends Fragment {
 
     }
 
+    public void checkPurchase(FloatingActionButton button){
+        if(button == null) return;
+        fab = button;
+
+        boolean showItems = false;
+
+        for(int i = 0; i < adapter.getCount(); i++) {
+            Product p = adapter.getItem(i);
+            if (p.getQuantity() > 0) {
+                showItems = true;
+                break;
+            }
+        }
+
+        if(showItems)
+            button.show();
+        else
+            button.hide();
+    }
+
+    public ArrayList<Product> getPurchase(){
+        ArrayList<Product> res = new ArrayList<>();
+        for(int i = 0; i < adapter.getCount(); i++) {
+            Product p = adapter.getItem(i);
+            if(p.getQuantity() == 0 ) continue;
+
+            Product np = new Product(p);
+            np.setPrice(np.getPrice()*np.getQuantity());
+            res.add(np);
+        }
+        return res;
+    }
+
     private void InitializeView(View view){
         listView = view.findViewById(R.id.show_list_view);
 
         ArrayList<Product> productList = new ArrayList<>();
-        adapter = new ProductListAdapter(view.getContext(), productList);
+        adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item);
         listView.setAdapter(adapter);
         listView.computeScroll();
 
@@ -78,5 +116,10 @@ public class BarProductsFragment extends Fragment {
                     this::ParseProducts,
                     this::RequestError);
 
+    }
+
+    @Override
+    public void onProductChanged(Product p) {
+        checkPurchase(fab);
     }
 }

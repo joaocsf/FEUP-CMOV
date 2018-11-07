@@ -136,7 +136,7 @@ public class CardInfoRegister extends Fragment {
                             this.deleteKey();
                             showLoading(false);
                             JSONObject obj = Api.getBodyFromError(error);
-                            Toast.makeText( getContext(), "Error adding customer " + obj.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText( getContext(), "Error adding customer " + error.toString(), Toast.LENGTH_SHORT).show();
                         });
             }
         }

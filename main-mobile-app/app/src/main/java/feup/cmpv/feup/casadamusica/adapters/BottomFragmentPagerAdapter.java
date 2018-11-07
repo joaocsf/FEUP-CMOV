@@ -8,20 +8,22 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.fragments.EmptyTabFragment;
+import feup.cmpv.feup.casadamusica.fragments.TabFragment;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.show.ShowTabFragment;
 
 public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    public ArrayList<Fragment> fragments = new ArrayList<>();
+    public ArrayList<TabFragment> fragments = new ArrayList<>();
     private Fragment currentFragment;
+    private int lastSelected = 0;
 
     public BottomFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(ShowTabFragment.getInstance());
-        fragments.add(EmptyTabFragment.getInstance());
-        fragments.add(BarTabFragment.getInstance());
-        fragments.add(EmptyTabFragment.getInstance());
+        fragments.add((TabFragment)ShowTabFragment.getInstance());
+        fragments.add((TabFragment)EmptyTabFragment.getInstance());
+        fragments.add((TabFragment)BarTabFragment.getInstance());
+        fragments.add((TabFragment)EmptyTabFragment.getInstance());
     }
 
     @Override
@@ -40,6 +42,12 @@ public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments.size();
+    }
+
+    public  void setSelected(int selected){
+        fragments.get(lastSelected).onDeselected();
+        fragments.get(selected).onSelected();
+        lastSelected = selected;
     }
 
     public Fragment getCurrentFragment(){
