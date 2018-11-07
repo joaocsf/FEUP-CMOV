@@ -21,6 +21,6 @@
     <string name="show_price">Price:</string>
     <string name="show_duration">Duration:</string>
     <string name="show_date">Date:</string>
-    <string name="show_buy">Buy</string>
+    <string name="show_buy">Confirm</string>
     <string name="cancel">Cancel</string>
 </resources>

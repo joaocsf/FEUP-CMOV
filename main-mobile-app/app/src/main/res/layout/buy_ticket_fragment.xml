@@ -176,17 +176,20 @@
             android:id="@+id/buy_ticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="?android:buttonBarButtonStyle"
+            android:textColor="@color/green"
             android:text="@string/show_buy"
             android:layout_marginEnd="10dp"
-            android:background="@color/green"/>
+            />
 
         <Button
             android:id="@+id/cancel_buy_ticket"
             android:layout_width="wrap_content"
+            style="?android:buttonBarButtonStyle"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:layout_marginStart="10dp"
-            android:background="@color/orange"/>
+            />
 
     </LinearLayout>
 
