@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -140,5 +141,12 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
         float total = number_tickets * show.getPrice();
 
         total_price.setText(new StringBuilder().append(total).append("€"));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Objects.requireNonNull(getDialog().getWindow())
+                .setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 }

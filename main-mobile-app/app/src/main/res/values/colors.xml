@@ -10,4 +10,7 @@
     <color name="bottomtab_2">#F57C00</color>
     <color name="bottomtab_1">#689F38</color>
     <color name="bottomtab_0">#D32F2F</color>
+    <color name="orange">#F57C00</color>
+    <color name="green">#689F38</color>
+    <color name="black">#000000</color>
 </resources>
