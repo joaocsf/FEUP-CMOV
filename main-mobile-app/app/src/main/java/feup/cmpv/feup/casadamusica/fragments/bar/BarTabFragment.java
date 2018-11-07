@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.ViewPagerAdapter;
-import feup.cmpv.feup.casadamusica.fragments.EmptyTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.TabFragment;
-import feup.cmpv.feup.casadamusica.fragments.show.ShowTopicFragment;
 
 public class BarTabFragment extends TabFragment {
 

@@ -19,10 +19,12 @@ module.exports = {
                 tickets.push(new_ticket)
             }
 
+            console.log(req.body)
+
             res.status(200).send({ msg: 'Success', tickets: tickets, body: req.body })
         } catch (error) {
             console.log(error)
-            res.status(500).send({ msg: 'Invalid Data' })
+            res.status(500).send({ msg: 'Invalid Data' + error})
         }
     },
     async getTickets(req, res) {

@@ -1,16 +1,26 @@
 package feup.cmpv.feup.casadamusica.fragments.tickets;
 
-import android.app.DialogFragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.services.Api;
+import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class BuyTicketsDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -31,7 +41,9 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.buy_ticket_fragment, container,false);
 
-        show = (Show)getArguments().getSerializable("show");
+
+        show = (Show)Objects.requireNonNull(getArguments()).getSerializable("show");
+
         initializeView(view);
 
         Button buy_ticket = view.findViewById(R.id.buy_ticket);
@@ -103,6 +115,25 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
     }
 
     private void buy_ticket() {
+
+        JSONObject tickets_obj = new JSONObject();
+        try {
+            tickets_obj.put("showId", show.getId());
+            tickets_obj.put("numberOfTickets", Integer.parseInt(number_of_tickets.getText().toString()));
+            tickets_obj.put("costumerUuid", Utils.getUuid(Objects.requireNonNull(getActivity())));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        TicketServices.BuyTicket(tickets_obj,
+                response -> {
+                    Toast.makeText( getContext(), "Success! ", Toast.LENGTH_SHORT).show();
+                    this.dismiss();
+                },
+                error -> {
+                    JSONObject obj = Api.getBodyFromError(error);
+                    Toast.makeText(getContext(), "Error when buying tickets" + obj.toString(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void update_total_value(int number_tickets){

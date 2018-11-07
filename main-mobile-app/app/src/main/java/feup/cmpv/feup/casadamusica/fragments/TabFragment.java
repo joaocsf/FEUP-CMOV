@@ -1,11 +1,9 @@
 package feup.cmpv.feup.casadamusica.fragments;
 
-import android.graphics.drawable.ColorDrawable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.ViewPagerAdapter;
 import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
-import feup.cmpv.feup.casadamusica.fragments.show.ShowTopicFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
 public abstract class TabFragment extends Fragment {

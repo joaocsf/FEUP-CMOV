@@ -17,6 +17,7 @@ import java.util.List;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.fragments.tickets.BuyTicketsDialogFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class ShowListAdapter extends ArrayAdapter<Show> implements View.OnClickListener {
 
@@ -46,10 +47,10 @@ public class ShowListAdapter extends ArrayAdapter<Show> implements View.OnClickL
         TextView price = listItem.findViewById(R.id.show_list_item_price);
         TextView atendees = listItem.findViewById(R.id.show_list_item_atendees);
 
-        atendees.setText(currentShow.getAtendees() + "");
+        atendees.setText(new StringBuilder().append(currentShow.getAtendees()));
         title.setText(currentShow.getName());
         date.setText(currentShow.getDate());
-        price.setText(currentShow.getPrice() + "€");
+        price.setText(new StringBuilder().append(currentShow.getPrice()).append("€"));
 
         listItem.setOnClickListener(this);
 
@@ -60,6 +61,6 @@ public class ShowListAdapter extends ArrayAdapter<Show> implements View.OnClickL
     @Override
     public void onClick(View view) {
         BuyTicketsDialogFragment buyTicketsDialogFragment = (BuyTicketsDialogFragment) BuyTicketsDialogFragment.getInstance(currentShow);
-        buyTicketsDialogFragment.show(((Activity)getContext()).getFragmentManager(), "Biy Ticket");
+        buyTicketsDialogFragment.show(((MainBody)getContext()).getSupportFragmentManager(), "Buy Ticket");
     }
 }

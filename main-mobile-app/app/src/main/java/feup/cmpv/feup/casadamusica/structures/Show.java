@@ -10,8 +10,10 @@ public class Show implements Serializable {
     private float price;
     private int atendees;
     private int duration;
+    private String id;
 
-    public Show(String name, String date, float price, int atendees, int duration) {
+    public Show(String id, String name, String date, float price, int atendees, int duration) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.atendees = atendees;
@@ -64,5 +66,13 @@ public class Show implements Serializable {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

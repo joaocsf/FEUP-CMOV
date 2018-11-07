@@ -49,6 +49,7 @@ public class ShowTopicFragment extends Fragment {
             for(int i = 0; i < array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
                 Show newShow = new Show(
+                        obj.getString("id"),
                         obj.getString("name"),
                         obj.getString("date"),
                         (float)obj.getDouble("price"),

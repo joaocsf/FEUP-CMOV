@@ -3,7 +3,7 @@ const Joi = require('joi')
 module.exports = {
   buyTicket (req, res, next) {
     const ticketSchema = {
-      numberOfTickets: Joi.string().required(),
+      numberOfTickets: Joi.required(),
       showId: Joi.string().required(),
       costumerUuid: Joi.string().required()  
     }
