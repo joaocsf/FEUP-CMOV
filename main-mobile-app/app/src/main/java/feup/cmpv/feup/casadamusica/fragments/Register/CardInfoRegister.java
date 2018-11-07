@@ -115,6 +115,7 @@ public class CardInfoRegister extends Fragment {
                                 editor.apply();
 
                                 Intent intent = new Intent(getContext(), MainBody.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();

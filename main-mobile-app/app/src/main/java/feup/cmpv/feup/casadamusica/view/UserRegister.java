@@ -34,6 +34,7 @@ public class UserRegister extends AppCompatActivity {
 
             if(registered){
                 Intent intent = new Intent(this, MainBody.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }else{
                 PersonalInfoFragment personalInfoFragment = (PersonalInfoFragment) PersonalInfoFragment.getInstance();
