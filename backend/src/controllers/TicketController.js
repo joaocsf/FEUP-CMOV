@@ -21,7 +21,7 @@ module.exports = {
 
             console.log(req.body)
 
-            res.status(200).send({ msg: 'Success', tickets: tickets, body: req.body })
+            res.status(200).send({ msg: 'Success', tickets: tickets})
         } catch (error) {
             console.log(error)
             res.status(500).send({ msg: 'Invalid Data' + error})

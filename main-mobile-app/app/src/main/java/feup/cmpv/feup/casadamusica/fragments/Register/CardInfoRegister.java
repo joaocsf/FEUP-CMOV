@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -53,6 +55,8 @@ public class CardInfoRegister extends Fragment {
     private EditText card_number;
     private EditText card_validation_number;
     private RadioGroup card_type;
+    private Button registration_button;
+    private ProgressBar loading;
 
     public static Fragment getInstance(Costumer costumer) {
         Fragment fragment = new CardInfoRegister();
@@ -71,15 +75,19 @@ public class CardInfoRegister extends Fragment {
         card_number = view.findViewById(R.id.card_number_registration);
         card_validation_number = view.findViewById(R.id.card_validation_number_registration);
         card_type = view.findViewById(R.id.card_type);
+        registration_button = view.findViewById(R.id.registration_button);
+        loading = view.findViewById(R.id.loading);
 
-        view.findViewById(R.id.registration_button).setOnClickListener(v -> finalizeRegistration());
+        registration_button.setOnClickListener(v -> finalizeRegistration());
 
         return view;
     }
 
     private void finalizeRegistration(){
+        showLoading(true);
 
         if(!verifyFields()){
+            showLoading(false);
             return;
         }
 
@@ -88,6 +96,7 @@ public class CardInfoRegister extends Fragment {
             Costumer costumer = (Costumer) getArguments().getSerializable("costumer");
 
             if(costumer != null) {
+
 
                 Card card = new Card();
                 card.setValidity(card_validation_number.getText().toString());
@@ -114,6 +123,8 @@ public class CardInfoRegister extends Fragment {
                                 editor.putString(SecurityConstants.UUID, response.get("uuid").toString());
                                 editor.apply();
 
+                                showLoading(false);
+
                                 Intent intent = new Intent(getContext(), MainBody.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -123,11 +134,13 @@ public class CardInfoRegister extends Fragment {
                         },
                         error -> {
                             this.deleteKey();
+                            showLoading(false);
                             JSONObject obj = Api.getBodyFromError(error);
                             Toast.makeText( getContext(), "Error adding customer " + obj.toString(), Toast.LENGTH_SHORT).show();
                         });
             }
         }
+        showLoading(false);
     }
 
 
@@ -212,6 +225,16 @@ public class CardInfoRegister extends Fragment {
 
         } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void showLoading(Boolean show){
+        if(show){
+            registration_button.setVisibility(View.GONE);
+            loading.setVisibility(View.VISIBLE);
+        }else{
+            registration_button.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
         }
     }
 }
