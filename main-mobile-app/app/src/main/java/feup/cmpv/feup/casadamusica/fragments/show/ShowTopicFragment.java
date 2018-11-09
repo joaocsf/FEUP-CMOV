@@ -1,6 +1,7 @@
 package feup.cmpv.feup.casadamusica.fragments.show;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,6 +45,7 @@ public class ShowTopicFragment extends Fragment {
     }
 
     private void ParseShows(JSONObject shows){
+        adapter.clear();
         try {
             JSONArray array = shows.getJSONArray("shows");
             for(int i = 0; i < array.length(); i++){

@@ -1,7 +1,9 @@
 package feup.cmpv.feup.casadamusica.adapters.bar;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Debug;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,12 +29,14 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
     private Context context;
     private List<Product> productList = new ArrayList<>();
     private int layoutRes;
+    private boolean addDummy;
 
-    public ProductListAdapter(@NonNull Context context, @NonNull List<Product> objects,@LayoutRes int layoutRes) {
+    public ProductListAdapter(@NonNull Context context, @NonNull List<Product> objects,@LayoutRes int layoutRes, boolean addDummy) {
         super(context, R.layout.show_list_item, objects);
         productList = objects;
         this.context = context;
         this.layoutRes = layoutRes;
+        this.addDummy = addDummy;
     }
 
     public void Reset(){
@@ -53,16 +57,31 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         });
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return addDummy? 2 : 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position == productList.size() -1 && addDummy? 1 : 0;
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
+        Product currentProduct = productList.get(position);
+        Log.d("Adapter", "Position:" + position + "- " + currentProduct.getName());
 
         if(listItem == null){
-            listItem = LayoutInflater.from(context).inflate(layoutRes, parent, false);
+
+            if(addDummy && position == productList.size() - 1)
+                return LayoutInflater.from(context).inflate(R.layout.dummy_list_item, parent, false);
+            else
+                listItem = LayoutInflater.from(context).inflate(layoutRes, parent, false);
         }
 
-        Product currentProduct = productList.get(position);
         ImageView image = listItem.findViewById(R.id.show_list_item_image);
         TextView title = listItem.findViewById(R.id.product_list_item_title);
         TextView price = listItem.findViewById(R.id.product_list_item_price);

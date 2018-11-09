@@ -1,9 +1,12 @@
 package feup.cmpv.feup.casadamusica.fragments.bar;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -47,18 +50,37 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Log.d("BAR", "ON ATTACH");
+    }
+
     private int fetchColor(@ColorRes int color){
         return ContextCompat.getColor(getContext(), color);
     }
 
     @Override
     public void onSelected() {
-        onPageSelected(getViewPager().getCurrentItem());
+
+        Log.d("BarS", ""+isAdded() + "" + hashCode());
+        if(isAdded())
+            onPageSelected(getViewPager().getCurrentItem());
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
     public void onDeselected() {
-        onPageSelected(-1);
+
+        Log.d("BarD", ""+isAdded() + "" + hashCode());
+        if(isAdded())
+            onPageSelected(-1);
     }
 
     public  void generatePurchase(){

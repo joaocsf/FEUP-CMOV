@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Config;
 
 public class Api {
@@ -48,7 +49,19 @@ public class Api {
     public static void Get(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         String url = host + path;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, success, fail);
+        JSONObject cached = Archive.LoadJSON(path);
+        Log.d("Loaded", (cached != null) + " - " + path);
+
+        if(cached!=null)
+            success.onResponse(cached);
+
+        Response.Listener<JSONObject> success2 = (object)-> {
+            Log.d("REQUEST","RECEIVED");
+            success.onResponse(object);
+            Archive.SaveJSON(path, object);
+        };
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, success2, fail);
         addRequest(request);
 
     }

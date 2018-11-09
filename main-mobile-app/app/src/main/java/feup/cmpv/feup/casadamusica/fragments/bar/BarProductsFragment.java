@@ -50,6 +50,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
     }
 
     private void ParseProducts(JSONObject products){
+        adapter.clear();
         try {
             JSONArray array = products.getJSONArray("products");
             for(int i = 0; i < array.length(); i++){
@@ -62,6 +63,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
                 newProduct.setProductListener(this);
                 adapter.add(newProduct);
             }
+            adapter.add(new Product(-1,null,0.0f));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -108,7 +110,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         listView = view.findViewById(R.id.show_list_view);
 
         ArrayList<Product> productList = new ArrayList<>();
-        adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item);
+        adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item, true);
         listView.setAdapter(adapter);
         listView.computeScroll();
 

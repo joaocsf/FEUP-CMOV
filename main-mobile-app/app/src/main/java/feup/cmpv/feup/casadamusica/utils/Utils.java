@@ -15,7 +15,5 @@ public class Utils {
         return activeNetworkInfo != null;
     }
 
-    public static String getUuid(Activity activity){
-        return activity.getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).getString(SecurityConstants.UUID, SecurityConstants.UUID_DEFAULT);
-    }
+
 }
