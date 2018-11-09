@@ -21,6 +21,10 @@ module.exports = (app) => {
     CostumerController.showAllCostumers
   )
 
+  app.post('/costumer/login',
+    CostumerController.login
+  )
+
   // *************
   // * Shows
   // *************

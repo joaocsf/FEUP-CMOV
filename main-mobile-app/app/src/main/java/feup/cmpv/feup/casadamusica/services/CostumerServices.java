@@ -33,4 +33,17 @@ public class CostumerServices {
             e.printStackTrace();
         }
     }
+
+    public static void Login(Costumer costumer, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        try {
+            JSONObject user = new JSONObject();
+            user.put("username", costumer.getUsername());
+            user.put("password", costumer.getPassword());
+            user.put("publicKey", costumer.getPublicKey());
+
+            Api.Post("/costumer/login", user, success, fail);
+        } catch (Exception e){
+
+        }
+    }
 }
