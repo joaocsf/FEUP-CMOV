@@ -19,7 +19,7 @@ import feup.cmpv.feup.casadamusica.fragments.tickets.BuyTicketsDialogFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.view.MainBody;
 
-public class ShowListAdapter extends ArrayAdapter<Show> implements View.OnClickListener {
+public class ShowListAdapter extends ArrayAdapter<Show>{
 
     private Context contex;
     private List<Show> showList = new ArrayList<>();
@@ -52,15 +52,7 @@ public class ShowListAdapter extends ArrayAdapter<Show> implements View.OnClickL
         date.setText(currentShow.getDate());
         price.setText(new StringBuilder().append(currentShow.getPrice()).append("€"));
 
-        listItem.setOnClickListener(this);
 
         return listItem;
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        BuyTicketsDialogFragment buyTicketsDialogFragment = (BuyTicketsDialogFragment) BuyTicketsDialogFragment.getInstance(currentShow);
-        buyTicketsDialogFragment.show(((MainBody)getContext()).getSupportFragmentManager(), "Buy Ticket");
     }
 }

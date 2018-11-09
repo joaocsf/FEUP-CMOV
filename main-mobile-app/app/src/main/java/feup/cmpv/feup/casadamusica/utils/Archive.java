@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.Signature;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.Certificate;
@@ -93,12 +94,35 @@ public class Archive {
             s.initSign(privateKeyEntry.getPrivateKey());
             s.update(uuid.getBytes("UTF-8"));
             byte[] signature = s.sign();
-            Log.d("SIGNATURE", Arrays.toString(signature));
-            String signatureBase64 = Base64.encodeToString(signature, Base64.NO_WRAP);
-            return signatureBase64;
+            return Base64.encodeToString(signature, Base64.NO_WRAP);
 
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static boolean hasKey(){
+        try {
+            KeyStore keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);
+            keyStore.load(null);
+            Boolean registered = keyStore.containsAlias(SecurityConstants.KEY_NAME);
+            return registered;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String publickKey64(){
+
+        try {
+            KeyStore keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);
+            keyStore.load(null);
+            Certificate certificate = keyStore.getCertificate(SecurityConstants.KEY_NAME);
+            PublicKey pk = certificate.getPublicKey();
+            return Base64.encodeToString(pk.getEncoded(), Base64.DEFAULT);
+        } catch (Exception e){
+        }
+        return null;
     }
 }
