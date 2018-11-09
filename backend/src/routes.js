@@ -41,6 +41,7 @@ module.exports = (app) => {
   // *************
 
   app.post('/ticket/buy',
+    CostumerPolicies.verifyUser,
     TicketPolicies.buyTicket,
     TicketController.buyTicket
   )

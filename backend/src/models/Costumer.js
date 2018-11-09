@@ -79,8 +79,9 @@ module.exports = (sequelize, DataTypes) => {
 
   costumer.prototype.verify = function (data, signature) {
     var key = new NodeRSA()
-    key.importKey(this.publicKey)
-    return key.verify(data, signature)
+    key.importKey(this.publicKey, 'public')
+    var buffer = Buffer.from(signature, 'base64')
+    return key.verify(data, buffer, 'binary')
   }
 
   return costumer
