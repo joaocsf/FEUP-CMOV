@@ -1,4 +1,4 @@
-package feup.cmpv.feup.casadamusica.fragments.Register;
+package feup.cmpv.feup.casadamusica.fragments.register;
 
 
 import android.os.Bundle;

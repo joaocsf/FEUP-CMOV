@@ -9,20 +9,13 @@ import android.util.Log;
 import android.view.Window;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.security.Key;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.security.UnrecoverableEntryException;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.fragments.Register.PersonalInfoFragment;
+import feup.cmpv.feup.casadamusica.fragments.register.PersonalInfoFragment;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
 import feup.cmpv.feup.casadamusica.utils.Archive;

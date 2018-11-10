@@ -1,8 +1,6 @@
-package feup.cmpv.feup.casadamusica.fragments.Register;
+package feup.cmpv.feup.casadamusica.fragments.register;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;

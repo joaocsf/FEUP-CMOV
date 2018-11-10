@@ -22,7 +22,6 @@ import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.utils.Archive;
-import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class BuyTicketsDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -42,7 +41,6 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.buy_ticket_fragment, container,false);
-
 
         show = (Show)Objects.requireNonNull(getArguments()).getSerializable("show");
 

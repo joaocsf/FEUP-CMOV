@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.personal.TicketListAdapter;
@@ -23,8 +25,9 @@ import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.structures.Ticket;
+import feup.cmpv.feup.casadamusica.view.MainBody;
 
-public class TicketTopicFragment extends Fragment {
+public class TicketTopicFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private ArrayAdapter<ShowTickets> adapter;
@@ -42,6 +45,7 @@ public class TicketTopicFragment extends Fragment {
     }
 
     private void ParseTickets(JSONObject tickets){
+        adapter.clear();
         try {
             JSONArray array = tickets.getJSONArray("tickets");
             for(int i = 0; i < array.length(); i++){
@@ -91,10 +95,17 @@ public class TicketTopicFragment extends Fragment {
         adapter = new TicketListAdapter(view.getContext(), ticketList, R.layout.ticket_list_item);
         listView.setAdapter(adapter);
         listView.computeScroll();
+        listView.setOnItemClickListener(this);
 
         TicketServices.GetTickets(
                 this::ParseTickets,
                 this::RequestError);
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        ValidateTicketDialogFragment validateTicketDialogFragment = (ValidateTicketDialogFragment) ValidateTicketDialogFragment.getInstance(adapter.getItem(position));
+        validateTicketDialogFragment.show(((MainBody)Objects.requireNonNull(getContext())).getSupportFragmentManager(), "Validate Ticket");
     }
 }

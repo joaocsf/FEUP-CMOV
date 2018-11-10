@@ -1,6 +1,8 @@
 package feup.cmpv.feup.casadamusica.structures;
 
-public class Ticket {
+import java.io.Serializable;
+
+public class Ticket implements Serializable {
 
     private String uuid;
     private Boolean used;

@@ -1,8 +1,9 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ShowTickets {
+public class ShowTickets implements Serializable {
 
     private Show show;
     private ArrayList<Ticket> tickets;
