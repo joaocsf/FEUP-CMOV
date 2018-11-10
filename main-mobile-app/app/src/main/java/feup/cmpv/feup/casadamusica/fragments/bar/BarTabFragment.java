@@ -9,6 +9,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -86,7 +87,8 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
     public  void generatePurchase(){
         ArrayList<Product> products = barProducts.getPurchase();
 
-        BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products);
+        BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products, 0f);
+        confirmPurchase.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
         confirmPurchase.show(getChildFragmentManager(), "Confirm Purchase");
     }
 

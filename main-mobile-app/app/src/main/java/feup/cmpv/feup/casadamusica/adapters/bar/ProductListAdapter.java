@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -87,8 +88,8 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         TextView price = listItem.findViewById(R.id.product_list_item_price);
         TextView quantity = listItem.findViewById(R.id.product_list_item_quantity);
 
-        Button addbtn = listItem.findViewById(R.id.product_list_item_add);
-        Button removebtn = listItem.findViewById(R.id.product_list_item_remove);
+        ImageButton addbtn = listItem.findViewById(R.id.product_list_item_add);
+        ImageButton removebtn = listItem.findViewById(R.id.product_list_item_remove);
 
         if(addbtn!= null)
             addbtn.setOnClickListener((click) -> IncreaseQuantity(quantity, currentProduct, true));

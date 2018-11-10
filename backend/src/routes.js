@@ -1,5 +1,6 @@
 const CostumerController = require('./controllers/CostumerController')
 const CostumerPolicies = require('./policies/CostumerPolicies')
+const OrderController = require('./controllers/OrderController')
 
 const ShowController = require('./controllers/ShowController')
 
@@ -57,4 +58,11 @@ module.exports = (app) => {
   app.get('/products',
     ProductController.list
   )
+
+  // *************
+  // * Orders
+  // *************
+
+  app.post('/order',
+    OrderController.order)
 }

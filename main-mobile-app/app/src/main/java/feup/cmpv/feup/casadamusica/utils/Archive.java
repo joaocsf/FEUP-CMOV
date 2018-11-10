@@ -94,6 +94,7 @@ public class Archive {
             s.initSign(privateKeyEntry.getPrivateKey());
             s.update(uuid.getBytes("UTF-8"));
             byte[] signature = s.sign();
+            //return new String(signature, "ASCII");
             return Base64.encodeToString(signature, Base64.NO_WRAP);
 
         } catch (Exception e) {

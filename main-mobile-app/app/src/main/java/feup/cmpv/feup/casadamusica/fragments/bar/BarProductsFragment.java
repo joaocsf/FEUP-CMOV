@@ -113,7 +113,6 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         ProductServices.GetProducts(
                     this::ParseProducts,
                     this::RequestError);
-
     }
 
     @Override

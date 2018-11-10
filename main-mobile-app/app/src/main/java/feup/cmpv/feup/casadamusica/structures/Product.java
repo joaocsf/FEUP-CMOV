@@ -90,4 +90,9 @@ public class Product implements Serializable {
                 ", listener=" + listener +
                 '}';
     }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        alert();
+    }
 }
