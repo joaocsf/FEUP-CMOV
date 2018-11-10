@@ -24,6 +24,7 @@ public class Product implements Serializable {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = 0;
     }
 
     public void setProductListener(IProductListener listener){
@@ -77,5 +78,16 @@ public class Product implements Serializable {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", price=" + price +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", listener=" + listener +
+                '}';
     }
 }

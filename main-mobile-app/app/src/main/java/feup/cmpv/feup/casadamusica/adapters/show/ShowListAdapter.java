@@ -1,6 +1,5 @@
 package feup.cmpv.feup.casadamusica.adapters.show;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

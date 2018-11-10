@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -41,10 +42,13 @@ public class MainBody extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.main_body);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
+        Log.d("Main", "Created");
         floatingActionButton = findViewById(R.id.floating_action_button);
         pager = findViewById(R.id.view_pager);
 
@@ -78,8 +82,8 @@ public class MainBody extends AppCompatActivity {
 
         bottomNavigation.setOnTabSelectedListener(
                 (position, wasSelected) -> {
+                    pager.setCurrentItem(position,true);
                     adapter.setSelected(position);
-                    pager.setCurrentItem(position,false);
 
                     return true;
                 }

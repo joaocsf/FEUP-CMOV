@@ -1,7 +1,6 @@
-package feup.cmpv.feup.casadamusica.fragments.show;
+package feup.cmpv.feup.casadamusica.fragments.tickets;
 
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,15 +22,14 @@ import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
 import feup.cmpv.feup.casadamusica.services.ShowServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
-public class ShowTopicFragment extends Fragment {
-
+public class TicketsListFragment extends Fragment{
     private ListView listView;
     private ArrayAdapter<Show> adapter;
 
-    public static Fragment getInstance(boolean newest) {
-        Fragment fragment = new ShowTopicFragment();
+    public static Fragment getInstance(boolean used) {
+        Fragment fragment = new TicketsListFragment();
         Bundle b = new Bundle();
-        b.putBoolean("newest", newest);
+        b.putBoolean("used", used);
         fragment.setArguments(b);
         return fragment;
     }
@@ -45,7 +43,6 @@ public class ShowTopicFragment extends Fragment {
     }
 
     private void ParseShows(JSONObject shows){
-        adapter.clear();
         try {
             JSONArray array = shows.getJSONArray("shows");
             for(int i = 0; i < array.length(); i++){
@@ -83,8 +80,9 @@ public class ShowTopicFragment extends Fragment {
                     this::RequestError);
         }else {
             ShowServices.GetPopularShows(
-                this::ParseShows,
-                this::RequestError);
+                    this::ParseShows,
+                    this::RequestError);
         }
+
     }
 }

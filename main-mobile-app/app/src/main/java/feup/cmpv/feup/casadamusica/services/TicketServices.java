@@ -9,7 +9,7 @@ public class TicketServices {
         Api.Post("/ticket/buy", objectRequest, success, fail);
     }
 
-    public static void GetTickets(Response.Listener<JSONObject> success, Response.ErrorListener fail){
-        Api.Get("/ticket/costumer", success, fail);
+    public static void GetTickets(String costumerUuid, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        Api.Get("/ticket/costumer/" + costumerUuid  , success, fail);
     }
 }

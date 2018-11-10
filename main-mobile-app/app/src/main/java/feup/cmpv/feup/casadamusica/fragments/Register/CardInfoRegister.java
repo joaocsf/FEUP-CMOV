@@ -44,6 +44,7 @@ import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.SecurityConstants;
 import feup.cmpv.feup.casadamusica.view.MainBody;
 
@@ -119,9 +120,7 @@ public class CardInfoRegister extends Fragment {
                             try {
                                 Toast.makeText( getContext(), "Successfully added! " + response.getString("msg"), Toast.LENGTH_SHORT).show();
 
-                                SharedPreferences.Editor editor = Objects.requireNonNull(getContext()).getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).edit();
-                                editor.putString(SecurityConstants.UUID, response.get("uuid").toString());
-                                editor.apply();
+                                Archive.setUuid(response.get("uuid").toString());
 
                                 showLoading(false);
 

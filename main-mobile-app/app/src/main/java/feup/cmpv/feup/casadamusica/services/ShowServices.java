@@ -2,10 +2,7 @@ package feup.cmpv.feup.casadamusica.services;
 
 import com.android.volley.Response;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import feup.cmpv.feup.casadamusica.structures.Costumer;
 
 public class ShowServices {
 

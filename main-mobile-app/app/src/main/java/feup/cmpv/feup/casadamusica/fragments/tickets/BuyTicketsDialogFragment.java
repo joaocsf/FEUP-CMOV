@@ -21,6 +21,7 @@ import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class BuyTicketsDialogFragment extends DialogFragment implements View.OnClickListener {
@@ -121,7 +122,7 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
         try {
             tickets_obj.put("showId", show.getId());
             tickets_obj.put("numberOfTickets", Integer.parseInt(number_of_tickets.getText().toString()));
-            tickets_obj.put("costumerUuid", Utils.getUuid(Objects.requireNonNull(getActivity())));
+            tickets_obj.put("costumerUuid", Archive.getUuid());
         } catch (JSONException e) {
             e.printStackTrace();
         }

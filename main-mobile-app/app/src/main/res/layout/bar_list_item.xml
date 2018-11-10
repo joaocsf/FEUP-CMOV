@@ -68,9 +68,10 @@
         android:id="@+id/product_list_item_remove"
         android:layout_width="46dp"
         android:layout_height="46dp"
+        style="?android:buttonBarButtonStyle"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_remove_black_24dp"
+        android:foreground="@drawable/ic_remove_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/product_list_item_image"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -78,8 +79,9 @@
         android:id="@+id/product_list_item_add"
         android:layout_width="46dp"
         android:layout_height="46dp"
+        style="?android:buttonBarButtonStyle"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_add_black_24dp"
+        android:foreground="@drawable/ic_add_black_24dp"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

@@ -17,16 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
-import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
 import feup.cmpv.feup.casadamusica.listeners.IProductListener;
 import feup.cmpv.feup.casadamusica.services.ProductServices;
-import feup.cmpv.feup.casadamusica.services.ShowServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
-import feup.cmpv.feup.casadamusica.structures.Show;
 
 public class BarProductsFragment extends Fragment implements IProductListener {
 
@@ -50,6 +46,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
     }
 
     private void ParseProducts(JSONObject products){
+        adapter.clear();
         try {
             JSONArray array = products.getJSONArray("products");
             for(int i = 0; i < array.length(); i++){
@@ -62,6 +59,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
                 newProduct.setProductListener(this);
                 adapter.add(newProduct);
             }
+            adapter.add(new Product(-1,null,0.0f));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -108,7 +106,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         listView = view.findViewById(R.id.show_list_view);
 
         ArrayList<Product> productList = new ArrayList<>();
-        adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item);
+        adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item, true);
         listView.setAdapter(adapter);
         listView.computeScroll();
 

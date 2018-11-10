@@ -39,7 +39,7 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
         ListView listView = view.findViewById(R.id.purchase_product_list);
         TextView totalTV = view.findViewById(R.id.purchase_total);
         ArrayList<Product> products = (ArrayList<Product>)getArguments().getSerializable("products");
-        ProductListAdapter adapter = new ProductListAdapter(view.getContext(), products , R.layout.purchase_product_list_item);
+        ProductListAdapter adapter = new ProductListAdapter(view.getContext(), products , R.layout.purchase_product_list_item, false);
         float total = 0;
         for(Product p : products){
             total += p.getPrice();
