@@ -21,13 +21,13 @@ import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.personal.TicketListAdapter;
 import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.structures.Ticket;
-import feup.cmpv.feup.casadamusica.utils.Archive;
 
 public class TicketTopicFragment extends Fragment {
 
     private ListView listView;
-    private ArrayAdapter<Ticket> adapter;
+    private ArrayAdapter<ShowTickets> adapter;
 
     public static Fragment getInstance(){
         return new TicketTopicFragment();
@@ -46,21 +46,35 @@ public class TicketTopicFragment extends Fragment {
             JSONArray array = tickets.getJSONArray("tickets");
             for(int i = 0; i < array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-                Ticket newTicket = new Ticket(
-                        obj.getString("uuid"),
-                        false,
-                        25,
-                        new Show(obj.getString("show_id"),
-                                null,
-                                obj.getString("show_date"),
-                                -1,
-                                -1,
-                                obj.getInt("show_duration")
-                        )
+
+                Show newShow = new Show(
+                        obj.getString("id"),
+                        obj.getString("name"),
+                        obj.getString("date"),
+                        (float)obj.getDouble("price"),
+                        -1,
+                        obj.getInt("duration")
                 );
 
-                adapter.add(newTicket);
+                JSONArray ticketSets = obj.getJSONArray("Tickets");
+
+                ArrayList<Ticket> arraytickets = new ArrayList<>();
+
+                for(int k = 0; k < ticketSets.length(); k++){
+                    JSONObject ticket = ticketSets.getJSONObject(k);
+
+                    Ticket newTicket = new Ticket(
+                            ticket.getString("uuid"),
+                            ticket.getBoolean("used"),
+                            ticket.getInt("seat")
+                            );
+
+                    arraytickets.add(newTicket);
+                }
+
+                adapter.add(new ShowTickets(newShow, arraytickets));
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -73,13 +87,12 @@ public class TicketTopicFragment extends Fragment {
     private void InitializeView(View view){
         listView = view.findViewById(R.id.ticket_list_view);
 
-        ArrayList<Ticket> ticketList = new ArrayList<>();
-        adapter = new TicketListAdapter(view.getContext(), ticketList);
+        ArrayList<ShowTickets> ticketList = new ArrayList<>();
+        adapter = new TicketListAdapter(view.getContext(), ticketList, R.layout.ticket_list_item);
         listView.setAdapter(adapter);
         listView.computeScroll();
 
         TicketServices.GetTickets(
-                Archive.getUuid(),
                 this::ParseTickets,
                 this::RequestError);
 

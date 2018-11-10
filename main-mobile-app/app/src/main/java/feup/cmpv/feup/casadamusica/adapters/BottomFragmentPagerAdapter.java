@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import feup.cmpv.feup.casadamusica.fragments.EmptyTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.TabFragment;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarTabFragment;
+import feup.cmpv.feup.casadamusica.fragments.personal.PersonalTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.show.ShowTabFragment;
 
 public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -21,7 +22,7 @@ public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
     public BottomFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         fragments.add((TabFragment)ShowTabFragment.getInstance());
-        fragments.add((TabFragment)EmptyTabFragment.getInstance());
+        fragments.add((TabFragment)PersonalTabFragment.getInstance());
         fragments.add((TabFragment)BarTabFragment.getInstance());
         fragments.add((TabFragment)EmptyTabFragment.getInstance());
     }

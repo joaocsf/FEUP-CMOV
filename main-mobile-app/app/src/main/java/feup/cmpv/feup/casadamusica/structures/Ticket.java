@@ -5,9 +5,8 @@ public class Ticket {
     private String uuid;
     private Boolean used;
     private Integer seat;
-    private Show show;
 
-    public Ticket(String uuid, Boolean used, Integer seat, Show show) {
+    public Ticket(String uuid, Boolean used, Integer seat) {
         this.uuid = uuid;
         this.used = used;
         this.seat = seat;
@@ -37,11 +36,4 @@ public class Ticket {
         this.uuid = uuid;
     }
 
-    public Show getShow() {
-        return show;
-    }
-
-    public void setShow(Show show) {
-        this.show = show;
-    }
 }
