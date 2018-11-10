@@ -1,3 +1,4 @@
+const {Costumer} = require('../models')
 const Joi = require('joi')
 const config = require('../config/config')
 
@@ -25,8 +26,42 @@ module.exports = {
     const {error} = Joi.validate(req.body, schema, config.joiOptions)
 
     if (error) {
-      console.log(error)
       res.status(400).send({error: 'Structure Error'})
     } else next()
+  },
+
+  async verifyUser (req, res, next) {
+    const header = {
+      uuid: Joi.string().required(),
+      verification: Joi.string().required()
+    }
+    var obj = {
+      uuid: req.get('uuid'),
+      verification: req.get('verification')
+    }
+
+    const {error} = Joi.validate(obj, header, config.joiOptions)
+
+    if (error) {
+      res.status(400).send({error: 'Structure Error'})
+      return
+    }
+
+    try {
+      var costumer = await Costumer.find({
+        where: {
+          uuid: obj.uuid
+        }
+      })
+
+      if (!costumer.verify(obj.uuid, obj.verification)) {
+        res.status(400).send({error: 'Invalid User'})
+        return
+      }
+
+      next()
+    } catch (error) {
+      res.status(400).send({error: 'Structure Error'})
+    }
   }
 }

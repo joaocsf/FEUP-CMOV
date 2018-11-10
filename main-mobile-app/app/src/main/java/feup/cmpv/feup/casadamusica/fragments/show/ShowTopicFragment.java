@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,10 +21,12 @@ import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
+import feup.cmpv.feup.casadamusica.fragments.tickets.BuyTicketsDialogFragment;
 import feup.cmpv.feup.casadamusica.services.ShowServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.view.MainBody;
 
-public class ShowTopicFragment extends Fragment {
+public class ShowTopicFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private ArrayAdapter<Show> adapter;
@@ -76,6 +79,7 @@ public class ShowTopicFragment extends Fragment {
         adapter = new ShowListAdapter(view.getContext(), showList);
         listView.setAdapter(adapter);
         listView.computeScroll();
+        listView.setOnItemClickListener(this);
 
         if(getArguments().getBoolean("newest")) {
             ShowServices.GetShows(
@@ -86,5 +90,11 @@ public class ShowTopicFragment extends Fragment {
                 this::ParseShows,
                 this::RequestError);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        BuyTicketsDialogFragment buyTicketsDialogFragment = (BuyTicketsDialogFragment) BuyTicketsDialogFragment.getInstance(adapter.getItem(position));
+        buyTicketsDialogFragment.show(((MainBody)getContext()).getSupportFragmentManager(), "Buy Ticket");
     }
 }

@@ -29,6 +29,29 @@ module.exports = {
     }
   },
 
+  async login (req, res) {
+    try {
+      var costumer = await Costumer.find({
+        where: {
+          username: req.body.username
+        }
+      })
+
+      if (!await costumer.comparePassword(req.body.password)) {
+        res.status(500).send({msg: 'Unknown User'})
+        return
+      }
+
+      costumer.publicKey = req.body.publicKey
+      await costumer.save()
+
+      res.status(200).send({msg: 'Success', uuid: costumer.uuid})
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({msg: 'Invalid Data'})
+    }
+  },
+
   async showAllCostumers (req, res) {
     try {
       var costumers = await Costumer.findAll()

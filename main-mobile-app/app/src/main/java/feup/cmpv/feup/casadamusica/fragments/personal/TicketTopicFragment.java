@@ -41,9 +41,9 @@ public class TicketTopicFragment extends Fragment {
         return view;
     }
 
-    private void ParseTickets(JSONObject shows){
+    private void ParseTickets(JSONObject tickets){
         try {
-            JSONArray array = shows.getJSONArray("shows");
+            JSONArray array = tickets.getJSONArray("tickets");
             for(int i = 0; i < array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
                 Ticket newTicket = new Ticket(

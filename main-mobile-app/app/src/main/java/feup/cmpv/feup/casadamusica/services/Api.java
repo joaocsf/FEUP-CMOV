@@ -61,7 +61,7 @@ public class Api {
             Archive.SaveJSON(path, object);
         };
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, success2, fail);
+        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.GET, url, null, success2, fail);
         addRequest(request);
 
     }
@@ -69,7 +69,7 @@ public class Api {
     public static void Delete(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         String url = host + path;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null, success, fail);
+        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.DELETE, url, null, success, fail);
 
         addRequest(request);
     }
@@ -77,7 +77,7 @@ public class Api {
     public  static void Post(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         String url = host + path;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonRequest, success, fail);
+        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.POST, url, jsonRequest, success, fail);
 
         addRequest(request);
     }
@@ -85,7 +85,7 @@ public class Api {
     public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         String url = host + path;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest, success, fail);
+        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.PUT, url, jsonRequest, success, fail);
 
         addRequest(request);
     }

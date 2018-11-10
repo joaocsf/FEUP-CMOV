@@ -18,7 +18,7 @@ module.exports = async () => {
   var costumer = await Costumer.create({
     name: 'Hello',
     nif: '213123123',
-    username: 'UserName',
+    username: 'username',
     password: 'password',
     publicKey: '1231232iioaiod1o2io12oi321'
   })
@@ -117,6 +117,11 @@ module.exports = async () => {
   await Product.create({name: 'Fried Potatoes', quantity: 200, price: 2.50})
   await Product.create({name: 'Good Beans', quantity: 200, price: 2.50})
   await Product.create({name: 'Watery Water', quantity: 200, price: 1.00})
+  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
+  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
+  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
+  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
+  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
   await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
 
   console.log(JSON.stringify(show1))

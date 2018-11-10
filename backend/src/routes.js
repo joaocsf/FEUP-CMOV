@@ -21,6 +21,10 @@ module.exports = (app) => {
     CostumerController.showAllCostumers
   )
 
+  app.post('/costumer/login',
+    CostumerController.login
+  )
+
   // *************
   // * Shows
   // *************
@@ -37,6 +41,7 @@ module.exports = (app) => {
   // *************
 
   app.post('/ticket/buy',
+    CostumerPolicies.verifyUser,
     TicketPolicies.buyTicket,
     TicketController.buyTicket
   )
