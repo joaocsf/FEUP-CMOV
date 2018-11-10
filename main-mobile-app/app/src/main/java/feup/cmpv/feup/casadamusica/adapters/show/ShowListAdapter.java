@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.fragments.tickets.BuyTicketsDialogFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
-import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class ShowListAdapter extends ArrayAdapter<Show>{
 

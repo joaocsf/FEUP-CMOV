@@ -1,7 +1,6 @@
 package feup.cmpv.feup.casadamusica.fragments.show;
 
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

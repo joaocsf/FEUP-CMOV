@@ -1,13 +1,10 @@
 package feup.cmpv.feup.casadamusica.adapters.bar;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Debug;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.DebugUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +20,6 @@ import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.Product;
-import feup.cmpv.feup.casadamusica.structures.Show;
 
 public class ProductListAdapter extends ArrayAdapter<Product> {
 

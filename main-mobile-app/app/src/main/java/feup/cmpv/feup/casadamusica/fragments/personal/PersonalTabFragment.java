@@ -9,7 +9,7 @@ import feup.cmpv.feup.casadamusica.adapters.ViewPagerAdapter;
 import feup.cmpv.feup.casadamusica.fragments.TabFragment;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
-public class PersonalTabFragment extends TabFragment {
+public class PersonalTabFragment extends TabFragment{
 
     private ArrayAdapter<Show> adapter;
 
@@ -25,5 +25,6 @@ public class PersonalTabFragment extends TabFragment {
     protected void setupViewPagerAdapter(ViewPagerAdapter pvadapter) {
         pvadapter.addFragment(TicketTopicFragment.getInstance(), "Tickets");
         pvadapter.addFragment(VoucherTopicFragment.getInstance(), "Vouchers");
+
     }
 }

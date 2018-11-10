@@ -11,7 +11,7 @@ module.exports = {
         var newTicket = await Ticket.create({
           seat: Math.floor(Math.random() * totalTickets) + 1,
           ShowId: req.body.showId,
-          CostumerUuid: req.get('costumerUuid')
+          CostumerUuid: req.get('uuid')
         })
         tickets.push(newTicket)
       }
@@ -32,7 +32,7 @@ module.exports = {
             required:true,
             where: {
               used:false,
-              CostumerUuid: req.get("costumerUuid"),
+              CostumerUuid: req.get("uuid"),
             }
           }
         ]
