@@ -1,3 +1,20 @@
+
+async function addVoucher (ticket, options) {
+  var models = this.models
+
+  var products = await models.Product.findAll()
+  var productIndex = Math.floor((Math.random() * products.length))
+  var product = products[productIndex]
+
+  if (products.length === 0) return
+
+  await models.Voucher.create({
+    type: 'product',
+    ProductId: product.id,
+    CostumerUuid: ticket.CostumerUuid
+  })
+}
+
 module.exports = (sequelize, DataTypes) => {
   const ticket = sequelize.define('Ticket', {
     uuid: {
@@ -16,18 +33,24 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    hooks: {
+      afterCreate: addVoucher
+    }
   })
 
   ticket.associate = (models) => {
     ticket.belongsTo(models.Show, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
-    }),
+    })
+
     ticket.belongsTo(models.Costumer, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     })
+
+    ticket.models = models
   }
 
   return ticket

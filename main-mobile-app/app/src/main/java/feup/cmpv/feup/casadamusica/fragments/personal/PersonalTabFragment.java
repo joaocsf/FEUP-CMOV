@@ -12,6 +12,7 @@ import feup.cmpv.feup.casadamusica.structures.Show;
 public class PersonalTabFragment extends TabFragment{
 
     private ArrayAdapter<Show> adapter;
+    TicketTopicFragment ticketTopicFragment;
 
     public static Fragment getInstance(){
         Fragment fragment = new PersonalTabFragment();
@@ -22,8 +23,14 @@ public class PersonalTabFragment extends TabFragment{
     }
 
     @Override
+    public void onSelected() {
+        ticketTopicFragment.UpdateTickets();
+    }
+
+    @Override
     protected void setupViewPagerAdapter(ViewPagerAdapter pvadapter) {
-        pvadapter.addFragment(TicketTopicFragment.getInstance(), "Tickets");
+        ticketTopicFragment = (TicketTopicFragment) TicketTopicFragment.getInstance();
+        pvadapter.addFragment(ticketTopicFragment, "Tickets");
         pvadapter.addFragment(VoucherTopicFragment.getInstance(), "Vouchers");
 
     }

@@ -120,7 +120,6 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
         try {
             tickets_obj.put("showId", show.getId());
             tickets_obj.put("numberOfTickets", Integer.parseInt(number_of_tickets.getText().toString()));
-            tickets_obj.put("costumerUuid", Archive.getUuid());
         } catch (JSONException e) {
             e.printStackTrace();
         }

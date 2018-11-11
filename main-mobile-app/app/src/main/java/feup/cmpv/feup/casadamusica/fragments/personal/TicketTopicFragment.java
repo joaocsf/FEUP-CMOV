@@ -88,6 +88,12 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
 
     }
 
+    public void UpdateTickets(){
+         TicketServices.GetTickets(
+                this::ParseTickets,
+                this::RequestError);
+    }
+
     private void InitializeView(View view){
         listView = view.findViewById(R.id.ticket_list_view);
 

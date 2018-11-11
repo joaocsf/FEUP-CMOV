@@ -1,16 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const voucher = sequelize.define('Voucher', {
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true
+    },
     type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    number: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    validity: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.ENUM,
+      values: ['product', 'discount']
     }
   }, {
     freezeTableName: true
@@ -23,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     })
 
     voucher.belongsTo(models.Order, {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+    })
+
+    voucher.belongsTo(models.Costumer, {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     })

@@ -6,6 +6,8 @@ const ShowController = require('./controllers/ShowController')
 
 const ProductController = require('./controllers/ProductController')
 
+const VoucherController = require('./controllers/VoucherController')
+
 const TicketController = require('./controllers/TicketController')
 const TicketPolicies = require('./policies/TicketPolicies')
 
@@ -48,6 +50,7 @@ module.exports = (app) => {
   )
 
   app.get('/ticket/costumer',
+    CostumerPolicies.verifyUser,
     TicketController.getTickets
   )
 
@@ -60,9 +63,16 @@ module.exports = (app) => {
   )
 
   // *************
-  // * Orders
+  // * orders
   // *************
 
   app.post('/order',
     OrderController.order)
+
+  // *************
+  // * Vouchers
+  // *************
+
+  app.get('/vouchers',
+    VoucherController.getVouchers)
 }
