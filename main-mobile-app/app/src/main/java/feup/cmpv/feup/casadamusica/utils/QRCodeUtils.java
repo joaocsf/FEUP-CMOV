@@ -8,6 +8,14 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Objects;
+
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 
@@ -43,18 +51,39 @@ public class QRCodeUtils {
 
     public static String generateMessage(ShowTickets showTickets, int numberOfTickets){
 
-        StringBuilder stringBuilder = new StringBuilder();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        OutputStreamWriter osw;
+        JSONObject object = null;
 
-        stringBuilder.append(Archive.getUuid()).append("|").append(numberOfTickets).append("|");
+        try {
+            osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
+            osw.write(Archive.getUuid());
+            osw.write("|");
+            osw.write(numberOfTickets);
+            osw.write("|");
 
+            for(int i =0; i < numberOfTickets; i++){
+                osw.write(showTickets.getTickets().get(i).getUuid());
+                osw.write("|");
+            }
 
-        for(int i =0; i < numberOfTickets; i++){
-            stringBuilder.append(showTickets.getTickets().get(i).getUuid());
-            stringBuilder.append("|");
+            osw.write(showTickets.getShow().getId());
+
+            osw.flush();
+            byteArrayOutputStream.flush();
+
+            String ticketsString = byteArrayOutputStream.toString();
+            String ticketsSign = Archive.Sign(ticketsString);
+
+            object = new JSONObject();
+            object.put("tickets", ticketsString);
+            object.put("validation", ticketsSign);
+
+            return object.toString();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
 
-        stringBuilder.append(showTickets.getShow().getId());
-
-        return stringBuilder.toString();
+        return Objects.requireNonNull(object).toString();
     }
 }
