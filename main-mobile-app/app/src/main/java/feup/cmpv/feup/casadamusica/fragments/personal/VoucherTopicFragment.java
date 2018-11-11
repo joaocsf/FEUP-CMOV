@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.personal.VoucherListAdapter;
-import feup.cmpv.feup.casadamusica.services.ProductServices;
+import feup.cmpv.feup.casadamusica.services.VoucherServices;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.utils.Archive;
 
@@ -30,10 +33,34 @@ public class VoucherTopicFragment extends Fragment{
         InitializeView(view);
         return view;
     }
+    private void fetchVouchers(){
 
-    public void updateVouchers(){
-        List<VoucherGroup> voucherGroups = Archive.GetAllVouchers();
+        VoucherServices.GetVouchers(
+                (success) -> {
+                    JSONArray vouchers = null;
+                    try {
+                        vouchers = success.getJSONArray("vouchers");
+                        Archive.deleteAllVouchers();
+                        Archive.addVouchers(vouchers);
+                        List<VoucherGroup> voucherGroups = Archive.getAllVouchers();
+                        adapter.clear();
+                        adapter.addAll(voucherGroups);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, (failure) -> {
+                }
+        );
+    }
+
+    public void updateVouchers(boolean force){
         adapter.clear();
+
+        if (force){
+            fetchVouchers();
+            return;
+        }
+        List<VoucherGroup> voucherGroups = Archive.getAllVouchers();
         adapter.addAll(voucherGroups);
     }
 
@@ -41,9 +68,11 @@ public class VoucherTopicFragment extends Fragment{
 
         ListView listView = view.findViewById(R.id.show_list_view);
 
-        List<VoucherGroup> voucherGroups = Archive.GetAllVouchers();
-        adapter = new VoucherListAdapter(view.getContext(), voucherGroups);
+        List<VoucherGroup> voucherGroups = Archive.getAllVouchers();
+        adapter = new VoucherListAdapter(view.getContext(), voucherGroups, R.layout.voucher_list_item);
         listView.setAdapter(adapter);
         listView.computeScroll();
+
+        fetchVouchers();
     }
 }

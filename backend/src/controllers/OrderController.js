@@ -1,4 +1,4 @@
-const { Order, Costumer, Product } = require('../models')
+const { Order, Costumer, Product, Voucher } = require('../models')
 const { Op } = require('sequelize')
 
 function parseComponents (objects) {
@@ -30,6 +30,20 @@ module.exports = {
       var productSummary = []
       var components = order.split('_')
       var parsed = parseComponents(components)
+      var costumerUuid = parsed.uuid
+
+      var costumer = await Costumer.find({
+        where: {
+          uuid: parsed.uuid
+        }
+      })
+      var requestValid = costumer.verify(order, validation)
+      console.log(`Request is Valid? ${requestValid}`)
+
+      if (!requestValid) {
+        res.status(500).send({msg: 'Invalid Request'})
+        return
+      }
 
       var products = await Product.findAll({
         where: {
@@ -38,6 +52,20 @@ module.exports = {
           }
         }
       })
+      var vouchers = []
+      if (parsed.vouchers.length > 0) {
+        vouchers = await Voucher.findAll({
+          where: {
+            uuid: {
+              [Op.in]: parsed.vouchers
+            },
+            OrderId: null,
+            CostumerUuid: costumerUuid
+          }
+        })
+      }
+
+      var productFromID = []
 
       var total = 0
       for (var product of products) {
@@ -45,6 +73,9 @@ module.exports = {
         var quantity = parsed.products[id]
         var price = quantity * product.price
         total += price
+
+        productFromID[id] = product
+
         productSummary.push({
           id: id,
           quantity: quantity,
@@ -52,18 +83,45 @@ module.exports = {
           name: product.name
         })
       }
+      var discount = false
+      var validVouchers = []
 
-      var costumer = await Costumer.find({
-        where: {
-          uuid: parsed.uuid
+      for (var voucher of vouchers) {
+        if (voucher.type === 'discount' && !discount) {
+          discount = true
+          validVouchers.push(voucher)
+          continue
         }
+        if (voucher.type === 'discount') {
+          continue
+        }
+        var prod = productFromID[voucher.ProductId]
+        var discountValue = prod.price
+        total -= discountValue
+        validVouchers.push(voucher)
+      }
+
+      if (discount) {
+        total *= 0.95
+      }
+
+      order = await Order.create({
+        type: 'product',
+        total: total,
+        CostumerUuid: costumerUuid
       })
 
-      var requestValid = costumer.verify(order, validation)
+      order.setVouchers(validVouchers)
 
-      console.log(`Request is Valid? ${requestValid}`)
+      for (var p of products) {
+        var q = parsed.products[p.id]
 
-      var result = {msg: 'Products Sold!', productSummary: productSummary, total: total}
+        order.addProduct(p, {
+          through: {quantity: q}
+        })
+      }
+
+      var result = {msg: 'Products Sold!', order_id: order.id, productSummary: productSummary, total: total}
 
       res.status(200).send(result)
     } catch (error) {

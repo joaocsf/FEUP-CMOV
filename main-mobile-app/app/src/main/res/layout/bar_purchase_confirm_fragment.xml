@@ -16,7 +16,7 @@
         android:background="@color/bottomtab_2">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/bar_purchase_recipt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -63,7 +63,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/_dynamic2"
+        android:id="@+id/bar_purchase_voucher_list"
         android:layout_width="match_parent"
         android:layout_height="66dp">
 

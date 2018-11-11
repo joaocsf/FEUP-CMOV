@@ -12,6 +12,7 @@ public class VoucherGroup implements Serializable {
 
     private Product product;
     private ArrayList<Voucher> voucherList = new ArrayList<>();
+    private int quantity = 0;
 
     public VoucherGroup(Product p){
         product = p;
@@ -46,4 +47,28 @@ public class VoucherGroup implements Serializable {
         voucherList.add(v);
     }
 
+    public void increaseQuantity() {
+        quantity++;
+        quantity = Math.min(quantity, voucherList.size());
+    }
+    public void decreaseQuantity() {
+        quantity--;
+        quantity = Math.max(quantity, 0);
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void splice() {
+        ArrayList<Voucher> vouchers = new ArrayList<>();
+        for(int i = 0; i < getQuantity(); i++){
+            vouchers.add(voucherList.get(i));
+        }
+        voucherList = vouchers;
+    }
 }

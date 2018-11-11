@@ -5,9 +5,10 @@ module.exports = {
   async getVouchers (req, res) {
     try {
       var vouchers = await Voucher.findAll({
-        // where: {
-        //   CostumerUuid: req.get('uuid')
-        // }
+        where: {
+          CostumerUuid: req.get('uuid'),
+          OrderId: null
+        }
       })
       res.status(200).send({ msg: 'Success', vouchers: vouchers })
     } catch (error) {

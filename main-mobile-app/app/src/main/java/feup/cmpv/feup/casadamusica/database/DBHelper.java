@@ -168,4 +168,21 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return products;
     }
+
+    public void deleteAllVouchers() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Voucher.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void deleteVoucher(String uuid){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Voucher.TABLE_NAME, Voucher.COLUMN_UUID + "=?", new String[]{uuid});
+    }
+
+    public void deleteVouchers(List<String> vouchersToRemove) {
+        for(String uuid : vouchersToRemove){
+            deleteVoucher(uuid);
+        }
+    }
 }

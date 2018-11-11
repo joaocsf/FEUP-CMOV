@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.view.NFC;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -55,7 +56,9 @@ public class NFCReceiveOrderActivity extends NFCReceiveActivity{
                 products.add(p);
             }
             float total = (float)response.getDouble("total");
-            BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products, total);
+            int orderNumber = response.getInt("order_id");
+            BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products, total, orderNumber);
+            confirmPurchase.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
             confirmPurchase.show(getSupportFragmentManager(), "Confirm Order");
 
         } catch (Exception e) {

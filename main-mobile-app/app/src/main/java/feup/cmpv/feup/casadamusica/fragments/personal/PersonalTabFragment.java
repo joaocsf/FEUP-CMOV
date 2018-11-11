@@ -26,12 +26,13 @@ public class PersonalTabFragment extends TabFragment{
     @Override
     public void onDoubleSelect() {
         ticketTopicFragment.updateTickets();
-        voucherTopicFragment.updateVouchers();
+
+        voucherTopicFragment.updateVouchers(true);
     }
 
     @Override
     public void onSelected() {
-        voucherTopicFragment.updateVouchers();
+        voucherTopicFragment.updateVouchers(false);
     }
 
     @Override

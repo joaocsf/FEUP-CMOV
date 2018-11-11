@@ -94,6 +94,11 @@ public class Archive {
         }
     }
 
+    public static void deleteAllVouchers(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteAllVouchers();
+    }
+
     public static List<Product> getAllProducts(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         return db.getAllProducts();
@@ -148,7 +153,7 @@ public class Archive {
         return db.getAllDiscountVouchers();
     }
 
-    public static List<VoucherGroup> GetAllVouchers(){
+    public static List<VoucherGroup> getAllVouchers(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         return db.getAllVouchers();
     }
@@ -175,5 +180,10 @@ public class Archive {
         } catch (Exception e){
         }
         return null;
+    }
+
+    public static void removeVouchers(List<String> vouchersToRemove) {
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteVouchers(vouchersToRemove);
     }
 }
