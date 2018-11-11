@@ -33,7 +33,6 @@ public class NFCSendActivity extends AppCompatActivity implements NfcAdapter.OnN
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter == null){
-            Toast.makeText(getApplicationContext(), "NFC not available", Toast.LENGTH_LONG).show();
             Snackbar.make(findViewById(android.R.id.content), "NFC Not Available", Snackbar.LENGTH_LONG).show();
             finish();
         }

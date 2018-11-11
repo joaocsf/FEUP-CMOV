@@ -17,12 +17,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
 import feup.cmpv.feup.casadamusica.listeners.IProductListener;
 import feup.cmpv.feup.casadamusica.services.ProductServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 
 public class BarProductsFragment extends Fragment implements IProductListener {
 
@@ -49,20 +51,24 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         adapter.clear();
         try {
             JSONArray array = products.getJSONArray("products");
-            for(int i = 0; i < array.length(); i++){
-                JSONObject obj = array.getJSONObject(i);
-                Product newProduct = new Product(
-                        obj.getInt("id"),
-                        obj.getString("name"),
-                        (float)obj.getDouble("price")
-                );
-                newProduct.setProductListener(this);
-                adapter.add(newProduct);
+            Archive.addProducts(array);
+            adapter.clear();
+            List<Product> prods = Archive.getAllProducts();
+            adapter.addAll(prods);
+            for(Product p : prods){
+                p.setProductListener(this);
             }
             adapter.add(new Product(-1,null,0.0f));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateProducts(){
+         ProductServices.GetProducts(
+            this::ParseProducts,
+            this::RequestError);
     }
 
     private void RequestError(VolleyError error){
@@ -109,10 +115,9 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         adapter = new ProductListAdapter(view.getContext(), productList, R.layout.bar_list_item, true);
         listView.setAdapter(adapter);
         listView.computeScroll();
+        updateProducts();
 
-        ProductServices.GetProducts(
-                    this::ParseProducts,
-                    this::RequestError);
+
     }
 
     @Override

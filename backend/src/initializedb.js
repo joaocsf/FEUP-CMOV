@@ -117,12 +117,12 @@ module.exports = async () => {
   await Product.create({name: 'Fried Potatoes', quantity: 200, price: 2.50})
   await Product.create({name: 'Good Beans', quantity: 200, price: 2.50})
   await Product.create({name: 'Watery Water', quantity: 200, price: 1.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
-  await Product.create({name: 'Empty Bags', quantity: 200, price: 0.00})
+  await Product.create({name: 'Item 0', quantity: 200, price: 0.00})
+  await Product.create({name: 'Item 1', quantity: 200, price: 1.00})
+  await Product.create({name: 'Item 2', quantity: 200, price: 2.00})
+  await Product.create({name: 'Item 3', quantity: 200, price: 3.00})
+  await Product.create({name: 'Item 4', quantity: 200, price: 4.00})
+  await Product.create({name: 'Item 5', quantity: 200, price: 5.00})
 
   console.log(JSON.stringify(show1))
 }

@@ -46,6 +46,10 @@ public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     public  void setSelected(int selected){
+        if(selected == lastSelected) {
+            fragments.get(selected).onDoubleSelect();
+            return;
+        }
         fragments.get(lastSelected).onDeselected();
         fragments.get(selected).onSelected();
         lastSelected = selected;

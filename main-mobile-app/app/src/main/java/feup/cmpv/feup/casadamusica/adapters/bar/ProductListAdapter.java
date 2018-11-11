@@ -49,8 +49,6 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
             product.Remove();
         ((Activity)context).runOnUiThread(()->{
             tv.setText(product.getQuantity() + "");
-
-            Log.d("Test", "123");
         });
     }
 

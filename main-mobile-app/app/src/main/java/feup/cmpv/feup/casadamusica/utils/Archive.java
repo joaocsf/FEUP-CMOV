@@ -1,38 +1,30 @@
 package feup.cmpv.feup.casadamusica.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 
-import com.android.volley.Response;
-
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.Signature;
-import java.security.UnrecoverableEntryException;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
-import feup.cmpv.feup.casadamusica.services.ShowServices;
+import feup.cmpv.feup.casadamusica.database.DBHelper;
+import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
+import feup.cmpv.feup.casadamusica.structures.Voucher;
 
 public class Archive {
 
@@ -102,6 +94,64 @@ public class Archive {
         }
     }
 
+    public static List<Product> getAllProducts(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllProducts();
+    }
+
+    public static void addProducts(JSONArray products){
+        try {
+            Log.d("Adding Voucher", "Adding VOUCHER");
+            HashSet<Product> productHashSet = new HashSet<>();
+
+            for (int i = 0; i < products.length(); i++) {
+                JSONObject product = products.getJSONObject(i);
+                Product p = new Product(product);
+                productHashSet.add(p);
+            }
+            DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+
+            for (Product p : productHashSet) {
+                db.insertProduct(p);
+            }
+        } catch (Exception e){
+        }
+    }
+
+    public static void addVouchers(JSONArray vouchers){
+        try {
+            Log.d("Adding Voucher", "Adding VOUCHER");
+            HashSet<Voucher> voucherHashSet = new HashSet<>();
+
+            for (int i = 0; i < vouchers.length(); i++) {
+                JSONObject voucher = vouchers.getJSONObject(i);
+                Voucher v = new Voucher(voucher);
+                voucherHashSet.add(v);
+            }
+            DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+
+            for (Voucher v : voucherHashSet) {
+                Log.d("Adding Voucher", v +"");
+                db.insertVoucher(v);
+            }
+        } catch (Exception e){
+        }
+    }
+
+    public static Set<VoucherGroup> GetProductVouchers(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllProductVouchers();
+    }
+
+    public static VoucherGroup GetDiscountVouchers(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllDiscountVouchers();
+    }
+
+    public static List<VoucherGroup> GetAllVouchers(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllVouchers();
+    }
     public static boolean hasKey(){
         try {
             KeyStore keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);

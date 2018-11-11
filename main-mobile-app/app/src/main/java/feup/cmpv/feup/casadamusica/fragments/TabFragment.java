@@ -76,4 +76,6 @@ public abstract class TabFragment extends Fragment {
 
 
     }
+
+    public void onDoubleSelect(){}
 }

@@ -3,9 +3,8 @@ const Joi = require('joi')
 module.exports = {
   buyTicket (req, res, next) {
     const ticketSchema = {
-      numberOfTickets: Joi.required(),
-      showId: Joi.string().required(),
-      costumerUuid: Joi.string().required()  
+      request: Joi.string().required(),
+      validation: Joi.string().required()
     }
 
     const {error} = Joi.validate(req.body, ticketSchema)

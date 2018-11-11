@@ -1,10 +1,25 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import android.content.ContentValues;
+
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 import feup.cmpv.feup.casadamusica.listeners.IProductListener;
 
 public class Product implements Serializable {
+
+    public static final String TABLE_NAME = "product";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_PRICE = "price";
+
+    public static final String CREATE_TABLE =
+            "CREATE TABLE " + TABLE_NAME + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY, "
+            + COLUMN_NAME + " STRING, "
+            + COLUMN_PRICE + " FLOAT)";
 
     private int id;
     private float price;
@@ -13,6 +28,14 @@ public class Product implements Serializable {
 
     private IProductListener listener;
 
+    public Product(JSONObject obj){
+        try {
+            id = obj.getInt("id");
+            name = obj.getString("name");
+            price = (float) obj.getDouble("price");
+        } catch (Exception e) {
+        }
+    }
     public Product(Product p){
         this.id = p.getId();
         this.name = p.getName();
@@ -25,6 +48,14 @@ public class Product implements Serializable {
         this.name = name;
         this.price = price;
         this.quantity = 0;
+    }
+
+    public ContentValues getContentValues(){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, id);
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_PRICE, price);
+        return values;
     }
 
     public void setProductListener(IProductListener listener){

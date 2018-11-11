@@ -3,7 +3,9 @@ package feup.cmpv.feup.casadamusica.fragments.tickets;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,22 +118,32 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
 
     private void buy_ticket() {
 
+        JSONObject response_obj = new JSONObject();
         JSONObject tickets_obj = new JSONObject();
         try {
             tickets_obj.put("showId", show.getId());
             tickets_obj.put("numberOfTickets", Integer.parseInt(number_of_tickets.getText().toString()));
+            response_obj.put("request", tickets_obj.toString());
+            response_obj.put("validation", Archive.Sign(tickets_obj.toString()));
+            Log.d("Validation", Archive.Sign(tickets_obj.toString()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        TicketServices.BuyTicket(tickets_obj,
+        TicketServices.BuyTicket(response_obj,
                 response -> {
-                    Toast.makeText( getContext(), "Success! ", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "Success! ", Snackbar.LENGTH_SHORT).show();
+                    Log.d("CONTENT",response.toString());
+                    try {
+                        Archive.addVouchers(response.getJSONArray("vouchers"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     this.dismiss();
                 },
                 error -> {
                     JSONObject obj = Api.getBodyFromError(error);
-                    Toast.makeText(getContext(), "Error when buying tickets" + obj.toString(), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), "Error When Buying Tickets", Snackbar.LENGTH_SHORT).show();
                 });
     }
 

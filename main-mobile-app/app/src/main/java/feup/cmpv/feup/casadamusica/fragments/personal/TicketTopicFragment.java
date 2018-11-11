@@ -88,7 +88,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
 
     }
 
-    public void UpdateTickets(){
+    public void updateTickets(){
          TicketServices.GetTickets(
                 this::ParseTickets,
                 this::RequestError);

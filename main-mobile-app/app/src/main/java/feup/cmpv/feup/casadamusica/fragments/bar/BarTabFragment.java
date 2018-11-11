@@ -44,6 +44,12 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
     }
 
     @Override
+    public void onDoubleSelect() {
+        barProducts.updateProducts();
+        onPageSelected(getViewPager().getCurrentItem());
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
@@ -61,7 +67,6 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
 
     @Override
     public void onSelected() {
-
         Log.d("BarS", ""+isAdded() + "" + hashCode());
         if(isAdded())
             onPageSelected(getViewPager().getCurrentItem());
