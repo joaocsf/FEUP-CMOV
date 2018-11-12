@@ -28,7 +28,6 @@ import feup.cmpv.feup.casadamusica.utils.Utils;
 public class ValidateTicketDialogFragment extends DialogFragment implements View.OnClickListener {
     private ShowTickets showTickets;
     private NumberPicker np;
-    private Button btnGenerate;
 
     public static DialogFragment getInstance(ShowTickets showTickets){
         DialogFragment fragment = new ValidateTicketDialogFragment();
@@ -54,9 +53,13 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
 
         np.setMaxValue(max_tickets);
 
-        btnGenerate = view.findViewById(R.id.btn_generate);
+        Button btnGenerate = view.findViewById(R.id.btn_generate);
 
         btnGenerate.setOnClickListener(this);
+
+        Button btnCancel = view.findViewById(R.id.btn_cancel_validation);
+
+        btnCancel.setOnClickListener(this);
 
         return view;
     }
@@ -71,10 +74,17 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_generate:
+                Intent intent = Utils.initializeTransfer(generateMessage(showTickets, np.getValue()), "ticket");
 
-        Intent intent = Utils.initializeTransfer(generateMessage(showTickets, np.getValue()), "ticket");
+                startActivity(intent);
+                break;
 
-        startActivity(intent);
+            case R.id.btn_cancel_validation:
+                this.dismiss();
+                break;
+        }
     }
 
 

@@ -24,4 +24,5 @@
     <string name="show_buy">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="generate">Generate</string>
+    <string name="choose_number_of_tickets">Choose number of tickets</string>
 </resources>
