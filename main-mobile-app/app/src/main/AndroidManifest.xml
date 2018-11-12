@@ -48,6 +48,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.NFC.NFCReceiveTicketActivationActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.MainBody"
+            >
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/nfc.feup.cmov.message.ticket"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
