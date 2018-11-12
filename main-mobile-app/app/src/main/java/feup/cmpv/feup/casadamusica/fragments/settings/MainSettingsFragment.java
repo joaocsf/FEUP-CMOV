@@ -10,10 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.services.TerminalServices;
 import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
 
 public class MainSettingsFragment extends Fragment {
@@ -56,18 +61,34 @@ public class MainSettingsFragment extends Fragment {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode + " " + resultCode + " " + data);
         if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(this.getContext(), "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                System.out.println(result.getContents());
-                Toast.makeText(this.getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-            }
+            verifyData(result.getContents());
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void parseResult(){
+    private void verifyData(String info){
+        try {
+            JSONObject object = new JSONObject(info);
+
+            System.out.println(object);
+            
+            TerminalServices.ValidateTicket(object,
+                    this::parseTickets,
+                    this::handleError);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleError(VolleyError error) {
+    }
+
+    private void parseTickets(JSONObject obj) {
+
 
     }
+
+
 }

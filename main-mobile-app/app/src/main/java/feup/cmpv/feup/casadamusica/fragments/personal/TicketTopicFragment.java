@@ -46,6 +46,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
 
     private void ParseTickets(JSONObject tickets){
         adapter.clear();
+
         try {
             JSONArray array = tickets.getJSONArray("tickets");
             for(int i = 0; i < array.length(); i++){

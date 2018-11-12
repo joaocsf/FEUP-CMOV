@@ -74,13 +74,13 @@ public class ValidateTicketDialogFragment extends DialogFragment {
         try {
             osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
             osw.write(Archive.getUuid());
-            osw.write("|");
+            osw.write("_");
             osw.write(numberOfTickets);
-            osw.write("|");
+            osw.write("_");
 
-            for(int i =0; i < numberOfTickets; i++){
+            for(int i = 0; i < numberOfTickets; i++){
                 osw.write(showTickets.getTickets().get(i).getUuid());
-                osw.write("|");
+                osw.write("_");
             }
 
             osw.write(showTickets.getShow().getId());

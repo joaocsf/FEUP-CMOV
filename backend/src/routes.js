@@ -54,6 +54,10 @@ module.exports = (app) => {
     TicketController.getTickets
   )
 
+  app.post('/ticket/validation',
+    TicketController.validateTickets
+  )
+
   // *************
   // * Products
   // *************

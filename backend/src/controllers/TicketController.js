@@ -1,5 +1,19 @@
 const {Ticket, Show, Costumer, Order, Voucher} = require('../models')
 
+function parseComponencts(objects){
+  var uuid = objects[0]
+  var numberOfTickets = objects[1].charCodeAt(0)
+  var ticketsIds = []
+
+  for(var i = 2; i < numberOfTickets + 2; i++){
+    ticketsIds.push(objects[i])
+  }
+
+  var showId = objects[objects.length - 1]
+
+  return {uuid: uuid, ticketsIds: ticketsIds, showId: showId}
+}
+
 module.exports = {
 
   async buyTicket (req, res) {
@@ -95,6 +109,23 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.status(500).send({ msg: 'Invalid Data' + error })
+    }
+  },
+  async validateTickets(req, res){
+    try {
+      var tickets = req.body.tickets
+      var validation = req.body.validation
+      var components = tickets.split('_')
+      var parsed = parseComponencts(components)
+      
+      console.log("------------------ Tickets-----------------")
+      console.log(tickets)
+      console.log("---------------------- Parsed -----------------")
+      console.log(parsed)
+
+      res.status(200).send({msg: "sucess"})
+    } catch (error) {
+      console.error(error)
     }
   }
 }
