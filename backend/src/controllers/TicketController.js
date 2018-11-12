@@ -1,11 +1,12 @@
 const {Ticket, Show, Costumer, Order, Voucher} = require('../models')
+const { Op } = require('sequelize')
 
-function parseComponencts(objects){
+function parseComponencts (objects) {
   var uuid = objects[0]
   var numberOfTickets = objects[1].charCodeAt(0)
   var ticketsIds = []
 
-  for(var i = 2; i < numberOfTickets + 2; i++){
+  for (var i = 2; i < numberOfTickets + 2; i++) {
     ticketsIds.push(objects[i])
   }
 
@@ -111,19 +112,45 @@ module.exports = {
       res.status(500).send({ msg: 'Invalid Data' + error })
     }
   },
-  async validateTickets(req, res){
+  async validateTickets (req, res) {
     try {
       var tickets = req.body.tickets
       var validation = req.body.validation
       var components = tickets.split('_')
       var parsed = parseComponencts(components)
-      
-      console.log("------------------ Tickets-----------------")
-      console.log(tickets)
-      console.log("---------------------- Parsed -----------------")
-      console.log(parsed)
 
-      res.status(200).send({msg: "sucess"})
+      var costumer = await Costumer.find({
+        where: {
+          uuid: parsed.uuid
+        }
+      })
+
+      var requestValid = costumer.verify(tickets, validation)
+
+      if (!requestValid) {
+        res.status(500).send({msg: 'Invalid request'})
+        return
+      }
+
+      var ticketsObjects = await Ticket.update(
+        {used: true},
+        {where: {
+          uuid: {
+            [Op.in]: parsed.ticketsIds
+          },
+          ShowId: parsed.showId,
+          used: false
+        }
+        })
+
+      console.log('------------------ Tickets-----------------')
+      console.log(tickets)
+      console.log('---------------------- Parsed -----------------')
+      console.log(parsed)
+      console.log('---------------------- UPDATED OBJECTS -----------------')
+      console.log(ticketsObjects)
+
+      res.status(200).send({msg: 'sucess', tickects: ticketsObjects})
     } catch (error) {
       console.error(error)
     }

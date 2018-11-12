@@ -23,4 +23,5 @@
     <string name="show_date">Date:</string>
     <string name="show_buy">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="generate">Generate</string>
 </resources>

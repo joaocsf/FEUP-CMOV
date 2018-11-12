@@ -27,7 +27,7 @@ import feup.cmpv.feup.casadamusica.adapters.personal.VoucherListAdapter;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.utils.Archive;
-import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class BarPurchaseConfirmFragment extends DialogFragment {
 
@@ -93,11 +93,9 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
 
             Archive.removeVouchers(vouchersToRemove);
 
-            Intent intent = new Intent(getContext(), NFCSendActivity.class);
-            intent.putExtra("message", msg.getBytes());
-            intent.putExtra("type", "order");
-            startActivity(intent);
+            Intent intent = Utils.initializeTransfer(msg, "order");
 
+            startActivity(intent);
         } catch (Exception e){
             e.printStackTrace();
             Log.d("RESULT", "ERROR");
