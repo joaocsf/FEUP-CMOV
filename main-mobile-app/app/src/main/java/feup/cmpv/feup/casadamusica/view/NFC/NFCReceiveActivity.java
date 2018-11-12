@@ -3,13 +3,8 @@ package feup.cmpv.feup.casadamusica.view.NFC;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
-import feup.cmpv.feup.casadamusica.R;
 
 public abstract class NFCReceiveActivity extends AppCompatActivity {
 

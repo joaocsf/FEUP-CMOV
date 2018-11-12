@@ -18,7 +18,6 @@ import java.util.List;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
-import feup.cmpv.feup.casadamusica.structures.Voucher;
 
 public class VoucherListAdapter extends ArrayAdapter<VoucherGroup> {
     private Context contex;

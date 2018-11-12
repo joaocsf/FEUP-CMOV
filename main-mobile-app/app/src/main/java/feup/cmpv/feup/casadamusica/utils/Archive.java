@@ -23,8 +23,8 @@ import java.util.Set;
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.database.DBHelper;
 import feup.cmpv.feup.casadamusica.structures.Product;
-import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
+import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class Archive {
 

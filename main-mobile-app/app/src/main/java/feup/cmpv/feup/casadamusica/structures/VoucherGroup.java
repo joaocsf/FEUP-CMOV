@@ -1,10 +1,5 @@
 package feup.cmpv.feup.casadamusica.structures;
 
-import android.content.ContentValues;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

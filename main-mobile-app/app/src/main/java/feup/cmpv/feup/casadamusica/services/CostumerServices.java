@@ -1,8 +1,9 @@
 package feup.cmpv.feup.casadamusica.services;
 
+import com.android.volley.Response;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.android.volley.Response;
 
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;

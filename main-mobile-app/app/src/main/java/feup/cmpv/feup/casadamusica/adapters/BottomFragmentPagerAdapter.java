@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.fragments.TabFragment;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarTabFragment;
-import feup.cmpv.feup.casadamusica.fragments.settings.SettingsTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.personal.PersonalTabFragment;
+import feup.cmpv.feup.casadamusica.fragments.settings.SettingsTabFragment;
 import feup.cmpv.feup.casadamusica.fragments.show.ShowTabFragment;
 
 public class BottomFragmentPagerAdapter extends FragmentPagerAdapter {

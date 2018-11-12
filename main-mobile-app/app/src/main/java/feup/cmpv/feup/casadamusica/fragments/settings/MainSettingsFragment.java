@@ -66,4 +66,8 @@ public class MainSettingsFragment extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    private void parseResult(){
+
+    }
 }

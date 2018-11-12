@@ -4,31 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
 import feup.cmpv.feup.casadamusica.adapters.personal.VoucherListAdapter;
 import feup.cmpv.feup.casadamusica.structures.Product;
-import feup.cmpv.feup.casadamusica.structures.Voucher;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.utils.Archive;
-import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
 
 public class BarAddVoucherFragment extends DialogFragment {
 
