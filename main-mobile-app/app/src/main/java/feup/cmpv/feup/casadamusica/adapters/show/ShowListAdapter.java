@@ -16,6 +16,8 @@ import java.util.List;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.Show;
 
+import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
+
 public class ShowListAdapter extends ArrayAdapter<Show>{
 
     private Context contex;
@@ -47,7 +49,9 @@ public class ShowListAdapter extends ArrayAdapter<Show>{
         atendees.setText(new StringBuilder().append(currentShow.getAtendees()));
         title.setText(currentShow.getName());
         date.setText(currentShow.getDate());
-        price.setText(new StringBuilder().append(currentShow.getPrice()).append("€"));
+
+        String show_price = df2.format(currentShow.getPrice());
+        price.setText(new StringBuilder().append(show_price).append("€"));
 
 
         return listItem;

@@ -20,6 +20,8 @@ import java.util.List;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.Product;
 
+import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
+
 public class ProductListAdapter extends ArrayAdapter<Product> {
 
     private Context context;
@@ -41,13 +43,13 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         }
     }
 
-    void IncreaseQuantity(TextView tv, Product product, boolean up) {
+    private void IncreaseQuantity(TextView tv, Product product, boolean up) {
         if (up)
             product.Add();
         else
             product.Remove();
         ((Activity)context).runOnUiThread(()->{
-            tv.setText(product.getQuantity() + "");
+            tv.setText(String.valueOf(product.getQuantity()));
         });
     }
 
@@ -93,10 +95,10 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
             title.setText(currentProduct.getName());
 
         if(price!= null)
-            price.setText(currentProduct.getPrice() + "€");
+            price.setText(new StringBuilder().append(df2.format(currentProduct.getPrice())).append("€"));
 
         if(quantity != null)
-            quantity.setText(currentProduct.getQuantity() + "");
+            quantity.setText(String.valueOf(currentProduct.getQuantity()));
 
         return listItem;
 

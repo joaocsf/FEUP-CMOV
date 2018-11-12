@@ -26,6 +26,8 @@ import feup.cmpv.feup.casadamusica.services.ProductServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.utils.Archive;
 
+import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
+
 public class BarProductsFragment extends Fragment implements IProductListener {
 
     private ListView listView;

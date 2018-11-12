@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.NfcAdapter;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
@@ -33,5 +35,7 @@ public class Utils {
         intent.putExtra("type", mimType);
         return  intent;
     }
+
+    public static DecimalFormat df2 = new DecimalFormat("0.00");
 
 }

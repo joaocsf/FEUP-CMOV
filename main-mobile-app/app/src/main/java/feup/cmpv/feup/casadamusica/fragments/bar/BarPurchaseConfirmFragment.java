@@ -31,6 +31,8 @@ import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Utils;
 
+import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
+
 public class BarPurchaseConfirmFragment extends DialogFragment {
 
     private List<Product> productList;
@@ -132,10 +134,12 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
         ListView listView = view.findViewById(R.id.bar_purchase_product_list);
         totalTV = view.findViewById(R.id.bar_purchase_total);
         TextView titleTV = view.findViewById(R.id.bar_purchase_recipt);
+
         Button cancel = view.findViewById(R.id.bar_purchase_cancel);
         cancel.setOnClickListener((click) -> {
             dismiss();
         });
+
         Button accept = view.findViewById(R.id.bar_purchase_confirm);
         accept.setOnClickListener((click) -> {
             generateByteOrder();
@@ -178,7 +182,7 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
     }
 
     private void setTotal(float total){
-        totalTV.setText(total + "€");
+        totalTV.setText(df2.format(total) + "€");
     }
 
     @Override

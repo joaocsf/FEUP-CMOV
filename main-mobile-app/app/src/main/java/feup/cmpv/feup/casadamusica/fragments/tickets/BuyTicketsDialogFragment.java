@@ -24,6 +24,8 @@ import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.utils.Archive;
 
+import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
+
 public class BuyTicketsDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private Show show;
@@ -72,14 +74,16 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
         TextView date = view.findViewById(R.id.show_date);
         date.setText(show.getDate());
 
+        String unitPrice = df2.format(show.getPrice());
+
         TextView price = view.findViewById(R.id.show_price);
-        price.setText(new StringBuilder().append(show.getPrice()).append("€"));
+        price.setText(new StringBuilder().append(unitPrice).append("€"));
 
         number_of_tickets = view.findViewById(R.id.number_of_tickets);
         number_of_tickets.setText("1");
 
         total_price = view.findViewById(R.id.total_price);
-        total_price.setText(new StringBuilder().append(show.getPrice()).append("€"));
+        total_price.setText(new StringBuilder().append(unitPrice).append("€"));
     }
 
     @Override
@@ -147,7 +151,7 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
     }
 
     private void update_total_value(int number_tickets){
-        float total = number_tickets * show.getPrice();
+        String total = df2.format(number_tickets * show.getPrice());
 
         total_price.setText(new StringBuilder().append(total).append("€"));
     }
