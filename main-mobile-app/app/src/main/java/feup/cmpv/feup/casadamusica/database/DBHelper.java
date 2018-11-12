@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,8 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 import feup.cmpv.feup.casadamusica.structures.Product;
-import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
+import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class DBHelper extends SQLiteOpenHelper {
 

@@ -5,20 +5,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.ShowTickets;
-import feup.cmpv.feup.casadamusica.utils.QRCodeUtils;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 
 public class ValidateTicketDialogFragment extends DialogFragment {
     private ImageView qrCodeImageview;
@@ -44,38 +50,56 @@ public class ValidateTicketDialogFragment extends DialogFragment {
         }
 
         // change to the number of tickets that the person wants... max 4
-        this.generate(QRCodeUtils.generateMessage(showTickets, 1));
+        this.generate(this.generateMessage(showTickets, 1));
 
         return view;
     }
 
     private void generate(String info) {
-        new Thread(new convertToQR(info)).start();
+        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+        try {
+            Bitmap bitmap = barcodeEncoder.encodeBitmap(info, BarcodeFormat.QR_CODE, 400,400);
+            qrCodeImageview.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
-    class convertToQR implements Runnable {
-        String content;
+    private String generateMessage(ShowTickets showTickets, int numberOfTickets){
 
-        convertToQR(String info) {
-            content = info;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        OutputStreamWriter osw;
+        JSONObject object = null;
+
+        try {
+            osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
+            osw.write(Archive.getUuid());
+            osw.write("|");
+            osw.write(numberOfTickets);
+            osw.write("|");
+
+            for(int i =0; i < numberOfTickets; i++){
+                osw.write(showTickets.getTickets().get(i).getUuid());
+                osw.write("|");
+            }
+
+            osw.write(showTickets.getShow().getId());
+
+            osw.flush();
+            byteArrayOutputStream.flush();
+
+            String ticketsString = byteArrayOutputStream.toString();
+            String ticketsSign = Archive.Sign(ticketsString);
+
+            object = new JSONObject();
+            object.put("tickets", ticketsString);
+            object.put("validation", ticketsSign);
+
+            return object.toString();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        public void run() {
-            final Bitmap bitmap;
-            final String errorMsg;
-
-            try {
-                bitmap = QRCodeUtils.encodeAsBitmap(content, getContext());
-
-                Objects.requireNonNull(getActivity()).runOnUiThread(() -> qrCodeImageview.setImageBitmap(bitmap));
-            }
-            catch (WriterException e) {
-                errorMsg = e.getMessage();
-                Log.d("QRCODE", errorMsg);
-
-                Objects.requireNonNull(getActivity()).runOnUiThread(() -> Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show());
-            }
-        }
+        return Objects.requireNonNull(object).toString();
     }
 }
