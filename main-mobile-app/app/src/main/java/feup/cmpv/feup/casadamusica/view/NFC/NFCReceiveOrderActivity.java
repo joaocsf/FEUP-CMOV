@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarPurchaseConfirmFragment;
-import feup.cmpv.feup.casadamusica.services.OrderServices;
+import feup.cmpv.feup.casadamusica.services.TerminalServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
 
 public class NFCReceiveOrderActivity extends NFCReceiveActivity{
@@ -22,20 +24,20 @@ public class NFCReceiveOrderActivity extends NFCReceiveActivity{
     protected void onDataReceived(String data) {
         try {
             JSONObject object = new JSONObject(data);
-            String order = object.getString("order");
-            String validation = object.getString("validation");
-            OrderServices.Order(order, validation,
-                    (obj)-> {
-                parseOrder(obj);
-                },
-                    (error)->{
-                tv.setText("FAILURE");
-            });
+
+            TerminalServices.Order(object,
+                    this::parseOrder,
+                    this::handleError);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         tv.setText(data);
+    }
+
+    private void handleError(VolleyError error){
+        tv.setText("FAILURE");
     }
 
     private void parseOrder(JSONObject response) {

@@ -49,7 +49,6 @@ import feup.cmpv.feup.casadamusica.view.MainBody;
 public class CardInfoRegister extends Fragment {
 
     private static final String TAG = "CardInfo";
-    private static Fragment instance;
 
     private EditText card_number;
     private EditText card_validation_number;
@@ -234,4 +233,5 @@ public class CardInfoRegister extends Fragment {
             loading.setVisibility(View.GONE);
         }
     }
+
 }

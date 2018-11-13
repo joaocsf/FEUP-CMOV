@@ -19,8 +19,18 @@
         android:id="@+id/settings_read_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Read QR"
+        android:text="Read QR ticket"
         app:layout_constraintTop_toBottomOf="@id/settings_send_nfc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/settings_read_qr_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read QR bar"
+        app:layout_constraintTop_toBottomOf="@id/settings_read_qr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
