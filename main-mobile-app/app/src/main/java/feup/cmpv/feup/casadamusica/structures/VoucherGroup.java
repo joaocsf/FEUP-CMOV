@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -17,7 +18,14 @@ public class VoucherGroup implements Serializable {
 
     public VoucherGroup(JSONObject obj){
         try {
+            product = new Product(obj);
 
+            if( obj.has("Vouchers") ){
+                JSONArray array = obj.getJSONArray("Vouchers");
+                for(int i = 0; i < array.length(); i++){
+                    voucherList.add(new Voucher(array.getJSONObject(i)));
+                }
+            }
         } catch (Exception e) {
 
         }

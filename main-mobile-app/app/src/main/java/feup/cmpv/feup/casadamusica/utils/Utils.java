@@ -38,4 +38,8 @@ public class Utils {
 
     public static DecimalFormat df2 = new DecimalFormat("0.00");
 
+    public static String formatDate(String date){
+        return date.replaceAll("T|\\.\\d+Z"," ").trim();
+    }
+
 }

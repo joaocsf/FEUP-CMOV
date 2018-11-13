@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".view.UserRegister">
         </activity>
+        <activity android:name=".view.OrderActivity">
+        </activity>
         <activity android:name=".view.NFC.NFCSendActivity"/>
         <activity
             android:name=".view.NFC.NFCReceiveOrderActivity"

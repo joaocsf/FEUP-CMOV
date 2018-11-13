@@ -23,6 +23,7 @@ import feup.cmpv.feup.casadamusica.view.MainBody;
 public class BarTabFragment extends TabFragment implements ViewPager.OnPageChangeListener {
 
     BarProductsFragment barProducts;
+    BarPurchasesFragment barPurchases;
 
     public static Fragment getInstance(){
         Fragment fragment = new BarTabFragment();
@@ -37,8 +38,10 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
         barProducts = (BarProductsFragment)BarProductsFragment.getInstance();
         pvadapter.addFragment(
                 barProducts, "Bar");
+
+        barPurchases = (BarPurchasesFragment)BarPurchasesFragment.getInstance();
         pvadapter.addFragment(
-                BarProductsFragment.getInstance(), "Purchases");
+                barPurchases, "Purchases");
 
         getViewPager().addOnPageChangeListener(this);
     }
@@ -46,6 +49,7 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
     @Override
     public void onDoubleSelect() {
         barProducts.updateProducts();
+        barPurchases.updatePurchases();
         onPageSelected(getViewPager().getCurrentItem());
     }
 

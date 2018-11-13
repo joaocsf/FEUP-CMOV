@@ -1,165 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:minHeight="85dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@color/bottomtab_3"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/order"
-            android:gravity="center"
-            android:textSize="40dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="8dp"
-            />
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/bottomtab_3"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order"
+                android:gravity="center"
+                android:textSize="40dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                />
 
-            <TextView
-                android:id="@+id/order_recipt_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#232-123-123"
-                android:gravity="left"
-                android:layout_weight="2"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="8dp"
-                />
-            <TextView
-                android:id="@+id/order_recipt_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="21/29/1992"
-                android:layout_gravity="end"
-                android:gravity="left"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="8dp"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/order_recipt_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#232-123-123"
+                    android:gravity="left"
+                    android:layout_weight="2"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"
+                    />
+                <TextView
+                    android:id="@+id/order_recipt_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="21/29/1992"
+                    android:layout_gravity="end"
+                    android:gravity="left"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/order_recipt_tickets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="@string/tickets"/>
-        <ListView
-            android:id="@+id/order_recipt_tickets_list"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:visibility="visible"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/order_recipt_products"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="@string/products"/>
-        <ListView
-            android:id="@+id/order_recipt_products_list"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:visibility="visible"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/order_recipt_vouchers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="@string/vouchers"/>
-        <ListView
-            android:id="@+id/order_recipt_vouchers_list"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:visibility="visible"
-            />
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        >
-        <TableRow
+        <LinearLayout
+            android:id="@+id/order_recipt_tickets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             >
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/total"
-                android:textAlignment="textEnd"
-                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="@string/tickets"/>
+            <ListView
+                android:id="@+id/order_recipt_tickets_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/order_recipt_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            >
+
             <TextView
-                android:id="@+id/order_recipt_total_value"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="@string/products"/>
+            <ListView
+                android:id="@+id/order_recipt_products_list"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:text="200€"
-                android:textSize="30dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
                 />
-        </TableRow>
-    </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/order_recipt_vouchers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="@string/vouchers"/>
+            <ListView
+                android:id="@+id/order_recipt_vouchers_list"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                />
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:stretchColumns="*"
+            >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total"
+                    android:textAlignment="textEnd"
+                    android:textSize="30dp"
+                    />
+                <TextView
+                    android:id="@+id/order_recipt_total_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="200€"
+                    android:textSize="30dp"
+                    />
+            </TableRow>
+        </TableLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

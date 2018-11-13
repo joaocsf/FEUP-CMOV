@@ -23,7 +23,7 @@ function parseComponents (objects) {
 }
 
 async function parseTickets (tickets) {
-  if (tickets.length === 0) return []
+  if (tickets.length === 0) return null
 
   var showId = tickets[0].ShowId
   var show = await Show.find(
@@ -42,7 +42,7 @@ async function parseTickets (tickets) {
 }
 
 function parseProducts (products) {
-  if (products.length === 0) return []
+  if (products.length === 0) return null
 
   var parsedProducts = []
   var productByID = []
@@ -63,7 +63,7 @@ function parseProducts (products) {
 }
 
 function parseVouchers (vouchers, productByID) {
-  if (vouchers.length === 0) return []
+  if (vouchers.length === 0) return null
 
   var parsedIDs = {}
   for (var voucher of vouchers) {
@@ -82,7 +82,11 @@ function parseVouchers (vouchers, productByID) {
       product = parsedIDs[productId]
     } else {
       product = productByID[productId]
-      product = Object.create(product)
+      product = {
+        id: product.id,
+        name: product.name,
+        quantity: product.quantity
+      }
       product.Vouchers = []
       parsedIDs[productId] = product
     }
@@ -96,19 +100,25 @@ async function parseOrder (order) {
   var ticketShow = await parseTickets(order.Tickets)
   var parsedProducts = parseProducts(order.Products)
 
-  var products = parsedProducts.parsed
-  var productsByID = parsedProducts.prodByID
+  if (parsedProducts != null) {
+    var products = parsedProducts.parsed
+    var productsByID = parsedProducts.prodByID
 
-  var vouchers = parseVouchers(order.Vouchers, productsByID)
+    var vouchers = parseVouchers(order.Vouchers, productsByID)
+  }
 
-  return {
+  var finalOrder = {
     id: order.id,
     total: order.total,
     type: order.type,
-    Tickets: ticketShow,
-    Products: products,
-    Vouchers: vouchers
+    date: order.createdAt
   }
+
+  if (ticketShow != null) { finalOrder.Tickets = ticketShow }
+  if (products != null) { finalOrder.Products = products }
+  if (vouchers != null) { finalOrder.Vouchers = vouchers }
+
+  return finalOrder
 }
 
 async function parseOrders (orders) {
@@ -242,16 +252,14 @@ module.exports = {
         {
           include:
           [
-            {model: Ticket, required: false},
-            {model: Voucher, required: false},
+            {model: Ticket, attributes: ['uuid', 'seat', 'ShowId'], required: false},
+            {model: Voucher, attributes: ['ProductId', 'uuid', 'type'], required: false},
             {model: Product, required: false}
           ],
           limit: 10,
           order: [['"createdAt"', 'DESC']]
         })
       var parsedOrders = await parseOrders(orders)
-      console.log("HERE")
-      console.log(JSON.stringify(parsedOrders))
 
       res.status(200).send({msg: 'Success', orders: parsedOrders})
     } catch (error) {
