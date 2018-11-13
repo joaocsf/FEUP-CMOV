@@ -23,6 +23,8 @@ import java.util.Set;
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.database.DBHelper;
 import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.structures.Ticket;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
@@ -57,6 +59,7 @@ public class Archive {
             String jsonString = bo.toString("utf-8");
             return new JSONObject(jsonString);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -99,6 +102,16 @@ public class Archive {
         db.deleteAllVouchers();
     }
 
+    public static void deleteAllTickets(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteAllTickets();
+    }
+
+    public static void deleteAllShows(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteAllShows();
+    }
+
     public static List<Product> getAllProducts(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         return db.getAllProducts();
@@ -120,6 +133,7 @@ public class Archive {
                 db.insertProduct(p);
             }
         } catch (Exception e){
+            System.err.println(e.getMessage());
         }
     }
 
@@ -140,8 +154,52 @@ public class Archive {
                 db.insertVoucher(v);
             }
         } catch (Exception e){
+            System.err.println(e.getMessage());
         }
     }
+
+    public static void addTickets(JSONArray tickets){
+        try {
+            Log.d("Adding Ticket", "Adding Ticket");
+            HashSet<Ticket> ticketHashSet = new HashSet<>();
+
+            for (int i = 0; i < tickets.length(); i++) {
+                JSONObject ticket = tickets.getJSONObject(i);
+                Ticket t = new Ticket(ticket);
+                ticketHashSet.add(t);
+            }
+            DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+
+            for (Ticket t : ticketHashSet) {
+                Log.d("Adding Ticket", t +"");
+                db.insertTicket(t);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public static void addShows(JSONArray shows){
+        try {
+            Log.d("Adding Show", "Adding SHOW");
+            HashSet<Show> showHashSet = new HashSet<>();
+
+            for (int i = 0; i < shows.length(); i++) {
+                JSONObject show = shows.getJSONObject(i);
+                Show s = new Show(show);
+                showHashSet.add(s);
+            }
+            DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+
+            for (Show s : showHashSet) {
+                Log.d("Adding Voucher", s +"");
+                db.insertShow(s);
+            }
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
 
     public static Set<VoucherGroup> GetProductVouchers(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
@@ -178,6 +236,7 @@ public class Archive {
             PublicKey pk = certificate.getPublicKey();
             return Base64.encodeToString(pk.getEncoded(), Base64.DEFAULT);
         } catch (Exception e){
+            System.err.println(e.getMessage());
         }
         return null;
     }

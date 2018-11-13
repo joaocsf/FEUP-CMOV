@@ -1,5 +1,7 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import android.content.ContentValues;
+
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -7,6 +9,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Show implements Serializable {
+
+    public static final String TABLE_NAME = "show";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_DURATION = "duration";
+    public static final String COLUMN_ID = "id";
+
+
+    public static final String CREATE_TABLE =
+            "CREATE TABLE " + TABLE_NAME + "("
+                    + COLUMN_ID + " STRING PRIMARY KEY, "
+                    + COLUMN_NAME + " STRING, "
+                    + COLUMN_DATE + " STRING,"
+                    + COLUMN_DURATION + "INTEGER)";
+
+
     private String name;
     private String date;
     private float price;
@@ -95,5 +113,14 @@ public class Show implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public ContentValues getContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, this.id);
+        values.put(COLUMN_DATE, this.date);
+        values.put(COLUMN_DURATION, this.duration);
+        values.put(COLUMN_NAME, this.name);
+        return values;
     }
 }

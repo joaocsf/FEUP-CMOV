@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.structures.Ticket;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
@@ -33,6 +35,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d("CREATING", Voucher.CREATE_TABLE);
         db.execSQL(Voucher.CREATE_TABLE);
         db.execSQL(Product.CREATE_TABLE);
+        db.execSQL(Ticket.CREATE_TABLE);
+        db.execSQL(Show.CREATE_TABLE);
+
         Log.d("CREATING", Voucher.CREATE_TABLE);
 
     }
@@ -74,6 +79,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    public long insertTicket(Ticket ticket){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = ticket.getContentValues();
+        long id = db.replace(Ticket.TABLE_NAME, null, values);
+        db.close();
+        return id;
+    }
+
+    public long insertShow(Show show){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = show.getContentValues();
+        long id = db.replace(Show.TABLE_NAME, null, values);
+        db.close();
+        return id;
+    }
+
     public List<VoucherGroup> getAllVouchers() {
         List<VoucherGroup> voucherGroups = new ArrayList<>();
         VoucherGroup discount = getAllDiscountVouchers();
@@ -93,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        VoucherGroup vg = new VoucherGroup(null);
+        VoucherGroup vg = new VoucherGroup();
 
         if(cursor.moveToFirst()){
             do {
@@ -153,7 +174,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        VoucherGroup vg = new VoucherGroup(null);
 
         if(cursor.moveToFirst()){
             do {
@@ -166,6 +186,28 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return products;
+    }
+
+    public void deleteAllTickets() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Ticket.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void deleteAllShows() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Show.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void deleteTicket(String uuid){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Ticket.TABLE_NAME, Ticket.COLUMN_UUID + "=?", new String[]{uuid});
+    }
+
+    public void deleteShow(String id){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(Show.TABLE_NAME, Show.COLUMN_ID+ "=?", new String[]{id});
     }
 
     public void deleteAllVouchers() {

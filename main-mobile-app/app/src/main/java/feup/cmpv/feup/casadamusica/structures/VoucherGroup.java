@@ -23,6 +23,10 @@ public class VoucherGroup implements Serializable {
         }
     }
 
+    public VoucherGroup(){
+
+    }
+
     @Override
     public int hashCode() {
         return product.getId();
