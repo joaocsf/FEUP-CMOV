@@ -1,8 +1,10 @@
 package feup.cmpv.feup.casadamusica.fragments.personal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
             Archive.addTickets(array);
 
             Set<ShowTickets> showTickets = Archive.getShowTickets();
+            Log.d("SHOW TICKETS", showTickets.size() + "");
             adapter.clear();
             adapter.addAll(showTickets);
 
@@ -101,6 +104,12 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         ValidateTicketDialogFragment validateTicketDialogFragment = (ValidateTicketDialogFragment) ValidateTicketDialogFragment.getInstance(adapter.getItem(position));
-        validateTicketDialogFragment.show(((MainBody)Objects.requireNonNull(getContext())).getSupportFragmentManager(), "Validate Ticket");
+        validateTicketDialogFragment.show(getFragmentManager(), "Validate Ticket");
+        validateTicketDialogFragment.setTargetFragment(this, 25);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        updateTickets(false);
     }
 }

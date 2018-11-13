@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
@@ -78,7 +80,7 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
             case R.id.btn_generate:
                 Intent intent = Utils.initializeTransfer(generateMessage(showTickets, np.getValue()), "ticket");
 
-                startActivity(intent);
+                startActivityForResult(intent, 5);
                 break;
 
             case R.id.btn_cancel_validation:
@@ -87,6 +89,13 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 5){
+            getTargetFragment().onActivityResult(25,25, new Intent());
+            dismiss();
+        }
+    }
 
     private static String generateMessage(ShowTickets showTickets, int numberOfTickets){
 
@@ -95,18 +104,22 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
         JSONObject object = null;
 
         try {
+            ArrayList<String> ticketsToRemove = new ArrayList<>();
             osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
             osw.write(Archive.getUuid());
             osw.write("_");
             osw.write(numberOfTickets);
-            osw.write("_");
 
             for(int i = 0; i < numberOfTickets; i++){
-                osw.write(showTickets.getTickets().get(i).getUuid());
+                String uuid = showTickets.getTickets().get(i).getUuid();
+                ticketsToRemove.add(uuid);
                 osw.write("_");
+                osw.write(uuid);
             }
 
+            osw.write("_");
             osw.write(showTickets.getShow().getId());
+            Log.d("SHOW ID", ""+showTickets.getShow().getId());
 
             osw.flush();
             byteArrayOutputStream.flush();
@@ -117,6 +130,8 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
             object = new JSONObject();
             object.put("tickets", ticketsString);
             object.put("validation", ticketsSign);
+
+            Archive.removeTickets(ticketsToRemove);
 
             return object.toString();
         } catch (IOException | JSONException e) {

@@ -10,7 +10,7 @@ function parseComponencts (objects) {
     ticketsIds.push(objects[i])
   }
 
-  var showId = objects[objects.length - 1]
+  var showId = objects[objects.length - 1].charCodeAt(0)
 
   return {uuid: uuid, ticketsIds: ticketsIds, showId: showId}
 }
@@ -27,7 +27,6 @@ module.exports = {
       var showId = request.showId
       var costumerUuid = req.get('uuid')
       var numberOfTickets = request.numberOfTickets
-
       var show = await Show.find({
         where: {
           id: showId

@@ -15,6 +15,7 @@ import java.security.KeyStore;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -131,7 +132,7 @@ public class Archive {
 
     public static Set<ShowTickets> getShowTickets(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
-        return db.getAllShowTickets(Archive.getUuid());
+        return db.getAllShowTickets();
     }
 
     public static void addProducts(JSONArray products){
@@ -179,7 +180,7 @@ public class Archive {
 
     public static void addTickets(JSONArray tickets){
         try {
-            Log.d("Adding Ticket", "Adding Ticket");
+            Log.d("Adding Ticket", tickets.toString());
             HashSet<Ticket> ticketHashSet = new HashSet<>();
 
             for (int i = 0; i < tickets.length(); i++) {
@@ -266,5 +267,10 @@ public class Archive {
     public static void removeVouchers(List<String> vouchersToRemove) {
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         db.deleteVouchers(vouchersToRemove);
+    }
+
+    public static void removeTickets(ArrayList<String> ticketsToRemove) {
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteTickets(ticketsToRemove);
     }
 }

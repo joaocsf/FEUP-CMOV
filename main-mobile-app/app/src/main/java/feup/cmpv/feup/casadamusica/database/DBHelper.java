@@ -23,7 +23,7 @@ import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "casa_da_musica";
 
     public DBHelper(@Nullable Context context){
@@ -258,20 +258,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return shows;
     }
 
-    public Set<ShowTickets> getAllShowTickets(String uuid) {
+    public Set<ShowTickets> getAllShowTickets() {
         HashMap<ShowTickets, ShowTickets> showTickets = new HashMap<>();
 
         String selectQuery = "SELECT * FROM "
                 + Show.TABLE_NAME + " JOIN " + Ticket.TABLE_NAME
                 + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
-                + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID+ " like '%" + uuid + "%'"
-                + " AND " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0";
+                + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0"
+                + " ORDER BY " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID;
+        Log.d("Query" , selectQuery);
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
+        int count = cursor.getCount();
         if(cursor.moveToFirst()){
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
+                String uuid = cursor.getString(cursor.getColumnIndex(Ticket.COLUMN_UUID));
                 String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
                 String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
@@ -316,7 +318,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void deleteTicket(String uuid){
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(Ticket.TABLE_NAME, Ticket.COLUMN_UUID + "=?", new String[]{uuid});
+        int i = db.delete(Ticket.TABLE_NAME, Ticket.COLUMN_UUID + "=?", new String[]{uuid});
+        Log.d("Size", i + "");
         db.close();
     }
 
@@ -341,6 +344,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteVouchers(List<String> vouchersToRemove) {
         for(String uuid : vouchersToRemove){
             deleteVoucher(uuid);
+        }
+    }
+
+    public void deleteTickets(ArrayList<String> ticketsToRemove) {
+        for(String uuid : ticketsToRemove){
+            deleteTicket(uuid);
         }
     }
 }
