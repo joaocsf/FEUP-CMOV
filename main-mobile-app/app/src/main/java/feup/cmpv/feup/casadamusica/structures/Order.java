@@ -13,6 +13,7 @@ public class Order implements Serializable {
     private float total;
     private String type;
     private String date;
+    private String nif;
     ArrayList<Product> products = new ArrayList<>();
     ArrayList<ShowTickets> showTickets = new ArrayList<>();
     ArrayList<VoucherGroup> voucherGroups = new ArrayList<>();
@@ -28,7 +29,8 @@ public class Order implements Serializable {
                type = obj.getString("type");
            if(obj.has("date"))
                date = obj.getString("date");
-
+           if(obj.has("nif"))
+               nif = obj.getString("nif");
            if(parseAll){
                parseEverything(obj);
            }else
@@ -42,6 +44,14 @@ public class Order implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public void setId(int id) {

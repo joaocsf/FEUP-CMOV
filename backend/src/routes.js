@@ -74,6 +74,7 @@ module.exports = (app) => {
     OrderController.order)
 
   app.get('/orders',
+    CostumerPolicies.verifyUser,
     OrderController.getOrders)
 
   // *************

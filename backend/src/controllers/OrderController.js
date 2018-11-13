@@ -111,7 +111,8 @@ async function parseOrder (order) {
     id: order.id,
     total: order.total,
     type: order.type,
-    date: order.createdAt
+    date: order.createdAt,
+    nif: order.Costumer.nif
   }
 
   if (ticketShow != null) { finalOrder.Tickets = ticketShow }
@@ -128,6 +129,42 @@ async function parseOrders (orders) {
     parsedOrders.push(o)
   }
   return parsedOrders
+}
+
+async function findOrders (uuid) {
+  var orders = await Order.findAll(
+    {
+      where: {
+        CostumerUuid: uuid
+      },
+      include:
+      [
+        {model: Costumer, required: false},
+        {model: Ticket, attributes: ['uuid', 'seat', 'ShowId'], required: false},
+        {model: Voucher, attributes: ['ProductId', 'uuid', 'type'], required: false},
+        {model: Product, required: false}
+      ],
+      limit: 10,
+      order: [['"createdAt"', 'DESC']]
+    })
+  return orders
+}
+
+async function findOrder (uuid, orderID) {
+  var order = await Order.findOne(
+    {
+      where: {
+        id: orderID
+      },
+      include:
+      [
+        {model: Costumer, required: false},
+        {model: Ticket, attributes: ['uuid', 'seat', 'ShowId'], required: false},
+        {model: Voucher, attributes: ['ProductId', 'uuid', 'type'], required: false},
+        {model: Product, required: false}
+      ]
+    })
+  return order
 }
 
 module.exports = {
@@ -226,18 +263,20 @@ module.exports = {
         CostumerUuid: costumerUuid
       })
 
-      order.setVouchers(validVouchers)
+      await order.setVouchers(validVouchers)
 
       for (var p of products) {
         var q = parsed.products[p.id].quantity
         var pric = parsed.products[p.id].price
 
-        order.addProduct(p, {
+        await order.addProduct(p, {
           through: {quantity: q, price: pric}
         })
       }
-
-      var result = {msg: 'Products Sold!', order_id: order.id, productSummary: productSummary, total: total}
+      order = await findOrder(costumerUuid, order.id)
+      order = await parseOrder(order)
+      console.log(JSON.stringify(order))
+      var result = {msg: 'Products Sold!', order: order}
 
       res.status(200).send(result)
     } catch (error) {
@@ -248,22 +287,11 @@ module.exports = {
 
   async getOrders (req, res) {
     try {
-      var orders = await Order.findAll(
-        {
-          include:
-          [
-            {model: Ticket, attributes: ['uuid', 'seat', 'ShowId'], required: false},
-            {model: Voucher, attributes: ['ProductId', 'uuid', 'type'], required: false},
-            {model: Product, required: false}
-          ],
-          limit: 10,
-          order: [['"createdAt"', 'DESC']]
-        })
+      var orders = await findOrders(req.get('uuid'))
       var parsedOrders = await parseOrders(orders)
 
       res.status(200).send({msg: 'Success', orders: parsedOrders})
     } catch (error) {
-      console.log(error)
       res.status(500).send({msg: 'Invalid Data'})
     }
   }

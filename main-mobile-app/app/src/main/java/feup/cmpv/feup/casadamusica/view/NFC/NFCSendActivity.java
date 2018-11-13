@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.view.NFC;
 
+import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -60,8 +61,7 @@ public class NFCSendActivity extends AppCompatActivity implements NfcAdapter.OnN
 
     @Override
     public void onNdefPushComplete(NfcEvent event) {
-        runOnUiThread(() -> {
-            Snackbar.make(findViewById(android.R.id.content), "Done", Snackbar.LENGTH_LONG).show();
-        });
+        setResult(-1,new Intent());
+        finish();
     }
 }

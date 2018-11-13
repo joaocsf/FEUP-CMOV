@@ -33,8 +33,6 @@ public class NFCReceiveTicketActivationActivity extends NFCReceiveActivity{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        tv.setText(data);
     }
 
     private void parseOrder(JSONObject response) {

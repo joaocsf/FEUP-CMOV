@@ -1,16 +1,20 @@
 package feup.cmpv.feup.casadamusica.fragments.bar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -95,7 +99,21 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
 
         BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products, 0f);
         confirmPurchase.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
-        confirmPurchase.show(getChildFragmentManager(), "Confirm Purchase");
+        confirmPurchase.show(getFragmentManager(), "Confirm Purchase");
+        confirmPurchase.setTargetFragment(this, 25);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("REQUEST", requestCode + "");
+        if(requestCode == 25){
+
+            getActivity().runOnUiThread(()->{
+                Snackbar.make(getView(), "Transaction Successful", Snackbar.LENGTH_LONG).show();
+                barProducts.reset();
+            });
+
+        }
     }
 
     @Override

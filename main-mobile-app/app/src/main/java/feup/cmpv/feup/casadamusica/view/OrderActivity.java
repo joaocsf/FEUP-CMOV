@@ -46,7 +46,10 @@ public class OrderActivity extends AppCompatActivity {
 
         TextView orderNumber = findViewById(R.id.order_recipt_number);
         TextView orderDate = findViewById(R.id.order_recipt_date);
+        TextView orderHour = findViewById(R.id.order_recipt_hour);
         TextView total = findViewById(R.id.order_recipt_total_value);
+        TextView orderTitle = findViewById(R.id.order_recipt_title);
+        TextView nif = findViewById(R.id.order_recipt_nif);
 
         LinearLayout productsLayout = findViewById(R.id.order_recipt_products);
         ListView productsList = findViewById(R.id.order_recipt_products_list);
@@ -58,8 +61,12 @@ public class OrderActivity extends AppCompatActivity {
         ListView vouchersList = findViewById(R.id.order_recipt_vouchers_list);
 
         orderNumber.setText("#"+order.getId());
-        orderDate.setText(formatDate(order.getDate()));
+        String[] date = formatDate(order.getDate()).split(" ");
+        orderDate.setText(date[0]);
+        orderHour.setText(date[1]);
         total.setText(df2.format(order.getTotal()) + "€");
+        orderTitle.setText(order.getType().equals("product")? "Bar Order": "Ticket Order");
+        nif.setText(order.getNif().replaceAll("(.{3})", "$1 "));
 
         if(order.getProducts().size() <= 0){
             productsLayout.setVisibility(View.GONE);
@@ -82,7 +89,7 @@ public class OrderActivity extends AppCompatActivity {
         if(order.getShowTickets().size() <= 0){
             ticketsLayout.setVisibility(View.GONE);
         }else{
-            TicketListAdapter ticketListAdapter = new TicketListAdapter(this, order.getShowTickets(), R.layout.ticket_list_item);
+            TicketListAdapter ticketListAdapter = new TicketListAdapter(this, order.getShowTickets(), R.layout.ticket_simple_list_item);
             ticketsList.setAdapter(ticketListAdapter);
             ticketsList.computeScroll();
             setDynamicHeight(ticketsList);

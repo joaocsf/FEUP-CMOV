@@ -45,6 +45,7 @@ public class TicketListAdapter extends ArrayAdapter<ShowTickets> {
         TextView title = listItem.findViewById(R.id.ticket_list_item_title);
         TextView date = listItem.findViewById(R.id.ticket_list_item_date);
         TextView seats = listItem.findViewById(R.id.ticket_list_item_seats);
+        TextView seatNumber = listItem.findViewById(R.id.ticket_list_item_seats_number);
 
         if(title != null)
             title.setText(currentShowTickets.getShow().getName());
@@ -54,6 +55,9 @@ public class TicketListAdapter extends ArrayAdapter<ShowTickets> {
 
         if(seats != null)
             seats.setText(getTicketSeats());
+
+        if(seatNumber != null)
+            seatNumber.setText("x"+currentShowTickets.getTickets().size());
 
 
         return listItem;

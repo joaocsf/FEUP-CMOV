@@ -52,10 +52,12 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         TextView orderNumber = listItem.findViewById(R.id.order_list_item_id);
         TextView orderDate = listItem.findViewById(R.id.order_list_item_date);
         TextView orderValue = listItem.findViewById(R.id.order_list_item_value);
+        TextView orderTitle = listItem.findViewById(R.id.order_list_item_title);
 
         orderValue.setText(df2.format(currentOrder.getTotal()) + "€");
-        orderDate.setText(formatDate(currentOrder.getDate()));
+        orderDate.setText(currentOrder.getDate().split("T")[0]);
         orderNumber.setText("#" + currentOrder.getId());
+        orderTitle.setText(currentOrder.getType().equals("product")? "Bar Order": "Ticket Order");
 
         return listItem;
     }

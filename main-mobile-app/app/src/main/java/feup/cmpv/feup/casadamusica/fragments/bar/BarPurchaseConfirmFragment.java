@@ -3,6 +3,7 @@ package feup.cmpv.feup.casadamusica.fragments.bar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import java.util.Objects;
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
 import feup.cmpv.feup.casadamusica.adapters.personal.VoucherListAdapter;
+import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 import feup.cmpv.feup.casadamusica.utils.Archive;
@@ -98,8 +100,8 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
             Archive.removeVouchers(vouchersToRemove);
 
             Intent intent = Utils.initializeTransfer(msg, "order");
+            startActivityForResult(intent, 5);
 
-            startActivity(intent);
         } catch (Exception e){
             e.printStackTrace();
             Log.d("RESULT", "ERROR");
@@ -187,6 +189,11 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 5){
+            getTargetFragment().onActivityResult(25,25, new Intent());
+            dismiss();
+            return;
+        }
         usedVouchers = (List<VoucherGroup>)data.getSerializableExtra("vouchers");
         voucherListAdapter.clear();
         voucherListAdapter.addAll(usedVouchers);

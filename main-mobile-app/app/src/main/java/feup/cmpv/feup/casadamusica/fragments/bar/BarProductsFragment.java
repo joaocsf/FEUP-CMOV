@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,14 +55,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         try {
             JSONArray array = products.getJSONArray("products");
             Archive.addProducts(array);
-            adapter.clear();
-            List<Product> prods = Archive.getAllProducts();
-            adapter.addAll(prods);
-            for(Product p : prods){
-                p.setProductListener(this);
-            }
-            adapter.add(new Product(-1,null,0.0f));
-
+            reset();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,6 +65,17 @@ public class BarProductsFragment extends Fragment implements IProductListener {
          ProductServices.GetProducts(
             this::ParseProducts,
             this::RequestError);
+    }
+
+    public void reset(){
+        adapter.clear();
+        List<Product> prods = Archive.getAllProducts();
+        adapter.addAll(prods);
+        for(Product p : prods){
+            p.setProductListener(this);
+        }
+        adapter.add(new Product(-1,null,0.0f));
+        checkPurchase(fab);
     }
 
     private void RequestError(VolleyError error){

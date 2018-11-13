@@ -6,12 +6,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.NfcAdapter;
 
+import org.json.JSONObject;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
+import feup.cmpv.feup.casadamusica.structures.Order;
 import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
+import feup.cmpv.feup.casadamusica.view.OrderActivity;
 import feup.cmpv.feup.casadamusica.view.QRActivity;
 
 public class Utils {
@@ -42,4 +46,10 @@ public class Utils {
         return date.replaceAll("T|\\.\\d+Z"," ").trim();
     }
 
+    public static Intent OpenOrderActivity(JSONObject obj){
+        Order order = new Order(obj, true);
+        Intent intent = new Intent(ApplicationContextRetriever.getContext(), OrderActivity.class);
+        intent.putExtra("order", order);
+        return intent;
+    }
 }
