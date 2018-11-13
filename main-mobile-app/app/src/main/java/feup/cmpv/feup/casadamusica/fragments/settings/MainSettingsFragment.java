@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.services.TerminalServices;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
 
 public class MainSettingsFragment extends Fragment {
@@ -125,6 +126,14 @@ public class MainSettingsFragment extends Fragment {
     }
 
     private void parseOrders(JSONObject obj){
-        Toast.makeText(getContext(), obj.toString(), Toast.LENGTH_LONG).show();
+        try {
+            JSONObject order = null;
+            order = obj.getJSONObject("order");
+
+            Intent intent = Utils.OpenOrderActivity(order);
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
