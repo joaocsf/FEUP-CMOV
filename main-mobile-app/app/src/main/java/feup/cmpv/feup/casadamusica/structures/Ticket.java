@@ -19,8 +19,8 @@ public class Ticket implements Serializable {
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_UUID + " INTEGER PRIMARY KEY, "
                     + COLUMN_SEAT + " INTEGER, "
-                    + COLUMN_USED + " BOOLEAN,"
-                    + COLUMN_SHOW_ID + "STRING FOREIGN KEY)";
+                    + COLUMN_USED + " BOOLEAN, "
+                    + COLUMN_SHOW_ID + " STRING)";
 
     private String uuid;
     private Boolean used;

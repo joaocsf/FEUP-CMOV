@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
@@ -24,6 +25,7 @@ import feup.cmpv.feup.casadamusica.adapters.show.ShowListAdapter;
 import feup.cmpv.feup.casadamusica.fragments.tickets.BuyTicketsDialogFragment;
 import feup.cmpv.feup.casadamusica.services.ShowServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class ShowTopicFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -48,22 +50,49 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void ParseShows(JSONObject shows){
-        adapter.clear();
+
         try {
             JSONArray array = shows.getJSONArray("shows");
-            for(int i = 0; i < array.length(); i++){
-                JSONObject obj = array.getJSONObject(i);
-                Show newShow = new Show(obj);
-                adapter.add(newShow);
-            }
+            Archive.deleteAllShows();
+            Archive.addShows(array);
+
+            List<Show> showSet = null;
+            if(getArguments().getBoolean("newest"))
+                showSet = Archive.getAllShows();
+            else
+                showSet = Archive.getAllPopularShows();
+
+            adapter.clear();
+            adapter.addAll(showSet);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public void updateShows(boolean force){
+        adapter.clear();
+
+        if(force) {
+            fetchShows();
+            return;
+        }
+
+        List<Show> showsSet = null;
+        if(getArguments().getBoolean("newest")) {
+            showsSet = Archive.getAllShows();
+        }else {
+            showsSet = Archive.getAllPopularShows();
+        }
+
+        adapter.addAll(showsSet);
+    }
+
     private void RequestError(VolleyError error){
 
     }
+
+
 
     private void InitializeView(View view){
         listView = view.findViewById(R.id.show_list_view);
@@ -74,15 +103,13 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
         listView.computeScroll();
         listView.setOnItemClickListener(this);
 
-        if(getArguments().getBoolean("newest")) {
-            ShowServices.GetShows(
-                    this::ParseShows,
-                    this::RequestError);
-        }else {
-            ShowServices.GetPopularShows(
+        fetchShows();
+    }
+
+    private void fetchShows(){
+        ShowServices.GetShows(
                 this::ParseShows,
                 this::RequestError);
-        }
     }
 
     @Override

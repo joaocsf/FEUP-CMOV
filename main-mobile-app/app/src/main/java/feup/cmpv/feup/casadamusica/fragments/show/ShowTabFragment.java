@@ -12,6 +12,8 @@ import feup.cmpv.feup.casadamusica.structures.Show;
 public class ShowTabFragment extends TabFragment {
 
     private ArrayAdapter<Show> adapter;
+    ShowTopicFragment showTopic;
+    ShowTopicFragment showTopicPopular;
 
     public static Fragment getInstance(){
         Fragment fragment = new ShowTabFragment();
@@ -22,10 +24,27 @@ public class ShowTabFragment extends TabFragment {
     }
 
     @Override
+    public void onDoubleSelect() {
+        if(showTopicPopular != null && showTopic != null) {
+            showTopic.updateShows(true);
+            showTopicPopular.updateShows(true);
+        }
+    }
+
+    @Override
+    public void onSelected() {
+        if(showTopicPopular != null && showTopic != null) {
+            showTopic.updateShows(false);
+            showTopicPopular.updateShows(false);
+        }
+    }
+
+    @Override
     protected void setupViewPagerAdapter(ViewPagerAdapter pvadapter) {
-        pvadapter.addFragment(
-                ShowTopicFragment.getInstance(true), "Newest");
-        pvadapter.addFragment(
-                ShowTopicFragment.getInstance(false), "Popular");
+        showTopic = (ShowTopicFragment) ShowTopicFragment.getInstance(true);
+        showTopicPopular = (ShowTopicFragment) ShowTopicFragment.getInstance(false);
+
+        pvadapter.addFragment(showTopic, "Newest");
+        pvadapter.addFragment(showTopicPopular, "Popular");
     }
 }

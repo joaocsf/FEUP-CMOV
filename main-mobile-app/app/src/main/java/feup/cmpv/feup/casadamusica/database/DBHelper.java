@@ -22,7 +22,7 @@ import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "casa_da_musica";
 
     public DBHelper(@Nullable Context context){
@@ -38,7 +38,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Ticket.CREATE_TABLE);
         db.execSQL(Show.CREATE_TABLE);
 
-        Log.d("CREATING", Voucher.CREATE_TABLE);
+
+        Log.d("CREATING", Ticket.CREATE_TABLE);
+        Log.d("CREATING show", Show.CREATE_TABLE);
 
     }
 
@@ -49,6 +51,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private void dropTables(SQLiteDatabase db){
         dropTable(db, Voucher.TABLE_NAME);
         dropTable(db, Product.TABLE_NAME);
+        dropTable(db, Show.TABLE_NAME);
+        dropTable(db, Ticket.TABLE_NAME);
     }
 
     @Override
@@ -186,6 +190,59 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return products;
+    }
+
+    public List<Show> getAllShows() {
+        ArrayList<Show> shows = new ArrayList<>();
+        String selectQuery = "SELECT * FROM "
+                + Show.TABLE_NAME
+                + " ORDER BY "+ Show.COLUMN_DATE  + " DESC ";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+
+                String id = cursor.getString(cursor.getColumnIndex(Show.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
+                String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
+                float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
+                int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
+                int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
+
+                Show s = new Show(id, name, date, price,atendees, duration);
+                shows.add(s);
+            }while (cursor.moveToNext());
+        }
+        return shows;
+    }
+
+    public List<Show> getAllPopularShows() {
+        ArrayList<Show> shows = new ArrayList<>();
+        String selectQuery = "SELECT * FROM "
+                + Show.TABLE_NAME
+                + " ORDER BY " + Show.COLUMN_ATENDEES + " DESC ";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+
+                String id = cursor.getString(cursor.getColumnIndex(Show.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
+                String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
+                float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
+                int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
+                int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
+
+                Show s = new Show(id, name, date, price,atendees, duration);
+                shows.add(s);
+            }while (cursor.moveToNext());
+        }
+
+        return shows;
     }
 
     public void deleteAllTickets() {

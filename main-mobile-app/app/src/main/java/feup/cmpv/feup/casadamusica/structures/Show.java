@@ -14,6 +14,8 @@ public class Show implements Serializable {
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_DURATION = "duration";
+    public static final String COLUMN_ATENDEES = "atendees";
+    public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_ID = "id";
 
 
@@ -22,8 +24,9 @@ public class Show implements Serializable {
                     + COLUMN_ID + " STRING PRIMARY KEY, "
                     + COLUMN_NAME + " STRING, "
                     + COLUMN_DATE + " STRING,"
-                    + COLUMN_DURATION + "INTEGER)";
-
+                    + COLUMN_ATENDEES + " INTEGER,"
+                    + COLUMN_PRICE + " FLOAT,"
+                    + COLUMN_DURATION + " INTEGER)";
 
     private String name;
     private String date;
@@ -121,6 +124,8 @@ public class Show implements Serializable {
         values.put(COLUMN_DATE, this.date);
         values.put(COLUMN_DURATION, this.duration);
         values.put(COLUMN_NAME, this.name);
+        values.put(COLUMN_ATENDEES, this.atendees);
+        values.put(COLUMN_PRICE, this.price);
         return values;
     }
 }

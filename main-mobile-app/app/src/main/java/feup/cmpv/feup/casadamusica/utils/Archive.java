@@ -117,6 +117,16 @@ public class Archive {
         return db.getAllProducts();
     }
 
+    public static List<Show> getAllShows(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllShows();
+    }
+
+    public static List<Show> getAllPopularShows(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllPopularShows();
+    }
+
     public static void addProducts(JSONArray products){
         try {
             Log.d("Adding Voucher", "Adding VOUCHER");
