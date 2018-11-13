@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarPurchaseConfirmFragment;
-import feup.cmpv.feup.casadamusica.services.OrderServices;
 import feup.cmpv.feup.casadamusica.services.TerminalServices;
-import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
 
 public class NFCReceiveTicketActivationActivity extends NFCReceiveActivity{

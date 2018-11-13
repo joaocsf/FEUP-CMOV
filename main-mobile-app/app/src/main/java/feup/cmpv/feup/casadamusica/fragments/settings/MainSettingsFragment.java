@@ -23,6 +23,8 @@ import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
 
 public class MainSettingsFragment extends Fragment {
 
+    private String type;
+
     public static Fragment getInstance() {
         return new MainSettingsFragment();
     }
@@ -46,6 +48,23 @@ public class MainSettingsFragment extends Fragment {
         Button btn_read_qr = view.findViewById(R.id.settings_read_qr);
 
         btn_read_qr.setOnClickListener((bt) -> {
+            type = "ticket";
+
+            IntentIntegrator intentIntegrator =  IntentIntegrator.forSupportFragment(this);
+            intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+            intentIntegrator.setPrompt("Read QR_code");
+            intentIntegrator.setCameraId(0);
+            intentIntegrator.setBeepEnabled(false);
+            intentIntegrator.setOrientationLocked(false);
+            intentIntegrator.initiateScan();
+        });
+
+
+        Button btn_read_qr_bar = view.findViewById(R.id.settings_read_qr_bar);
+
+        btn_read_qr_bar.setOnClickListener((bt) -> {
+            type = "bar";
+
             IntentIntegrator intentIntegrator =  IntentIntegrator.forSupportFragment(this);
             intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
             intentIntegrator.setPrompt("Read QR_code");
@@ -61,18 +80,33 @@ public class MainSettingsFragment extends Fragment {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode + " " + resultCode + " " + data);
         if(result != null) {
-            verifyData(result.getContents());
+            if(type.equals("ticket"))
+                verifyDataTickets(result.getContents());
+            else if(type.equals("bar"))
+                verifyDataBar(result.getContents());
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void verifyData(String info){
+    private void verifyDataBar(String contents) {
+        try {
+            JSONObject object = new JSONObject(contents);
+
+            TerminalServices.Order(object,
+                    this::parseOrders,
+                    this::handleError);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void verifyDataTickets(String info){
         try {
             JSONObject object = new JSONObject(info);
 
-            System.out.println(object);
-            
             TerminalServices.ValidateTicket(object,
                     this::parseTickets,
                     this::handleError);
@@ -83,12 +117,14 @@ public class MainSettingsFragment extends Fragment {
     }
 
     private void handleError(VolleyError error) {
+
     }
 
     private void parseTickets(JSONObject obj) {
 
-
     }
 
-
+    private void parseOrders(JSONObject obj){
+        Toast.makeText(getContext(), obj.toString(), Toast.LENGTH_LONG).show();
+    }
 }
