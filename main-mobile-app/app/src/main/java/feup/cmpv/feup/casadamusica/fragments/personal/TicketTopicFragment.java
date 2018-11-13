@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.adapters.personal.TicketListAdapter;
@@ -25,6 +26,7 @@ import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.structures.Ticket;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class TicketTopicFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -45,14 +47,16 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
     }
 
     private void ParseTickets(JSONObject tickets){
-        adapter.clear();
 
         try {
+            System.out.println(tickets);
             JSONArray array = tickets.getJSONArray("tickets");
-            for(int i = 0; i < array.length(); i++){
-                JSONObject obj = array.getJSONObject(i);
-                adapter.add(new ShowTickets(obj));
-            }
+            Archive.deleteAllTickets();
+            Archive.addTickets(array);
+
+            Set<ShowTickets> showTickets = Archive.getShowTickets();
+            adapter.clear();
+            adapter.addAll(showTickets);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -63,8 +67,21 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
 
     }
 
-    public void updateTickets(){
-         TicketServices.GetTickets(
+    public void updateTickets(Boolean force){
+        adapter.clear();
+
+        if(force){
+            fetchTickets();
+            return;
+        }
+
+        Set<ShowTickets> showTickets = Archive.getShowTickets();
+
+        adapter.addAll(showTickets);
+    }
+
+    private void fetchTickets(){
+        TicketServices.GetAllTickets(
                 this::ParseTickets,
                 this::RequestError);
     }
@@ -78,10 +95,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
         listView.computeScroll();
         listView.setOnItemClickListener(this);
 
-        TicketServices.GetTickets(
-                this::ParseTickets,
-                this::RequestError);
-
+        fetchTickets();
     }
 
     @Override

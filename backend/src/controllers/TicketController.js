@@ -112,6 +112,20 @@ module.exports = {
       res.status(500).send({ msg: 'Invalid Data' + error })
     }
   },
+  async getAllTickets (req, res) {
+    try {
+      var tickets = await Ticket.findAll({
+        where: {
+          CostumerUuid: req.get('uuid')
+        }
+      })
+
+      res.status(200).send({ msg: 'Success', tickets: tickets })
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({ msg: 'Invalid Data' + error })
+    }
+  },
   async validateTickets (req, res) {
     try {
       var tickets = req.body.tickets
@@ -142,14 +156,6 @@ module.exports = {
           used: false
         }
         })
-
-      console.log('------------------ Tickets-----------------')
-      console.log(tickets)
-      console.log('---------------------- Parsed -----------------')
-      console.log(parsed)
-      console.log('---------------------- UPDATED OBJECTS -----------------')
-      console.log(ticketsObjects)
-
       res.status(200).send({msg: 'sucess', tickects: ticketsObjects})
     } catch (error) {
       console.error(error)

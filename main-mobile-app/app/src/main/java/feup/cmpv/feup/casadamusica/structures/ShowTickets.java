@@ -11,6 +11,11 @@ public class ShowTickets implements Serializable {
     private Show show;
     private ArrayList<Ticket> tickets;
 
+    public ShowTickets(Show show) {
+        this.show = show;
+        this.tickets = new ArrayList<>();
+    }
+
     public ShowTickets(Show show, ArrayList<Ticket> tickets) {
         this.show = show;
         this.tickets = tickets;
@@ -26,7 +31,6 @@ public class ShowTickets implements Serializable {
 
                 for (int k = 0; k < ticketSets.length(); k++) {
                     JSONObject ticket = ticketSets.getJSONObject(k);
-
                     Ticket newTicket = new Ticket(ticket);
                     tickets.add(newTicket);
                 }
@@ -49,5 +53,22 @@ public class ShowTickets implements Serializable {
 
     public void setTickets(ArrayList<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public void addTicket(Ticket ticket){
+        this.tickets.add(ticket);
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.valueOf(getShow().getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+
+        if(!(obj instanceof ShowTickets)) return false;
+        return ((ShowTickets) obj).getShow().getId() == getShow().getId();
     }
 }

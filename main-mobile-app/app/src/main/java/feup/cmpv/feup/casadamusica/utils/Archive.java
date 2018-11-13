@@ -24,6 +24,7 @@ import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.database.DBHelper;
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.structures.Ticket;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
@@ -93,6 +94,7 @@ public class Archive {
             return Base64.encodeToString(signature, Base64.NO_WRAP);
 
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -127,6 +129,11 @@ public class Archive {
         return db.getAllPopularShows();
     }
 
+    public static Set<ShowTickets> getShowTickets(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllShowTickets(Archive.getUuid());
+    }
+
     public static void addProducts(JSONArray products){
         try {
             Log.d("Adding Voucher", "Adding VOUCHER");
@@ -144,6 +151,7 @@ public class Archive {
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -165,6 +173,7 @@ public class Archive {
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -186,6 +195,7 @@ public class Archive {
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -207,6 +217,7 @@ public class Archive {
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -247,6 +258,7 @@ public class Archive {
             return Base64.encodeToString(pk.getEncoded(), Base64.DEFAULT);
         } catch (Exception e){
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

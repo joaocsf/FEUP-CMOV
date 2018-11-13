@@ -21,7 +21,7 @@ public class Show implements Serializable {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " STRING PRIMARY KEY, "
+                    + COLUMN_ID + " INTEGER PRIMARY KEY, "
                     + COLUMN_NAME + " STRING, "
                     + COLUMN_DATE + " STRING,"
                     + COLUMN_ATENDEES + " INTEGER,"
@@ -33,9 +33,9 @@ public class Show implements Serializable {
     private float price;
     private int atendees;
     private int duration;
-    private String id;
+    private int id;
 
-    public Show(String id, String name, String date, float price, int atendees, int duration) {
+    public Show(int id, String name, String date, float price, int atendees, int duration) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -55,7 +55,7 @@ public class Show implements Serializable {
 
         try {
             if(obj.has("id"))
-                id = obj.getString("id");
+                id = obj.getInt("id");
             if(obj.has("name"))
                 name = obj.getString("name");
             if(obj.has("date"))
@@ -110,11 +110,11 @@ public class Show implements Serializable {
         this.duration = duration;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

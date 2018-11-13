@@ -17,17 +17,17 @@ public class Ticket implements Serializable {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_UUID + " INTEGER PRIMARY KEY, "
+                    + COLUMN_UUID + " STRING PRIMARY KEY, "
                     + COLUMN_SEAT + " INTEGER, "
-                    + COLUMN_USED + " BOOLEAN, "
-                    + COLUMN_SHOW_ID + " STRING)";
+                    + COLUMN_USED + " INTEGER, "
+                    + COLUMN_SHOW_ID + " INTEGER)";
 
     private String uuid;
-    private Boolean used;
+    private boolean used;
     private Integer seat;
     private Integer showId;
 
-    public Ticket(String uuid, Boolean used, Integer seat) {
+    public Ticket(String uuid, boolean used, Integer seat) {
         this.uuid = uuid;
         this.used = used;
         this.seat = seat;
@@ -44,7 +44,7 @@ public class Ticket implements Serializable {
             if(obj.has("ShowId"))
                 showId = obj.getInt("ShowId");
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -84,9 +84,19 @@ public class Ticket implements Serializable {
         ContentValues values = new ContentValues();
         values.put(COLUMN_UUID, this.uuid);
         values.put(COLUMN_SEAT, this.seat);
-        values.put(COLUMN_USED, this.used);
+        int value = this.used ? 1 : 0;
+        values.put(COLUMN_USED,  value);
         values.put(COLUMN_SHOW_ID, this.showId);
         return values;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "uuid='" + uuid + '\'' +
+                ", used=" + used +
+                ", seat=" + seat +
+                ", showId=" + showId +
+                '}';
+    }
 }

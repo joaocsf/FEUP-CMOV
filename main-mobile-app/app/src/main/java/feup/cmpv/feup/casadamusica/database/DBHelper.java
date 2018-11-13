@@ -16,6 +16,7 @@ import java.util.Set;
 
 import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.Show;
+import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.structures.Ticket;
 import feup.cmpv.feup.casadamusica.structures.Voucher;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
@@ -68,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public long insertProduct(Product product){
-         SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = product.getContentValues();
         long id = db.replace(Product.TABLE_NAME,null, values);
         db.close();
@@ -130,6 +131,9 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
+
         return vg;
     }
 
@@ -166,6 +170,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
         db.close();
 
         return productVouchers.keySet();
@@ -189,6 +194,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 products.add(p);
             }while (cursor.moveToNext());
         }
+
+        cursor.close();
+        db.close();
         return products;
     }
 
@@ -204,7 +212,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do {
 
-                String id = cursor.getString(cursor.getColumnIndex(Show.COLUMN_ID));
+                int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
                 String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
@@ -215,6 +223,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 shows.add(s);
             }while (cursor.moveToNext());
         }
+
+        cursor.close();
+        db.close();
         return shows;
     }
 
@@ -230,7 +241,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do {
 
-                String id = cursor.getString(cursor.getColumnIndex(Show.COLUMN_ID));
+                int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
                 String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
@@ -242,7 +253,53 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        cursor.close();
+        db.close();
         return shows;
+    }
+
+    public Set<ShowTickets> getAllShowTickets(String uuid) {
+        HashMap<ShowTickets, ShowTickets> showTickets = new HashMap<>();
+
+        String selectQuery = "SELECT * FROM "
+                + Show.TABLE_NAME + " JOIN " + Ticket.TABLE_NAME
+                + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
+                + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID+ " like '%" + uuid + "%'"
+                + " AND " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
+                String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
+                float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
+                int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
+                int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
+
+                Show s = new Show(id, name, date, price,atendees, duration);
+
+                ShowTickets st = new ShowTickets(s);
+
+                if(showTickets.containsKey(st))
+                    st = showTickets.get(st);
+                else
+                    showTickets.put(st, st);
+
+
+                int seat = cursor.getInt(cursor.getColumnIndex(Ticket.COLUMN_SEAT));
+
+                Ticket ticket = new Ticket(uuid, false,seat);
+                st.addTicket(ticket);
+
+            }while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return showTickets.keySet();
     }
 
     public void deleteAllTickets() {
@@ -260,11 +317,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteTicket(String uuid){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(Ticket.TABLE_NAME, Ticket.COLUMN_UUID + "=?", new String[]{uuid});
+        db.close();
     }
 
     public void deleteShow(String id){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(Show.TABLE_NAME, Show.COLUMN_ID+ "=?", new String[]{id});
+        db.close();
     }
 
     public void deleteAllVouchers() {
@@ -276,6 +335,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteVoucher(String uuid){
         SQLiteDatabase db = getWritableDatabase();
         db.delete(Voucher.TABLE_NAME, Voucher.COLUMN_UUID + "=?", new String[]{uuid});
+        db.close();
     }
 
     public void deleteVouchers(List<String> vouchersToRemove) {

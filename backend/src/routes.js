@@ -58,6 +58,11 @@ module.exports = (app) => {
     TicketController.validateTickets
   )
 
+  app.get('/tickets',
+    CostumerPolicies.verifyUser,
+    TicketController.getAllTickets
+  )
+
   // *************
   // * Products
   // *************

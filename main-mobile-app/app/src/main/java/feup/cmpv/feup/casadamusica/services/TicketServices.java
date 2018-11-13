@@ -12,4 +12,8 @@ public class TicketServices {
     public static void GetTickets(Response.Listener<JSONObject> success, Response.ErrorListener fail){
         Api.Get("/ticket/costumer/", success, fail);
     }
+
+    public static void GetAllTickets(Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        Api.Get("/tickets", success, fail);
+    }
 }
