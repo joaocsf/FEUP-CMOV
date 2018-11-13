@@ -1,5 +1,7 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,6 +13,14 @@ public class VoucherGroup implements Serializable {
 
     public VoucherGroup(Product p){
         product = p;
+    }
+
+    public VoucherGroup(JSONObject obj){
+        try {
+
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

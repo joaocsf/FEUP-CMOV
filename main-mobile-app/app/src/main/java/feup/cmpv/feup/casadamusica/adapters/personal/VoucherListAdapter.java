@@ -12,25 +12,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class VoucherListAdapter extends ArrayAdapter<VoucherGroup> {
     private Context contex;
     private List<VoucherGroup> voucherGroups;
-    private List<Product> products;
-    private HashMap<VoucherGroup, Product> voucher2Product = new HashMap<>();
     private int layourID;
 
     public VoucherListAdapter(@NonNull Context context, @NonNull List<VoucherGroup> voucherGroups, @LayoutRes int layout_id){
         super(context, layout_id, voucherGroups);
         this.contex = context;
         this.voucherGroups = voucherGroups;
-        this.products = products;
         this.layourID = layout_id;
     }
 

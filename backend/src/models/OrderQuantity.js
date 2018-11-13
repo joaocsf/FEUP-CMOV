@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false
     }
   }, {
     freezeTableName: true

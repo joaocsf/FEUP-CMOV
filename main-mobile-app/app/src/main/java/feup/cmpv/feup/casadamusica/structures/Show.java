@@ -1,5 +1,7 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +28,25 @@ public class Show implements Serializable {
             this.date = date;
 
         this.duration = duration;
+    }
+
+    public Show(JSONObject obj){
+
+        try {
+            if(obj.has("id"))
+                id = obj.getString("id");
+            if(obj.has("name"))
+                name = obj.getString("name");
+            if(obj.has("date"))
+                date = obj.getString("date").split("T")[0];
+            if(obj.has("price"))
+                price = (float) obj.getDouble("price");
+            if(obj.has("atendees"))
+                atendees = obj.getInt("atendees");
+            if(obj.has("duration"))
+                duration = obj.getInt("duration");
+        } catch (Exception e){
+        }
     }
 
     public String getName() {

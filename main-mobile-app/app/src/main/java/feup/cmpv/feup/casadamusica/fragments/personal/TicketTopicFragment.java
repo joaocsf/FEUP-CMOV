@@ -51,33 +51,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
             JSONArray array = tickets.getJSONArray("tickets");
             for(int i = 0; i < array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-
-                Show newShow = new Show(
-                        obj.getString("id"),
-                        obj.getString("name"),
-                        obj.getString("date"),
-                        (float)obj.getDouble("price"),
-                        -1,
-                        obj.getInt("duration")
-                );
-
-                JSONArray ticketSets = obj.getJSONArray("Tickets");
-
-                ArrayList<Ticket> arraytickets = new ArrayList<>();
-
-                for(int k = 0; k < ticketSets.length(); k++){
-                    JSONObject ticket = ticketSets.getJSONObject(k);
-
-                    Ticket newTicket = new Ticket(
-                            ticket.getString("uuid"),
-                            ticket.getBoolean("used"),
-                            ticket.getInt("seat")
-                            );
-
-                    arraytickets.add(newTicket);
-                }
-
-                adapter.add(new ShowTickets(newShow, arraytickets));
+                adapter.add(new ShowTickets(obj));
             }
 
         } catch (JSONException e) {

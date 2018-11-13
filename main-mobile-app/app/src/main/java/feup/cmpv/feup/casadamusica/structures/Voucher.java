@@ -33,9 +33,12 @@ public class Voucher implements Serializable {
 
     public Voucher(JSONObject object){
         try {
-            this.uuid = object.getString("uuid");
-            this.type = object.getString("type");
-            this.productID = object.getInt("ProductId");
+            if(object.has("uuid"))
+                this.uuid = object.getString("uuid");
+            if(object.has("type"))
+                this.type = object.getString("type");
+            if(object.has("ProductId"))
+                this.productID = object.getInt("ProductId");
         } catch (Exception e){
         }
     }

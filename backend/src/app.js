@@ -5,7 +5,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const {sequelize} = require('./models')
 const config = require('./config/config')
-const initializedb = require('./initializedb')
+// const initializedb = require('./initializedb')
 
 const app = express()
 app.use(morgan('combined'))
@@ -20,9 +20,9 @@ require('./routes')(app)
   Careful!!
 */
 
-sequelize.sync({force: true})
+sequelize.sync({force: false})
   .then(async () => {
-    await initializedb()
+    // await initializedb()
   })
   .then(() => {
     app.listen(process.env.PORT || config.port)

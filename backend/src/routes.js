@@ -73,6 +73,9 @@ module.exports = (app) => {
   app.post('/order',
     OrderController.order)
 
+  app.get('/orders',
+    OrderController.getOrders)
+
   // *************
   // * Vouchers
   // *************

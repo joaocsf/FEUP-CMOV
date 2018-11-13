@@ -30,9 +30,14 @@ public class Product implements Serializable {
 
     public Product(JSONObject obj){
         try {
-            id = obj.getInt("id");
-            name = obj.getString("name");
-            price = (float) obj.getDouble("price");
+            if(obj.has("id"))
+                id = obj.getInt("id");
+            if(obj.has("name"))
+                name = obj.getString("name");
+            if(obj.has("price"))
+                price = (float) obj.getDouble("price");
+            if(obj.has("quantity"))
+                quantity = obj.getInt("quantity");
         } catch (Exception e) {
         }
     }

@@ -53,14 +53,7 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
             JSONArray array = shows.getJSONArray("shows");
             for(int i = 0; i < array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);
-                Show newShow = new Show(
-                        obj.getString("id"),
-                        obj.getString("name"),
-                        obj.getString("date"),
-                        (float)obj.getDouble("price"),
-                        obj.getInt("atendees"),
-                        obj.getInt("duration")
-                );
+                Show newShow = new Show(obj);
                 adapter.add(newShow);
             }
         } catch (JSONException e) {

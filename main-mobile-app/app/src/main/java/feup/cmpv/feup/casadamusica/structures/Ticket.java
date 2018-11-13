@@ -1,5 +1,7 @@
 package feup.cmpv.feup.casadamusica.structures;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
@@ -12,6 +14,19 @@ public class Ticket implements Serializable {
         this.uuid = uuid;
         this.used = used;
         this.seat = seat;
+    }
+
+    public Ticket (JSONObject obj){
+        try {
+            if(obj.has("uuid"))
+                uuid = obj.getString("uuid");
+            if(obj.has("used"))
+                used = obj.getBoolean("used");
+            if(obj.has("seat"))
+                seat = obj.getInt("seat");
+        } catch (Exception e) {
+
+        }
     }
 
     public Integer getSeat() {

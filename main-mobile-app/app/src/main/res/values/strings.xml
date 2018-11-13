@@ -25,4 +25,9 @@
     <string name="cancel">Cancel</string>
     <string name="generate">Generate</string>
     <string name="choose_number_of_tickets">Choose number of tickets</string>
+    <string name="order">Order</string>
+    <string name="vouchers">Vouchers</string>
+    <string name="products">Products</string>
+    <string name="tickets">Tickets</string>
+    <string name="total">Total:</string>
 </resources>
