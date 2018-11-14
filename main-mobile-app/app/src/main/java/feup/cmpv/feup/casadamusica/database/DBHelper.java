@@ -32,16 +32,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("ON CREATE", "Creating Tables");
-        Log.d("CREATING", Voucher.CREATE_TABLE);
         db.execSQL(Voucher.CREATE_TABLE);
         db.execSQL(Product.CREATE_TABLE);
         db.execSQL(Ticket.CREATE_TABLE);
         db.execSQL(Show.CREATE_TABLE);
-
-        Log.d("CREATING", Ticket.CREATE_TABLE);
-        Log.d("CREATING show", Show.CREATE_TABLE);
-
     }
 
     private void dropTable(SQLiteDatabase db, String tableName){
@@ -271,10 +265,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
                 + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0"
                 + " ORDER BY " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID;
+
         Log.d("Query" , selectQuery);
+
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        int count = cursor.getCount();
+
         if(cursor.moveToFirst()){
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
@@ -305,6 +301,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
 
+        System.out.println("show tickets size = " + showTickets.keySet().size());
         cursor.close();
         db.close();
 

@@ -71,13 +71,13 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
     }
 
     public void updateTickets(Boolean force){
-        adapter.clear();
 
         if(force){
             fetchTickets();
             return;
         }
 
+        adapter.clear();
         Set<ShowTickets> showTickets = Archive.getShowTickets();
 
         adapter.addAll(showTickets);

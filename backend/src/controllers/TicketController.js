@@ -115,7 +115,8 @@ module.exports = {
     try {
       var tickets = await Ticket.findAll({
         where: {
-          CostumerUuid: req.get('uuid')
+          CostumerUuid: req.get('uuid'),
+          used: false
         }
       })
 
