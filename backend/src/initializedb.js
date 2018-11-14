@@ -127,8 +127,8 @@ module.exports = async () => {
 
   printSeparator('Terminals')
 
-  await Terminal.create({identifier: 'terminal1', password: 'supersecretpassword1'})
-  await Terminal.create({identifier: 'terminal2', password: 'supersecretpassword2'})
+  await Terminal.create({identifier: 'terminal1', password: 'password'})
+  await Terminal.create({identifier: 'terminal2', password: 'pw2'})
 
   console.log(JSON.stringify(show1))
 }

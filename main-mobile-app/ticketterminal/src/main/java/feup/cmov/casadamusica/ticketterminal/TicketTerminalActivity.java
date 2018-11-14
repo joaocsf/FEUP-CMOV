@@ -58,7 +58,6 @@ public class TicketTerminalActivity extends AppCompatActivity {
             Archive.setToken(null);
             Intent intent;
             intent = new Intent(this, TicketFirstTerminalActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         }

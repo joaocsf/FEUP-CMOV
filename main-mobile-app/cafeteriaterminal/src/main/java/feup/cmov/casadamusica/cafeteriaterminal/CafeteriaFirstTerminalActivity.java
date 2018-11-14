@@ -43,8 +43,9 @@ public class CafeteriaFirstTerminalActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 5){
+        if(requestCode == 5 && resultCode == 1){
             openTerminal();
+            return;
         }
     }
 }

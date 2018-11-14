@@ -60,6 +60,10 @@ public class TerminalLoginActivity extends AppCompatActivity {
         btn.setActivated(true);
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     public void parseResponse(JSONObject obj) {
         try{
             String token = obj.getString("token");
