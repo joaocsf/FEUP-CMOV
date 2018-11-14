@@ -9,7 +9,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/user_registration"
+        android:layout_marginTop="8dp"
+        android:text="Credit Card Information"
         android:textSize="18sp"
         android:textAlignment="center"/>
 
@@ -72,6 +73,8 @@
         android:id="@+id/registration_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:buttonBarButtonStyle"
+        android:textColor="@color/green"
         android:textSize="16sp"
         android:text="@string/registration" />
 

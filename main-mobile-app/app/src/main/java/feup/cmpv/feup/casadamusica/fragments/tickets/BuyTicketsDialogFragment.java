@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -54,10 +55,10 @@ public class BuyTicketsDialogFragment extends DialogFragment{
         Button cancel = view.findViewById(R.id.cancel_buy_ticket);
         cancel.setOnClickListener((v) -> cancel_buy_ticket());
 
-        Button plus_ticket = view.findViewById(R.id.plus_ticket);
+        ImageButton plus_ticket = view.findViewById(R.id.plus_ticket);
         plus_ticket.setOnClickListener((v) -> update_number_of_tickets(1));
 
-        Button minus_ticket = view.findViewById(R.id.minus_ticket);
+        ImageButton minus_ticket = view.findViewById(R.id.minus_ticket);
         minus_ticket.setOnClickListener((v) -> update_number_of_tickets(-1));
 
         return view;
@@ -68,7 +69,7 @@ public class BuyTicketsDialogFragment extends DialogFragment{
         title.setText(show.getName());
 
         TextView duration = view.findViewById(R.id.show_duration);
-        duration.setText(new StringBuilder().append(show.getDuration()));
+        duration.setText(new StringBuilder().append(show.getDuration() + " minutes"));
 
         TextView date = view.findViewById(R.id.show_date);
         date.setText(show.getDate());

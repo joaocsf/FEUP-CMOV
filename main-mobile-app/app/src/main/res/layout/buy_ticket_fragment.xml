@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/bottomtab_0">
         <TextView
             android:id="@+id/buy_ticket_title"
             android:layout_width="match_parent"
@@ -19,7 +19,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:textColor="@color/white"
-            android:textStyle="bold"
             />
 
     </LinearLayout>
@@ -40,12 +39,15 @@
                 android:text="@string/show_title"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="3dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/show_title"
                 android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:text="Show Title"
                 android:layout_height="wrap_content"
                 />
         </TableRow>
@@ -62,7 +64,7 @@
                 android:text="@string/show_date"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="3dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 />
 
@@ -70,6 +72,8 @@
                 android:id="@+id/show_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="20/20/1990"
                 android:layout_weight="1"/>
 
         </TableRow>
@@ -84,8 +88,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/show_duration"
                 android:layout_marginStart="20dp"
+                android:paddingRight="20dp"
                 android:layout_marginEnd="3dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 />
 
@@ -93,6 +98,8 @@
                 android:id="@+id/show_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="20 Minutes"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -109,13 +116,15 @@
                 android:text="@string/show_price"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="3dp"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/show_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="29€"
                 />
 
         </TableRow>
@@ -129,12 +138,13 @@
         android:gravity="center"
         android:layout_marginTop="10dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/minus_ticket"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?android:buttonBarButtonStyle"
             android:layout_gravity="right"
-            android:background="@drawable/ic_remove_black_24dp" />
+            android:src="@drawable/ic_remove_black_24dp" />
 
         <TextView
             android:id="@+id/number_of_tickets"
@@ -142,15 +152,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:gravity="center"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/plus_ticket"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="left"
-            android:background="@drawable/ic_add_black_24dp"
+            android:src="@drawable/ic_add_black_24dp"
 
             />
     </LinearLayout>
@@ -179,6 +190,7 @@
             style="?android:buttonBarButtonStyle"
             android:textColor="@color/green"
             android:text="@string/show_buy"
+            android:textSize="20dp"
             android:layout_marginEnd="10dp"
             />
 
@@ -187,6 +199,7 @@
             android:layout_width="wrap_content"
             style="?android:buttonBarButtonStyle"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="@string/cancel"
             android:layout_marginStart="10dp"
             />

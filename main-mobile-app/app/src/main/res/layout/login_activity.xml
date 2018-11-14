@@ -56,6 +56,8 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
+        style="?android:buttonBarButtonStyle"
+        android:textColor="@color/green"
         android:layout_height="wrap_content"
         android:text="@string/login"
         />
@@ -64,6 +66,8 @@
         android:id="@+id/navigate_to_registration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/colorAccent"
         android:gravity="center"
         android:text="@string/you_do_not_have_an_account_yet"/>
 

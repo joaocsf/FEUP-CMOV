@@ -59,6 +59,7 @@
         android:id="@+id/button_login"
         android:layout_width="wrap_content"
         android:gravity="center_horizontal"
+        style="?android:buttonBarButtonStyle"
         android:layout_gravity="center"
         android:text="Login"
         android:layout_height="wrap_content" />

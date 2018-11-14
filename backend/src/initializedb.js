@@ -136,7 +136,7 @@ module.exports = async () => {
     quantity: 200,
     price: 2.50})
   await Product.create({
-    name: 'Buffalo Chicken Club Sandwich',
+    name: 'Buffalo Chicken Club',
     image: 'https://i.imgur.com/VJdJNUs.jpg',
     quantity: 200,
     price: 1.50})
@@ -146,7 +146,7 @@ module.exports = async () => {
     quantity: 200,
     price: 1.59})
   await Product.create({
-    name: 'Triple Chocolate Bombshell',
+    name: 'Chocolate Bombshell',
     image: 'https://i.imgur.com/QBlhc10.jpg',
     quantity: 200,
     price: 2.25})

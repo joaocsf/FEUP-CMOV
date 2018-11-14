@@ -19,6 +19,6 @@ public class SettingsTabFragment extends TabFragment {
     @Override
     protected void setupViewPagerAdapter(ViewPagerAdapter pvadapter) {
         pvadapter.addFragment(
-                MainSettingsFragment.getInstance(), "Newest");
+                MainSettingsFragment.getInstance(), "Settings");
     }
 }

@@ -190,6 +190,9 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 5){
+            if(resultCode != -1 && Utils.canUseNFC())
+                return;
+
             getTargetFragment().onActivityResult(25,25, new Intent());
             dismiss();
             return;

@@ -80,6 +80,8 @@ public class VoucherListAdapter extends ArrayAdapter<VoucherGroup> {
                 Ion.with(image)
                         .error(R.drawable.ic_launcher_background)
                         .placeholder(R.drawable.ic_launcher_background).load(currentGroup.getProduct().getImage());
+            else
+                image.setImageResource(R.mipmap.discount_image);
         }
 
         if(add != null){

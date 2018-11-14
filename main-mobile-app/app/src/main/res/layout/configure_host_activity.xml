@@ -49,6 +49,7 @@
         <Button
             android:id="@+id/confirm"
             android:layout_width="match_parent"
+            style="?android:buttonBarButtonStyle"
             android:layout_gravity="bottom"
             android:text="Confirm"
             android:layout_height="wrap_content" />

@@ -70,7 +70,7 @@ public class MainBody extends AppCompatActivity {
 
         item1 = new AHBottomNavigationItem(R.string.bottom_show, R.drawable.ic_music_note_black_24dp, colors[0]);
         item2 = new AHBottomNavigationItem(R.string.bottom_tickets, R.drawable.ic_local_activity_black_24dp, colors[1]);
-        item3 = new AHBottomNavigationItem(R.string.bottom_bar, R.drawable.ic_local_bar_black_24dp, colors[2]);
+        item3 = new AHBottomNavigationItem(R.string.bottom_bar, R.drawable.ic_shop_black_24dp, colors[2]);
         item4 = new AHBottomNavigationItem(R.string.bottom_settings, R.drawable.ic_settings_black_24dp, colors[3]);
 
         //pager.setOffscreenPageLimit(4);

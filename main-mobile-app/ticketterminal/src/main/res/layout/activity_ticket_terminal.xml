@@ -44,6 +44,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:layout_gravity="center"
+            style="?android:buttonBarButtonStyle"
             android:text="Read QR Code"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
