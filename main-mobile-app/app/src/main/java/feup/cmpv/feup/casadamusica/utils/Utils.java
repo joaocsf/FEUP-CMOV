@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.NfcAdapter;
+import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.math.RoundingMode;
@@ -17,6 +19,7 @@ import feup.cmpv.feup.casadamusica.structures.Order;
 import feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity;
 import feup.cmpv.feup.casadamusica.view.OrderActivity;
 import feup.cmpv.feup.casadamusica.view.QRActivity;
+import feup.cmpv.feup.casadamusica.view.TicketValidationActivity;
 
 public class Utils {
 
@@ -51,5 +54,18 @@ public class Utils {
         Intent intent = new Intent(ApplicationContextRetriever.getContext(), OrderActivity.class);
         intent.putExtra("order", order);
         return intent;
+    }
+
+    public static Intent OpenTicketActivity(JSONObject obj){
+        try{
+            Log.d("ASDASD", obj.toString());
+            int count = obj.getInt("tickets");
+            Intent intent = new Intent(ApplicationContextRetriever.getContext(), TicketValidationActivity.class);
+            intent.putExtra("tickets", count);
+            return intent;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

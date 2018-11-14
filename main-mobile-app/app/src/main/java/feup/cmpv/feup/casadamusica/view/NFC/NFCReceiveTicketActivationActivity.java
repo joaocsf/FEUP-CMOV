@@ -1,8 +1,10 @@
 package feup.cmpv.feup.casadamusica.view.NFC;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -15,50 +17,32 @@ import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarPurchaseConfirmFragment;
 import feup.cmpv.feup.casadamusica.services.TerminalServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class NFCReceiveTicketActivationActivity extends NFCReceiveActivity{
     TextView tv;
     @Override
     protected void onDataReceived(String data) {
+        Log.d("DATA", data);
         try {
             JSONObject object = new JSONObject(data);
             TerminalServices.ValidateTicket(object,
             (obj)-> {
-                //parseOrder(obj);
-                tv.setText("SUCCESS");
+                try {
+
+                    Intent intent = Utils.OpenTicketActivity(obj);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
+                    startActivity(intent);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             },
             (error)->{
                 tv.setText("FAILURE");
             });
         } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void parseOrder(JSONObject response) {
-        try {
-
-            ArrayList<Product> products = new ArrayList<Product>();
-            JSONArray array = response.getJSONArray("productSummary");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
-                int id = obj.getInt("id");
-                String name = obj.getString("name");
-                int quantity = obj.getInt("quantity");
-                float price = (float) obj.getDouble("price");
-
-                Product p = new Product(id, name, price);
-                p.setQuantity(quantity);
-                products.add(p);
-            }
-            float total = (float)response.getDouble("total");
-            int orderNumber = response.getInt("order_id");
-            BarPurchaseConfirmFragment confirmPurchase = BarPurchaseConfirmFragment.getInstance(products, total, orderNumber);
-            confirmPurchase.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
-            confirmPurchase.show(getSupportFragmentManager(), "Confirm Order");
-
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

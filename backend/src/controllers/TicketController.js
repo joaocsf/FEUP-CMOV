@@ -145,7 +145,7 @@ module.exports = {
         return
       }
 
-      var ticketsObjects = await Ticket.update(
+      var affectedRows = await Ticket.update(
         {used: true},
         {where: {
           uuid: {
@@ -155,9 +155,10 @@ module.exports = {
           used: false
         }
         })
-      res.status(200).send({msg: 'sucess', tickects: ticketsObjects})
+      res.status(200).send({msg: 'sucess', tickets: affectedRows[0]})
     } catch (error) {
       console.error(error)
+      res.status(500).send({ msg: 'Invalid Data' + error })
     }
   }
 }

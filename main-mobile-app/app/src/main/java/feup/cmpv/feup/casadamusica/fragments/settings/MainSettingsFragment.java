@@ -122,7 +122,12 @@ public class MainSettingsFragment extends Fragment {
     }
 
     private void parseTickets(JSONObject obj) {
+        try {
+            Intent intent = Utils.OpenTicketActivity(obj);
+            startActivity(intent);
+        } catch (Exception e) {
 
+        }
     }
 
     private void parseOrders(JSONObject obj){
