@@ -79,7 +79,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
     }
 
     private void RequestError(VolleyError error){
-
+        reset();
     }
 
     public void checkPurchase(FloatingActionButton button){

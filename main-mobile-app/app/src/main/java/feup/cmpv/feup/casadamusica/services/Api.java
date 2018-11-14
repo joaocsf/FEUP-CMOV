@@ -50,7 +50,7 @@ public class Api {
         JSONObject cached = Archive.LoadJSON(path);
         Log.d("Loaded", (cached != null) + " - " + path);
 
-        if(cached!=null)
+       /* if(cached!=null)
             success.onResponse(cached);
 
         Response.Listener<JSONObject> success2 = (object)-> {
@@ -58,8 +58,8 @@ public class Api {
             success.onResponse(object);
             Archive.SaveJSON(path, object);
         };
-
-        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.GET, url, null, success2, fail);
+*/
+        JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.GET, url, null, success, fail);
         addRequest(request);
 
     }

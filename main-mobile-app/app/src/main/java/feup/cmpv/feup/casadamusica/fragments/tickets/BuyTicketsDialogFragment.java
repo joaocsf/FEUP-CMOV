@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.utils.Archive;
@@ -117,19 +116,20 @@ public class BuyTicketsDialogFragment extends DialogFragment{
 
         TicketServices.BuyTicket(response_obj,
                 response -> {
-                    Snackbar.make(getView(), "Success! ", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(Objects.requireNonNull(getView()), "Success! ", Snackbar.LENGTH_SHORT).show();
                     Log.d("CONTENT",response.toString());
                     try {
                         Archive.addVouchers(response.getJSONArray("vouchers"));
+                        Archive.addTickets(response.getJSONArray("tickets"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     this.dismiss();
                 },
                 error -> {
-                    JSONObject obj = Api.getBodyFromError(error);
                     Snackbar.make(getView(), "Error When Buying Tickets", Snackbar.LENGTH_SHORT).show();
                 });
+
     }
 
     private void update_total_value(int number_tickets){

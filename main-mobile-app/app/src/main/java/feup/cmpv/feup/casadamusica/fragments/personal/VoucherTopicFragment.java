@@ -54,12 +54,13 @@ public class VoucherTopicFragment extends Fragment{
     }
 
     public void updateVouchers(boolean force){
-        adapter.clear();
 
         if (force){
             fetchVouchers();
             return;
         }
+
+        adapter.clear();
         List<VoucherGroup> voucherGroups = Archive.getAllVouchers();
         adapter.addAll(voucherGroups);
     }
