@@ -43,63 +43,72 @@ module.exports = async () => {
   printSeparator('Shows')
 
   var show1 = await Show.create({
-    name: 'Example Show',
+    name: 'Big Bad Fortune',
     date: '2019/01/01',
     image: 'https://i.imgur.com/OMlHSDF.jpg',
     price: 12.3,
     duration: 120
   })
   var show2 = await Show.create({
-    name: 'Example Show2',
+    name: 'Ambitious Creation',
     date: '2030/12/10',
+    image: 'https://i.imgur.com/kx4YMWS.png',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show2',
+    name: 'Dragonkey',
     date: '2019/12/10',
+    image: 'https://i.imgur.com/Xp0theU.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show3',
+    name: 'Heroic Tales',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/aOCS6Kw.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show4',
+    name: 'Maximum Romance',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/8MKmCW0.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show5',
+    name: 'Unknown Dream',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/aYhPTvf.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show6',
+    name: 'Sunmyth',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/QCHzuI5.png',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show7',
+    name: 'Heavenshow',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/TFPuTdG.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show8',
+    name: 'Onyxyear',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/cKEkM89.jpg',
     price: 12.3,
     duration: 120
   })
   await Show.create({
-    name: 'Example Show9',
+    name: 'Randomcat',
     date: '2019/12/11',
+    image: 'https://i.imgur.com/llAZKNc.jpg',
     price: 12.3,
     duration: 120
   })
@@ -116,15 +125,36 @@ module.exports = async () => {
   await ticket3.setCostumer(costumer)
 
   printSeparator('Products')
-  await Product.create({name: 'Fried Potatoes', quantity: 200, price: 2.50})
-  await Product.create({name: 'Good Beans', quantity: 200, price: 2.50})
-  await Product.create({name: 'Watery Water', quantity: 200, price: 1.00})
-  await Product.create({name: 'Item 0', quantity: 200, price: 0.00})
-  await Product.create({name: 'Item 1', quantity: 200, price: 1.00})
-  await Product.create({name: 'Item 2', quantity: 200, price: 2.00})
-  await Product.create({name: 'Item 3', quantity: 200, price: 3.00})
-  await Product.create({name: 'Item 4', quantity: 200, price: 4.00})
-  await Product.create({name: 'Item 5', quantity: 200, price: 5.00})
+  await Product.create({
+    name: 'Cheesy Fries',
+    image: 'https://i.imgur.com/4sbKkty.jpg',
+    quantity: 200,
+    price: 2.5})
+  await Product.create({
+    name: 'Pepperoni Pizza',
+    image: 'https://i.imgur.com/qXABbMu.jpg',
+    quantity: 200,
+    price: 2.50})
+  await Product.create({
+    name: 'Buffalo Chicken Club Sandwich',
+    image: 'https://i.imgur.com/VJdJNUs.jpg',
+    quantity: 200,
+    price: 1.50})
+  await Product.create({
+    name: 'Oreo Mousse',
+    image: 'https://i.imgur.com/us1MW6y.jpg',
+    quantity: 200,
+    price: 1.59})
+  await Product.create({
+    name: 'Triple Chocolate Bombshell',
+    image: 'https://i.imgur.com/QBlhc10.jpg',
+    quantity: 200,
+    price: 2.25})
+  await Product.create({
+    name: 'Planter\'s Punch',
+    image: 'https://i.imgur.com/uTMENbX.png',
+    quantity: 200,
+    price: 2.25})
 
   printSeparator('Terminals')
 

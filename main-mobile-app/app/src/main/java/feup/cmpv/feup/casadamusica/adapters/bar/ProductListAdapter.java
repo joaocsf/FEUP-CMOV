@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,13 +80,20 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
                 listItem = LayoutInflater.from(context).inflate(layoutRes, parent, false);
         }
 
-        ImageView image = listItem.findViewById(R.id.show_list_item_image);
+        ImageView image = listItem.findViewById(R.id.product_list_item_image);
         TextView title = listItem.findViewById(R.id.product_list_item_title);
         TextView price = listItem.findViewById(R.id.product_list_item_price);
         TextView quantity = listItem.findViewById(R.id.product_list_item_quantity);
 
         ImageButton addbtn = listItem.findViewById(R.id.product_list_item_add);
         ImageButton removebtn = listItem.findViewById(R.id.product_list_item_remove);
+
+        if(image != null){
+            Ion.with(image)
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.ic_launcher_background).load(currentProduct.getImage());
+            Log.d("Cheesy Fries", currentProduct.getImage());
+        }
 
         if(addbtn!= null)
             addbtn.setOnClickListener((click) -> IncreaseQuantity(quantity, currentProduct, true));

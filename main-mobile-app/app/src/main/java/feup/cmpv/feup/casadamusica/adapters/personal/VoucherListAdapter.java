@@ -12,9 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.structures.Product;
 import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class VoucherListAdapter extends ArrayAdapter<VoucherGroup> {
@@ -71,6 +74,13 @@ public class VoucherListAdapter extends ArrayAdapter<VoucherGroup> {
         ImageButton remove = listItem.findViewById(R.id.voucher_list_item_remove);
 
         TextView addQuantity = listItem.findViewById(R.id.voucher_list_item_add_quantity);
+
+        if(image != null){
+            if(currentGroup.getProduct() != null)
+                Ion.with(image)
+                        .error(R.drawable.ic_launcher_background)
+                        .placeholder(R.drawable.ic_launcher_background).load(currentGroup.getProduct().getImage());
+        }
 
         if(add != null){
             add.setOnClickListener((v)-> {

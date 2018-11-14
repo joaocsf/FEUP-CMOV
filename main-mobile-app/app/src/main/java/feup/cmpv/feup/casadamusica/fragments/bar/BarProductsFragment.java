@@ -54,6 +54,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
         adapter.clear();
         try {
             JSONArray array = products.getJSONArray("products");
+            Archive.deleteAllProducts();
             Archive.addProducts(array);
             reset();
         } catch (JSONException e) {

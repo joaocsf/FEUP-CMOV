@@ -4,85 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="100dp">
+
+    <ImageView
+        android:id="@+id/product_list_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="#8000"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/product_list_item_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="2"
         android:textAlignment="textEnd"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/product_list_item_image"
-        app:layout_constraintStart_toEndOf="@+id/product_list_item_price2" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/product_list_item_remove"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/product_list_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
         android:layout_marginTop="8dp"
         android:maxLines="1"
         android:text="French Fries"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/product_list_item_image"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/product_list_item_image" />
 
-    <ImageView
-        android:id="@+id/product_list_item_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/product_list_item_price2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/white"
         android:layout_marginBottom="8dp"
         android:text="Quantity:"
         android:textAlignment="textEnd"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/product_list_item_image"
-        app:layout_constraintStart_toEndOf="@+id/product_list_item_image" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/product_list_item_quantity"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/product_list_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:textColor="@color/white"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="8dp"
         android:text="12,00€"
         android:textAlignment="textEnd"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/product_list_item_image"
-        app:layout_constraintStart_toEndOf="@+id/product_list_item_image" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/product_list_item_remove"
+        style="?android:buttonBarButtonStyle"
         android:layout_width="46dp"
         android:layout_height="46dp"
-        style="?android:buttonBarButtonStyle"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:background="#4000"
+        android:tint="@color/white"
+        android:layout_marginBottom="2dp"
         android:src="@drawable/ic_remove_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/product_list_item_image"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/product_list_item_add"
+        style="?android:buttonBarButtonStyle"
         android:layout_width="46dp"
         android:layout_height="46dp"
-        style="?android:buttonBarButtonStyle"
+        android:background="#4000"
+        android:tint="@color/white"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/ic_add_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

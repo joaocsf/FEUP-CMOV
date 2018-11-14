@@ -394,4 +394,9 @@ public class Archive {
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         db.deleteTickets(ticketsToRemove);
     }
+
+    public static void deleteAllProducts() {
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        db.deleteAllProducts();
+    }
 }

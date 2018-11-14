@@ -145,8 +145,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 int product_id = cursor.getInt(cursor.getColumnIndex(Product.COLUMN_ID));
                 String product_name = cursor.getString(cursor.getColumnIndex(Product.COLUMN_NAME));
                 float product_price = (float)cursor.getDouble(cursor.getColumnIndex(Product.COLUMN_PRICE));
+                String image = cursor.getString(cursor.getColumnIndex(Product.COLUMN_IMAGE));
 
                 Product product = new Product(product_id, product_name, product_price);
+                product.setImage(image);
 
                 VoucherGroup pvouchers = new VoucherGroup(product);
 
@@ -355,5 +357,11 @@ public class DBHelper extends SQLiteOpenHelper {
         for(String uuid : ticketsToRemove){
             deleteTicket(uuid);
         }
+    }
+
+    public void deleteAllProducts() {
+         SQLiteDatabase db = getWritableDatabase();
+        db.delete(Product.TABLE_NAME, null, null);
+        db.close();
     }
 }
