@@ -1,33 +1,20 @@
 package feup.cmpv.feup.casadamusica.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
-
 import feup.cmpv.feup.casadamusica.R;
-import feup.cmpv.feup.casadamusica.adapters.BottomFragmentPagerAdapter;
 import feup.cmpv.feup.casadamusica.adapters.bar.ProductListAdapter;
 import feup.cmpv.feup.casadamusica.adapters.personal.TicketListAdapter;
 import feup.cmpv.feup.casadamusica.adapters.personal.VoucherListAdapter;
 import feup.cmpv.feup.casadamusica.structures.Order;
-import feup.cmpv.feup.casadamusica.structures.Ticket;
 
 import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
 import static feup.cmpv.feup.casadamusica.utils.Utils.formatDate;
