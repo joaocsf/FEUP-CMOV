@@ -30,6 +30,8 @@ public class TicketValidationActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         int validTickets = extras.getInt("tickets");
-        tv.setText(validTickets + " Valid Tickets");
+        String validationString = validTickets + " Valid Ticket";
+        if(validTickets > 1) validationString += "s";
+        tv.setText(validationString);
     }
 }
