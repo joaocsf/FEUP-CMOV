@@ -13,17 +13,20 @@ public class Product implements Serializable {
     public static final String TABLE_NAME = "product";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_IMAGE = "image";
     public static final String COLUMN_PRICE = "price";
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY, "
             + COLUMN_NAME + " STRING, "
+            + COLUMN_IMAGE + " STRING, "
             + COLUMN_PRICE + " FLOAT)";
 
     private int id;
     private float price;
     private String name;
+    private String image;
     private int quantity = 0;
 
     private IProductListener listener;
@@ -32,6 +35,8 @@ public class Product implements Serializable {
         try {
             if(obj.has("id"))
                 id = obj.getInt("id");
+            if(obj.has("image"))
+                image = obj.getString("image");
             if(obj.has("name"))
                 name = obj.getString("name");
             if(obj.has("price"))
@@ -61,6 +66,14 @@ public class Product implements Serializable {
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_PRICE, price);
         return values;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setProductListener(IProductListener listener){

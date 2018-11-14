@@ -15,6 +15,7 @@ public class Show implements Serializable {
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_DURATION = "duration";
     public static final String COLUMN_ATENDEES = "atendees";
+    public static final String COLUMN_IMAGE = "image";
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_ID = "id";
 
@@ -24,12 +25,14 @@ public class Show implements Serializable {
                     + COLUMN_ID + " INTEGER PRIMARY KEY, "
                     + COLUMN_NAME + " STRING, "
                     + COLUMN_DATE + " STRING,"
+                    + COLUMN_IMAGE + " STRING,"
                     + COLUMN_ATENDEES + " INTEGER,"
                     + COLUMN_PRICE + " FLOAT,"
                     + COLUMN_DURATION + " INTEGER)";
 
     private String name;
     private String date;
+    private String image;
     private float price;
     private int atendees;
     private int duration;
@@ -57,6 +60,8 @@ public class Show implements Serializable {
         try {
             if(obj.has("id"))
                 id = obj.getInt("id");
+            if(obj.has("image"))
+                image = obj.getString("image");
             if(obj.has("name"))
                 name = obj.getString("name");
             if(obj.has("date"))
@@ -125,6 +130,14 @@ public class Show implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public ContentValues getContentValues() {
