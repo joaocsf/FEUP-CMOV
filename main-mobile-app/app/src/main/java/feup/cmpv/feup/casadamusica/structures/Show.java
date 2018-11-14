@@ -148,6 +148,7 @@ public class Show implements Serializable {
         values.put(COLUMN_NAME, this.name);
         values.put(COLUMN_ATENDEES, this.atendees);
         values.put(COLUMN_PRICE, this.price);
+        values.put(COLUMN_IMAGE, this.image);
         return values;
     }
 }

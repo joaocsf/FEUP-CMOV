@@ -53,8 +53,10 @@ public class BarPurchasesFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void ParseOrders(JSONObject orders){
+        if(orders == null) return;
         adapter.clear();
         try {
+            Archive.SaveJSON("orders", orders);
             JSONArray array = orders.getJSONArray("orders");
             adapter.clear();
             ArrayList<Order> orderList = new ArrayList<>();
@@ -75,6 +77,7 @@ public class BarPurchasesFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void RequestError(VolleyError error){
+        ParseOrders(Archive.LoadJSON("orders"));
     }
 
     private void InitializeView(View view){

@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+
 import java.util.List;
 
 import feup.cmpv.feup.casadamusica.R;
@@ -46,6 +48,12 @@ public class TicketListAdapter extends ArrayAdapter<ShowTickets> {
         TextView date = listItem.findViewById(R.id.ticket_list_item_date);
         TextView seats = listItem.findViewById(R.id.ticket_list_item_seats);
         TextView seatNumber = listItem.findViewById(R.id.ticket_list_item_seats_number);
+
+        if(image != null){
+            Ion.with(image)
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.ic_launcher_background).load(currentShowTickets.getShow().getImage());
+        }
 
         if(title != null)
             title.setText(currentShowTickets.getShow().getName());

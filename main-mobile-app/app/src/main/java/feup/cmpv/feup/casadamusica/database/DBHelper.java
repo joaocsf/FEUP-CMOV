@@ -39,7 +39,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Ticket.CREATE_TABLE);
         db.execSQL(Show.CREATE_TABLE);
 
-
         Log.d("CREATING", Ticket.CREATE_TABLE);
         Log.d("CREATING show", Show.CREATE_TABLE);
 
@@ -190,7 +189,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(cursor.getColumnIndex(Product.COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndex(Product.COLUMN_NAME));
                 float price = cursor.getFloat(cursor.getColumnIndex(Product.COLUMN_PRICE));
+                String image = cursor.getString(cursor.getColumnIndex(Product.COLUMN_IMAGE));
                 Product p = new Product(id, name, price);
+                p.setImage(image);
                 products.add(p);
             }while (cursor.moveToNext());
         }
@@ -218,8 +219,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
                 int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
                 int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
+                String image = cursor.getString(cursor.getColumnIndex(Show.COLUMN_IMAGE));
 
                 Show s = new Show(id, name, date, price,atendees, duration);
+                s.setImage(image);
                 shows.add(s);
             }while (cursor.moveToNext());
         }
@@ -247,8 +250,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
                 int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
                 int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
+                String image = cursor.getString(cursor.getColumnIndex(Show.COLUMN_IMAGE));
 
                 Show s = new Show(id, name, date, price,atendees, duration);
+                s.setImage(image);
                 shows.add(s);
             }while (cursor.moveToNext());
         }
@@ -275,12 +280,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ID));
                 String uuid = cursor.getString(cursor.getColumnIndex(Ticket.COLUMN_UUID));
                 String name = cursor.getString(cursor.getColumnIndex(Show.COLUMN_NAME));
+                String image = cursor.getString(cursor.getColumnIndex(Show.COLUMN_IMAGE));
                 String date = cursor.getString(cursor.getColumnIndex(Show.COLUMN_DATE));
                 float price = cursor.getFloat(cursor.getColumnIndex(Show.COLUMN_PRICE));
                 int atendees = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_ATENDEES));
                 int duration = cursor.getInt(cursor.getColumnIndex(Show.COLUMN_DURATION));
 
                 Show s = new Show(id, name, date, price,atendees, duration);
+                s.setImage(image);
 
                 ShowTickets st = new ShowTickets(s);
 

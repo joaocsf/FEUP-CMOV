@@ -65,6 +65,7 @@ public class Product implements Serializable {
         values.put(COLUMN_ID, id);
         values.put(COLUMN_NAME, name);
         values.put(COLUMN_PRICE, price);
+        values.put(COLUMN_IMAGE, image);
         return values;
     }
 

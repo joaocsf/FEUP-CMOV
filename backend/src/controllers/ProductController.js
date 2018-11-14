@@ -4,7 +4,7 @@ module.exports = {
   async list (req, res) {
     try {
       var products = await Product.findAll({
-        attributes: ['id', 'name', 'price']
+        attributes: ['id', 'name', 'price', 'image']
       })
 
       res.status(200).send({ products: products })

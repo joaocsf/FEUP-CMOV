@@ -45,6 +45,7 @@ module.exports = async () => {
   var show1 = await Show.create({
     name: 'Example Show',
     date: '2019/01/01',
+    image: 'https://i.imgur.com/OMlHSDF.jpg',
     price: 12.3,
     duration: 120
   })
