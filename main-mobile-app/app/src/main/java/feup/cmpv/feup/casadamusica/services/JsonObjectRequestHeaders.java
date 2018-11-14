@@ -22,9 +22,10 @@ public class JsonObjectRequestHeaders extends JsonObjectRequest {
     public Map<String, String> getHeaders() throws AuthFailureError {
         Map<String, String> params = new HashMap<>();
 
-
-        params.put("uuid", Archive.getUuid());
-        params.put("verification", Archive.Sign(Archive.getUuid()));
+        if(Archive.getUuid() != null){
+            params.put("uuid", Archive.getUuid());
+            params.put("verification", Archive.Sign(Archive.getUuid()));
+        }
         return params;
     }
 }

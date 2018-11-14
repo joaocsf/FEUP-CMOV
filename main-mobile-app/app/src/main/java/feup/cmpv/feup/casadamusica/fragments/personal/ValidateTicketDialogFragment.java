@@ -27,7 +27,7 @@ import feup.cmpv.feup.casadamusica.structures.ShowTickets;
 import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Utils;
 
-public class ValidateTicketDialogFragment extends DialogFragment implements View.OnClickListener {
+public class ValidateTicketDialogFragment extends DialogFragment{
     private ShowTickets showTickets;
     private NumberPicker np;
 
@@ -57,11 +57,16 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
 
         Button btnGenerate = view.findViewById(R.id.btn_generate);
 
-        btnGenerate.setOnClickListener(this);
+        btnGenerate.setOnClickListener((v) -> {
+            Intent intent = Utils.initializeTransfer(generateMessage(showTickets, np.getValue()), "ticket");
+            startActivityForResult(intent, 5);
+        });
 
         Button btnCancel = view.findViewById(R.id.btn_cancel_validation);
 
-        btnCancel.setOnClickListener(this);
+        btnCancel.setOnClickListener((v) -> {
+            dismiss();
+        });
 
         return view;
     }
@@ -74,20 +79,6 @@ public class ValidateTicketDialogFragment extends DialogFragment implements View
                 .setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_generate:
-                Intent intent = Utils.initializeTransfer(generateMessage(showTickets, np.getValue()), "ticket");
-
-                startActivityForResult(intent, 5);
-                break;
-
-            case R.id.btn_cancel_validation:
-                this.dismiss();
-                break;
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

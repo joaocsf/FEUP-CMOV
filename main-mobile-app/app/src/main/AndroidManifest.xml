@@ -19,54 +19,6 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/MyMaterialTheme"
         android:hardwareAccelerated="true">
-        <activity
-            android:name=".view.FirstActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.MainBody">
-        </activity>
-        <activity android:name=".view.UserRegister">
-        </activity>
-        <activity android:name=".view.OrderActivity">
-        </activity>
-        <activity android:name=".view.TicketValidationActivity">
-        </activity>
-        <activity android:name=".view.NFC.NFCSendActivity"/>
-        <activity
-            android:name=".view.NFC.NFCReceiveOrderActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".view.MainBody"
-            >
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/nfc.feup.cmov.message.order"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".view.NFC.NFCReceiveTicketActivationActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".view.MainBody"
-            >
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/nfc.feup.cmov.message.ticket"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" />
-        <activity android:name=".view.QRActivity"/>
     </application>
 
 </manifest>

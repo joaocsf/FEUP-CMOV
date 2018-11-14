@@ -99,14 +99,12 @@ public class CardInfoRegister extends Fragment {
                 Card card = new Card();
                 card.setValidity(card_validation_number.getText().toString());
                 card.setNumber(card_number.getText().toString());
-                switch (card_type.getCheckedRadioButtonId()) {
-                    case R.id.credit_type:
-                        card.setType("Credit");
-                        break;
-                    case R.id.debit_type:
-                        card.setType("Debit");
-                        break;
+                String cardTye = "Credit";
+
+                if(card_type.getCheckedRadioButtonId() == R.id.debit_type){
+                    cardTye = "Debit";
                 }
+                card.setType(cardTye);
 
                 String pubKey = createKeyPair();
 

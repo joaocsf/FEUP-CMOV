@@ -26,7 +26,7 @@ import feup.cmpv.feup.casadamusica.utils.Archive;
 
 import static feup.cmpv.feup.casadamusica.utils.Utils.df2;
 
-public class BuyTicketsDialogFragment extends DialogFragment implements View.OnClickListener {
+public class BuyTicketsDialogFragment extends DialogFragment{
 
     private Show show;
     private TextView number_of_tickets;
@@ -50,16 +50,16 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
         initializeView(view);
 
         Button buy_ticket = view.findViewById(R.id.buy_ticket);
-        buy_ticket.setOnClickListener(this);
+        buy_ticket.setOnClickListener((v) -> buy_ticket());
 
         Button cancel = view.findViewById(R.id.cancel_buy_ticket);
-        cancel.setOnClickListener(this);
+        cancel.setOnClickListener((v) -> cancel_buy_ticket());
 
         Button plus_ticket = view.findViewById(R.id.plus_ticket);
-        plus_ticket.setOnClickListener(this);
+        plus_ticket.setOnClickListener((v) -> update_number_of_tickets(1));
 
         Button minus_ticket = view.findViewById(R.id.minus_ticket);
-        minus_ticket.setOnClickListener(this);
+        minus_ticket.setOnClickListener((v) -> update_number_of_tickets(-1));
 
         return view;
     }
@@ -84,24 +84,6 @@ public class BuyTicketsDialogFragment extends DialogFragment implements View.OnC
 
         total_price = view.findViewById(R.id.total_price);
         total_price.setText(new StringBuilder().append(unitPrice).append("€"));
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.buy_ticket:
-                buy_ticket();
-                break;
-            case R.id.cancel_buy_ticket:
-                cancel_buy_ticket();
-                break;
-            case R.id.plus_ticket:
-                update_number_of_tickets(1);
-                break;
-            case R.id.minus_ticket:
-                update_number_of_tickets(-1);
-                break;
-        }
     }
 
     private void update_number_of_tickets(int i) {
