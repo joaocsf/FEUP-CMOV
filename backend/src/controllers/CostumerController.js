@@ -38,7 +38,7 @@ module.exports = {
       })
 
       if (!await costumer.comparePassword(req.body.password)) {
-        res.status(500).send({msg: 'Unknown User'})
+        res.status(401).send({msg: 'Unknown User'})
         return
       }
 

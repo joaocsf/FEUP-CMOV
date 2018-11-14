@@ -34,6 +34,7 @@ public class Show implements Serializable {
     private int atendees;
     private int duration;
     private int id;
+    private boolean selected = false;
 
     public Show(int id, String name, String date, float price, int atendees, int duration) {
         this.id = id;
@@ -68,6 +69,14 @@ public class Show implements Serializable {
                 duration = obj.getInt("duration");
         } catch (Exception e){
         }
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public String getName() {

@@ -11,6 +11,9 @@ const VoucherController = require('./controllers/VoucherController')
 const TicketController = require('./controllers/TicketController')
 const TicketPolicies = require('./policies/TicketPolicies')
 
+const TerminalController = require('./controllers/TerminalController')
+const TerminalPolicies = require('./policies/TerminalPolicies')
+
 module.exports = (app) => {
   // *****************
   // * Costumers
@@ -55,6 +58,7 @@ module.exports = (app) => {
   )
 
   app.post('/ticket/validation',
+    TerminalPolicies.verifyToken,
     TicketController.validateTickets
   )
 
@@ -76,6 +80,7 @@ module.exports = (app) => {
   // *************
 
   app.post('/order',
+    TerminalPolicies.verifyToken,
     OrderController.order)
 
   app.get('/orders',
@@ -88,4 +93,11 @@ module.exports = (app) => {
 
   app.get('/vouchers',
     VoucherController.getVouchers)
+
+  // *************
+  // * Terminals
+  // *************
+  app.post('/terminal',
+    TerminalPolicies.loginTerminal,
+    TerminalController.login)
 }

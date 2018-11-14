@@ -26,6 +26,9 @@ public class JsonObjectRequestHeaders extends JsonObjectRequest {
             params.put("uuid", Archive.getUuid());
             params.put("verification", Archive.Sign(Archive.getUuid()));
         }
+        if(Archive.getToken() != null){
+            params.put("auth", Archive.getToken());
+        }
         return params;
     }
 }

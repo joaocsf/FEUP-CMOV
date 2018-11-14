@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TicketTerminal</string>
+    <string name="show_selection">Show Selection</string>
+    <string name="ticket_terminal">Ticket Terminal</string>
 </resources>

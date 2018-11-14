@@ -34,6 +34,10 @@
         </activity>
         <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity">
         </activity>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.QRActivity">
+        </activity>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity">
+        </activity>
     </application>
 
 </manifest>

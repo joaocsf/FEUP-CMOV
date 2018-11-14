@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.fragments.bar.BarPurchaseConfirmFragment;
 import feup.cmpv.feup.casadamusica.services.TerminalServices;
 import feup.cmpv.feup.casadamusica.structures.Product;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class NFCReceiveTicketActivationActivity extends NFCReceiveActivity{
@@ -26,6 +28,12 @@ public class NFCReceiveTicketActivationActivity extends NFCReceiveActivity{
         Log.d("DATA", data);
         try {
             JSONObject object = new JSONObject(data);
+            if(!Archive.checkTicketValidation(object)){
+                runOnUiThread(()->
+                Toast.makeText(getApplicationContext(), "Invalid Show", Toast.LENGTH_LONG).show());
+                finish();
+                return;
+            }
             TerminalServices.ValidateTicket(object,
             (obj)-> {
                 try {
