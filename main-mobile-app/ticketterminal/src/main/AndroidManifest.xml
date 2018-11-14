@@ -17,16 +17,12 @@
             android:name=".TicketTerminalActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.OrderActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity">
-        </activity>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.OrderActivity"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.TerminalLoginActivity"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity"/>
         <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity"/>
+        <activity android:name=".TicketTerminalShowSelectionActivity"/>
         <activity
             android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCReceiveTicketActivationActivity"
             android:launchMode="singleTop"
@@ -42,7 +38,18 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-        <activity android:name="feup.cmpv.feup.casadamusica.view.QRActivity"/>
+        <activity
+            android:name=".TicketFirstTerminalActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

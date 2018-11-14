@@ -3,6 +3,8 @@ package feup.cmov.casadamusica.cafeteriaterminal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.android.volley.VolleyError;
@@ -13,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.services.TerminalServices;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class CafeteriaTerminalActivity extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class CafeteriaTerminalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cafeteria_terminal);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         Button btn = findViewById(R.id.ticket_terminal_read_qr);
 
@@ -33,6 +37,24 @@ public class CafeteriaTerminalActivity extends AppCompatActivity {
             intentIntegrator.setOrientationLocked(false);
             intentIntegrator.initiateScan();
         });
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuItem itemLogout = menu.add(0, 0, Menu.NONE, "Logout");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == 0){
+            Archive.setToken(null);
+            Intent intent;
+            intent = new Intent(this, CafeteriaFirstTerminalActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+        return true;
     }
 
     @Override

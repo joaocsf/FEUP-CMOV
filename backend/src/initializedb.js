@@ -1,4 +1,4 @@
-const {Costumer, Card, Show, Ticket, Product} = require('./models')
+const {Terminal, Costumer, Card, Show, Ticket, Product} = require('./models')
 
 function printSeparator (section) {
   console.log(`############\n# ${section}\n###########`)
@@ -114,6 +114,7 @@ module.exports = async () => {
   await ticket3.setShow(show2)
   await ticket3.setCostumer(costumer)
 
+  printSeparator('Products')
   await Product.create({name: 'Fried Potatoes', quantity: 200, price: 2.50})
   await Product.create({name: 'Good Beans', quantity: 200, price: 2.50})
   await Product.create({name: 'Watery Water', quantity: 200, price: 1.00})
@@ -123,6 +124,11 @@ module.exports = async () => {
   await Product.create({name: 'Item 3', quantity: 200, price: 3.00})
   await Product.create({name: 'Item 4', quantity: 200, price: 4.00})
   await Product.create({name: 'Item 5', quantity: 200, price: 5.00})
+
+  printSeparator('Terminals')
+
+  await Terminal.create({identifier: 'terminal1', password: 'supersecretpassword1'})
+  await Terminal.create({identifier: 'terminal2', password: 'supersecretpassword2'})
 
   console.log(JSON.stringify(show1))
 }

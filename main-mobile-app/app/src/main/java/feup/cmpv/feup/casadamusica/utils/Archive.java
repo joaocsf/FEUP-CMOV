@@ -52,6 +52,8 @@ public class Archive {
         return name.replaceAll("[\\/]","");
     }
 
+    private static HashSet<Integer> acceptedShows;
+
     public static void SaveJSON(String fileName, JSONObject object){
         fileName = Escape(fileName);
         try {
@@ -83,13 +85,47 @@ public class Archive {
     }
 
     public static String getUuid(){
-        return ApplicationContextRetriever.getContext().getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).getString(SecurityConstants.UUID, SecurityConstants.UUID_DEFAULT);
+        return ApplicationContextRetriever.getContext().getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).getString(SecurityConstants.UUID, null);
     }
 
     public static void setUuid(String uuid){
         SharedPreferences.Editor editor = Objects.requireNonNull(ApplicationContextRetriever.getContext()).getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).edit();
         editor.putString(SecurityConstants.UUID, uuid);
         editor.apply();
+    }
+
+    public static String getToken(){
+        return ApplicationContextRetriever.getContext().getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).getString(SecurityConstants.TOKEN, null);
+    }
+
+    public static void setToken(String token){
+        SharedPreferences.Editor editor = Objects.requireNonNull(ApplicationContextRetriever.getContext()).getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).edit();
+        editor.putString(SecurityConstants.TOKEN, token);
+        editor.apply();
+    }
+
+    public static HashSet<Integer> getAcceptedShows(){
+        return acceptedShows;
+    }
+
+    public static void setAcceptedShows(HashSet<Integer> shows){
+        acceptedShows = shows;
+    }
+
+    public static boolean checkTicketValidation(JSONObject obj){
+        try {
+            String tickets = obj.getString("tickets");
+
+            String[] split = tickets.split("_");
+            byte[] showID = split[split.length - 1].getBytes();
+
+            int value = showID[0];
+
+            return acceptedShows.contains(value);
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static KeyStore.PrivateKeyEntry getEntry() throws Exception{

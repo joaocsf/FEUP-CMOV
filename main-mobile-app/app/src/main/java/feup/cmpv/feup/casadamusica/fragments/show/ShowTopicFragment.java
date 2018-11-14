@@ -98,7 +98,7 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
         listView = view.findViewById(R.id.show_list_view);
 
         ArrayList<Show> showList = new ArrayList<>();
-        adapter = new ShowListAdapter(view.getContext(), showList);
+        adapter = new ShowListAdapter(view.getContext(), showList, R.layout.show_list_item);
         listView.setAdapter(adapter);
         listView.computeScroll();
         listView.setOnItemClickListener(this);

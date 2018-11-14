@@ -54,7 +54,7 @@ public abstract class TabFragment extends Fragment {
 
     private void initializeView(View view){
         ArrayList<Show> showList = new ArrayList<>();
-        adapter = new ShowListAdapter(view.getContext(), showList);
+        adapter = new ShowListAdapter(view.getContext(), showList, R.layout.show_list_item);
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         this.viewPager = viewPager;
