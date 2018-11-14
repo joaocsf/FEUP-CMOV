@@ -39,7 +39,7 @@ public class TicketTerminalActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         System.out.println(requestCode + " " + resultCode + " " + data);
-        if(result != null) {
+        if(result != null && resultCode==RESULT_OK) {
             verifyDataTickets(result.getContents());
         } else {
             super.onActivityResult(requestCode, resultCode, data);
