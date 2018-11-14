@@ -77,7 +77,8 @@
             android:id="@+id/nif_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:maxLength="9"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button

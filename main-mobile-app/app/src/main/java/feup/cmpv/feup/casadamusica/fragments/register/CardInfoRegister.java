@@ -1,15 +1,9 @@
 package feup.cmpv.feup.casadamusica.fragments.register;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.security.KeyPairGeneratorSpec;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,33 +16,15 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.spec.AlgorithmParameterSpec;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Objects;
-
-import javax.security.auth.x500.X500Principal;
-
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.services.Api;
 import feup.cmpv.feup.casadamusica.services.CostumerServices;
 import feup.cmpv.feup.casadamusica.structures.Card;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
 import feup.cmpv.feup.casadamusica.utils.Archive;
-import feup.cmpv.feup.casadamusica.utils.SecurityConstants;
 import feup.cmpv.feup.casadamusica.view.MainBody;
 
 public class CardInfoRegister extends Fragment {
-
-    private static final String TAG = "CardInfo";
 
     private EditText card_number;
     private EditText card_validation_number;
@@ -106,7 +82,7 @@ public class CardInfoRegister extends Fragment {
                 }
                 card.setType(cardTye);
 
-                String pubKey = createKeyPair();
+                String pubKey = Archive.createKeyPair();
 
                 costumer.setPublicKey(pubKey);
 
@@ -127,7 +103,7 @@ public class CardInfoRegister extends Fragment {
                             }
                         },
                         error -> {
-                            this.deleteKey();
+                            Archive.deleteKey();
                             showLoading(false);
                             JSONObject obj = Api.getBodyFromError(error);
                             Toast.makeText( getContext(), "Error adding customer " + error.toString(), Toast.LENGTH_SHORT).show();
@@ -159,67 +135,6 @@ public class CardInfoRegister extends Fragment {
         }
 
         return valid;
-    }
-
-    private String createKeyPair(){
-        try {
-
-            Calendar start = new GregorianCalendar();
-            Calendar end = new GregorianCalendar();
-            end.add(Calendar.YEAR, 20);
-
-            KeyPairGenerator kgen = KeyPairGenerator.getInstance(SecurityConstants.TYPE_RSA, SecurityConstants.ANDROID_KEYSTORE);
-
-            AlgorithmParameterSpec spec ;
-
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-                spec = new KeyPairGeneratorSpec.Builder(Objects.requireNonNull(this.getContext()))
-                        .setKeySize(SecurityConstants.KEY_SIZE)
-                        .setAlias(SecurityConstants.KEY_NAME)
-                        .setSubject(new X500Principal("CN=" + SecurityConstants.KEY_NAME))
-                        .setSerialNumber(BigInteger.valueOf(1338))
-                        .setStartDate(start.getTime())
-                        .setEndDate(end.getTime())
-                        .build();
-            } else {
-                spec = new KeyGenParameterSpec.Builder(SecurityConstants.KEY_NAME, KeyProperties.PURPOSE_SIGN)
-                        .setCertificateSubject(new X500Principal("CN=" + SecurityConstants.KEY_NAME))
-                        .setDigests(KeyProperties.DIGEST_SHA256)
-                        .setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1)
-                        .setCertificateSerialNumber(BigInteger.valueOf(1337))
-                        .setCertificateNotBefore(start.getTime())
-                        .setCertificateNotAfter(end.getTime())
-                        .build();
-            }
-
-
-            kgen.initialize(spec);
-
-            KeyPair kp = kgen.generateKeyPair();
-
-            byte[] publicKeyEnc = kp.getPublic().getEncoded();
-
-            return Base64.encodeToString(publicKeyEnc, Base64.DEFAULT);
-
-        }
-        catch (Exception ex) {
-            Log.d(TAG, ex.getMessage());
-        }
-
-        return null;
-    }
-
-    private void deleteKey(){
-        KeyStore keyStore = null;
-        try {
-            keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);
-            keyStore.load(null);
-
-            keyStore.deleteEntry(SecurityConstants.KEY_NAME);
-
-        } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showLoading(Boolean show){

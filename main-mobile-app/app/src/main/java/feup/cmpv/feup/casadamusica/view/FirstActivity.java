@@ -15,39 +15,19 @@ import feup.cmpv.feup.casadamusica.utils.Archive;
 
 public class FirstActivity extends AppCompatActivity {
 
-    CoordinatorLayout coordinatorLayout;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent;
         if(Archive.hasKey()){
-            Fake_Login();
             intent = new Intent(this, MainBody.class);
         }else{
-            intent = new Intent(this, UserRegister.class);
+            intent = new Intent(this, LoginActivity.class);
         }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finish();
         startActivity(intent);
-    }
-
-    private void Fake_Login(){
-        String publicKeyString = Archive.publickKey64();
-        Costumer costumer = new Costumer();
-        costumer.setUsername("username");
-        costumer.setPassword("password");
-        costumer.setPublicKey(publicKeyString);
-
-        CostumerServices.Login(costumer, (obj) -> {
-            try {
-                Archive.setUuid(obj.getString("uuid"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, (error) -> { Log.d("Login", "Error Logging In!");});
-
-
     }
 }

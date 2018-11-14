@@ -30,7 +30,7 @@ public class UserRegister extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.user_register);
-
+/*
         try {
             KeyStore keyStore = KeyStore.getInstance(SecurityConstants.ANDROID_KEYSTORE);
             keyStore.load(null);
@@ -63,15 +63,15 @@ public class UserRegister extends AppCompatActivity {
 
                 startActivity(intent);
             }else{
-                PersonalInfoFragment personalInfoFragment = (PersonalInfoFragment) PersonalInfoFragment.getInstance();
+               */ PersonalInfoFragment personalInfoFragment = (PersonalInfoFragment) PersonalInfoFragment.getInstance();
 
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.add(R.id.fragment_host, personalInfoFragment);
                 ft.commit();
-            }
+           /* }
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
