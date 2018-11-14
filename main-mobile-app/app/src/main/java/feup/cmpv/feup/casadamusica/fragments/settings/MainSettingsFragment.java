@@ -37,6 +37,7 @@ public class MainSettingsFragment extends Fragment {
 
         Objects.requireNonNull(getActivity()).finish();
         Archive.deleteKey();
+        Archive.setUuid(null);
 
         startActivity(intent);
     }

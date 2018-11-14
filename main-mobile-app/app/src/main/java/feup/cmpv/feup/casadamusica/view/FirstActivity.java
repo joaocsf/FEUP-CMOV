@@ -20,7 +20,7 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent;
-        if(Archive.hasKey()){
+        if(Archive.hasKey() && Archive.getUuid() != null){
             intent = new Intent(this, MainBody.class);
         }else{
             intent = new Intent(this, LoginActivity.class);
