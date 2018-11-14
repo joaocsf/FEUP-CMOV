@@ -71,13 +71,13 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     public void updateShows(boolean force){
-        adapter.clear();
 
         if(force) {
             fetchShows();
             return;
         }
 
+        adapter.clear();
         List<Show> showsSet = null;
         if(getArguments().getBoolean("newest")) {
             showsSet = Archive.getAllShows();
@@ -89,6 +89,15 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void RequestError(VolleyError error){
+        adapter.clear();
+        List<Show> showsSet = null;
+        if(getArguments().getBoolean("newest")) {
+            showsSet = Archive.getAllShows();
+        }else {
+            showsSet = Archive.getAllPopularShows();
+        }
+
+        adapter.addAll(showsSet);
 
     }
 
