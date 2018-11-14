@@ -37,5 +37,6 @@ public class TicketFirstTerminalActivity extends AppCompatActivity {
             openTerminal();
             return;
         }
+        finish();
     }
 }

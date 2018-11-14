@@ -104,6 +104,16 @@ public class Archive {
         editor.apply();
     }
 
+    public static String getHost(){
+        return ApplicationContextRetriever.getContext().getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).getString(SecurityConstants.HOST, Config.HOST);
+    }
+
+    public static void setHost(String host){
+        SharedPreferences.Editor editor = Objects.requireNonNull(ApplicationContextRetriever.getContext()).getSharedPreferences(SecurityConstants.SHARED_PREFERANCES_FOLDER, Context.MODE_PRIVATE).edit();
+        editor.putString(SecurityConstants.HOST, host.trim());
+        editor.apply();
+    }
+
     public static HashSet<Integer> getAcceptedShows(){
         return acceptedShows;
     }

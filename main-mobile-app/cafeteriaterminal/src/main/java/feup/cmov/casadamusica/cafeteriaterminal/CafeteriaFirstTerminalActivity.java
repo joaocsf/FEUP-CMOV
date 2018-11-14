@@ -47,5 +47,6 @@ public class CafeteriaFirstTerminalActivity extends AppCompatActivity {
             openTerminal();
             return;
         }
+        finish();
     }
 }

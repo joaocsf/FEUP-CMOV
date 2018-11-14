@@ -16,7 +16,7 @@
         android:background="@color/bottomtab_2">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/bar_voucher_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

@@ -18,7 +18,6 @@ import feup.cmpv.feup.casadamusica.utils.Config;
 public class Api {
 
     private static RequestQueue queue;
-    private static final String host = Config.HOST;
 
 
     private static RequestQueue getQueue(){
@@ -46,7 +45,7 @@ public class Api {
     }
 
     public static void Get(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-        String url = host + path;
+        String url = Archive.getHost() + path;
 
         JSONObject cached = Archive.LoadJSON(path);
         Log.d("Loaded", (cached != null) + " - " + path);
@@ -66,7 +65,7 @@ public class Api {
     }
 
     public static void Delete(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-        String url = host + path;
+        String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.DELETE, url, null, success, fail);
 
@@ -74,7 +73,7 @@ public class Api {
     }
 
     public  static void Post(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-        String url = host + path;
+        String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.POST, url, jsonRequest, success, fail);
 
@@ -82,7 +81,7 @@ public class Api {
     }
 
     public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
-        String url = host + path;
+        String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.PUT, url, jsonRequest, success, fail);
 

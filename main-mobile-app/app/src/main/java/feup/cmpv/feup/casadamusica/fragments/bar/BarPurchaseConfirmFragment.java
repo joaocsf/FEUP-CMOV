@@ -194,6 +194,9 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
             dismiss();
             return;
         }
+
+        if(data == null || !data.hasExtra("vouchers")) return;
+
         usedVouchers = (List<VoucherGroup>)data.getSerializableExtra("vouchers");
         voucherListAdapter.clear();
         voucherListAdapter.addAll(usedVouchers);

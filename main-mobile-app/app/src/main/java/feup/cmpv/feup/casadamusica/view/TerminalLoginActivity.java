@@ -1,9 +1,12 @@
 package feup.cmpv.feup.casadamusica.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
@@ -36,6 +40,7 @@ public class TerminalLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.terminal_login_activity);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         TextInputEditText username = findViewById(R.id.username_login);
         TextInputEditText password = findViewById(R.id.password_login);
@@ -58,10 +63,25 @@ public class TerminalLoginActivity extends AppCompatActivity {
     }
     private void onLoginError(VolleyError error){
         btn.setActivated(true);
+        Toast.makeText(getApplicationContext(),"Invalid credentials", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuItem itemLogout = menu.add(0, 0, Menu.NONE, "Configure");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == 0){
+            Archive.setToken(null);
+            Intent intent;
+            intent = new Intent(this, ConfigureHostActivity.class);
+            startActivity(intent);
+        }
+        return true;
     }
 
     public void parseResponse(JSONObject obj) {

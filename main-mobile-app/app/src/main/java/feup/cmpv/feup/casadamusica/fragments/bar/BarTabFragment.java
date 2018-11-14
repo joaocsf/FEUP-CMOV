@@ -106,7 +106,7 @@ public class BarTabFragment extends TabFragment implements ViewPager.OnPageChang
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("REQUEST", requestCode + "");
-        if(requestCode == 25){
+        if(resultCode == 25){
 
             getActivity().runOnUiThread(()->{
                 Snackbar.make(getView(), "Transaction Successful", Snackbar.LENGTH_LONG).show();

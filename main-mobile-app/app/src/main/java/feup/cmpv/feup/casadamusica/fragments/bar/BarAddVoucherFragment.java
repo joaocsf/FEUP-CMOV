@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +78,7 @@ public class BarAddVoucherFragment extends DialogFragment {
     public void InitializeView(View view){
         ListView listView = view.findViewById(R.id.bar_purchase_voucher_list);
 
+        TextView title = view.findViewById(R.id.bar_voucher_title);
         Button confirm = view.findViewById(R.id.bar_voucher_confirm);
 
         Button cancel = view.findViewById(R.id.bar_voucher_cancel);
@@ -96,7 +98,9 @@ public class BarAddVoucherFragment extends DialogFragment {
         voucherGroups = getCompatibleVouchers(productList);
 
         VoucherListAdapter adapter = new VoucherListAdapter(view.getContext(), voucherGroups, R.layout.voucher_select_list_item);
-
+        if(adapter.getCount() == 0){
+            title.setText("No Vouchers Available");
+        }
         listView.setAdapter(adapter);
         listView.computeScroll();
     }

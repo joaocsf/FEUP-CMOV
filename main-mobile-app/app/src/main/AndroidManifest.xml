@@ -19,6 +19,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/MyMaterialTheme"
         android:hardwareAccelerated="true">
+        <activity android:name=".view.ConfigureHostActivity"/>
     </application>
 
 </manifest>

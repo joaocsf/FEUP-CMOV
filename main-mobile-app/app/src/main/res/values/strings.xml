@@ -33,4 +33,5 @@
     <string name="log_out">Log out</string>
     <string name="login">Login</string>
     <string name="you_do_not_have_an_account_yet">You do not have an account yet?</string>
+    <string name="host">Host</string>
 </resources>

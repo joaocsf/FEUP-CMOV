@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.login_activity);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         username = findViewById(R.id.username);
         pwd = findViewById(R.id.password);
@@ -66,7 +70,25 @@ public class LoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, (error) -> Log.d("Login", "Error Logging In!"));
+        }, (error) -> Toast.makeText(getApplicationContext(),"Invalid credentials", Toast.LENGTH_LONG).show());
+    }
+
+     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuItem itemLogout = menu.add(0, 0, Menu.NONE, "Configure");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == 0){
+            Archive.setToken(null);
+            Intent intent;
+            intent = new Intent(this, ConfigureHostActivity.class);
+            startActivity(intent);
+        }
+        return true;
     }
 
     private void navigateToMainBody(){
