@@ -1,6 +1,7 @@
 package feup.cmpv.feup.casadamusica.services;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,7 +14,7 @@ import org.json.JSONObject;
 
 import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.utils.Archive;
-import feup.cmpv.feup.casadamusica.utils.Config;
+import feup.cmpv.feup.casadamusica.utils.Utils;
 
 public class Api {
 
@@ -47,6 +48,9 @@ public class Api {
     public static void Get(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         String url = Archive.getHost() + path;
 
+        if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+
         JSONObject cached = Archive.LoadJSON(path);
         Log.d("Loaded", (cached != null) + " - " + path);
 
@@ -65,6 +69,10 @@ public class Api {
     }
 
     public static void Delete(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+
+        if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+
         String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.DELETE, url, null, success, fail);
@@ -73,6 +81,10 @@ public class Api {
     }
 
     public  static void Post(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+
+        if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+
         String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.POST, url, jsonRequest, success, fail);
@@ -81,6 +93,9 @@ public class Api {
     }
 
     public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+
         String url = Archive.getHost() + path;
 
         JsonObjectRequest request = new JsonObjectRequestHeaders(Request.Method.PUT, url, jsonRequest, success, fail);

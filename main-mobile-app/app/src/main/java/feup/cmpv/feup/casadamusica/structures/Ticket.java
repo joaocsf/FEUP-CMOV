@@ -3,6 +3,7 @@ package feup.cmpv.feup.casadamusica.structures;
 import android.content.ContentValues;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 

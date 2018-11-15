@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import feup.cmpv.feup.casadamusica.R;
 import feup.cmpv.feup.casadamusica.structures.Costumer;
+import feup.cmpv.feup.casadamusica.utils.Archive;
 
 public class PersonalInfoFragment extends Fragment {
 
@@ -19,8 +20,6 @@ public class PersonalInfoFragment extends Fragment {
     private EditText password;
     private EditText confirm_password;
     private EditText nif;
-
-    private static Fragment instance;
 
     public static Fragment getInstance() {
         return new PersonalInfoFragment();
@@ -80,7 +79,6 @@ public class PersonalInfoFragment extends Fragment {
             valid = false;
         }
 
-
         if(password.getText().toString().isEmpty()){
             password.setError("Password can not be empty");
             valid = false;
@@ -88,7 +86,6 @@ public class PersonalInfoFragment extends Fragment {
             password.setError("Must have at least 5 characters");
             valid = false;
         }
-
 
         if(confirm_password.getText().toString().isEmpty()){
             confirm_password.setError("Confirm password can not be empty");
@@ -102,7 +99,6 @@ public class PersonalInfoFragment extends Fragment {
             nif.setError("Can not have more than 9 digits");
             valid = false;
         }
-
 
         if(!confirm_password.getText().toString().equals(password.getText().toString())){
             confirm_password.setError("It has to be equal to password");

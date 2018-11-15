@@ -36,6 +36,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(Product.CREATE_TABLE);
         db.execSQL(Ticket.CREATE_TABLE);
         db.execSQL(Show.CREATE_TABLE);
+
+        Log.d("CREATING", Voucher.CREATE_TABLE);
+
     }
 
     private void dropTable(SQLiteDatabase db, String tableName){
