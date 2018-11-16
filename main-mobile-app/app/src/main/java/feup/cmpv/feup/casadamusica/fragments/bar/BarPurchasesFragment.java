@@ -71,6 +71,7 @@ public class BarPurchasesFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void updatePurchases(){
+        listView.smoothScrollToPosition(0);
          OrderServices.GetOrders(
             this::ParseOrders,
             this::RequestError);

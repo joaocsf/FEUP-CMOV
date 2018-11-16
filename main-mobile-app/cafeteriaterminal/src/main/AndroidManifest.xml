@@ -18,16 +18,19 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation">
         </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.OrderActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.TerminalLoginActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity"/>
+        <activity
+            android:name="feup.cmpv.feup.casadamusica.view.OrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.TerminalLoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCReceiveOrderActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:parentActivityName=".CafeteriaTerminalActivity"
             >
             <intent-filter>
@@ -38,7 +41,7 @@
         </activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
          <activity
             android:name=".CafeteriaFirstTerminalActivity"

@@ -63,6 +63,7 @@ public class BarProductsFragment extends Fragment implements IProductListener {
     }
 
     public void updateProducts(){
+        listView.smoothScrollToPosition(0);
          ProductServices.GetProducts(
             this::ParseProducts,
             this::RequestError);

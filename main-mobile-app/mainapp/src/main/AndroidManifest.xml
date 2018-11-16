@@ -24,20 +24,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.MainBody">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.UserRegister">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.LoginActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.OrderActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.QRActivity">
-        </activity>
-        <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity">
-        </activity>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.MainBody"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.UserRegister"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.OrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.TicketValidationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.QRActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="feup.cmpv.feup.casadamusica.view.NFC.NFCSendActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -8,10 +8,21 @@ import feup.cmpv.feup.casadamusica.utils.Archive;
 import feup.cmpv.feup.casadamusica.view.TerminalLoginActivity;
 
 public class TicketFirstTerminalActivity extends AppCompatActivity {
+    boolean killed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        if(killed){
+            super.onResume();
+            return;
+        }
 
         Intent intent;
         if(Archive.getToken() == null){
@@ -20,6 +31,7 @@ public class TicketFirstTerminalActivity extends AppCompatActivity {
         }else{
             openTerminal();
         }
+        super.onResume();
     }
 
     private void openTerminal(){
@@ -37,6 +49,7 @@ public class TicketFirstTerminalActivity extends AppCompatActivity {
             openTerminal();
             return;
         }
+        killed=true;
         finish();
     }
 }

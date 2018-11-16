@@ -49,7 +49,7 @@ public class Api {
         String url = Archive.getHost() + path;
 
         if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
-            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection status", Toast.LENGTH_LONG).show();
 
         JSONObject cached = Archive.LoadJSON(path);
         Log.d("Loaded", (cached != null) + " - " + path);
@@ -71,7 +71,7 @@ public class Api {
     public static void Delete(String path, Response.Listener<JSONObject> success, Response.ErrorListener fail){
 
         if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
-            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection status", Toast.LENGTH_LONG).show();
 
         String url = Archive.getHost() + path;
 
@@ -83,7 +83,7 @@ public class Api {
     public  static void Post(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
 
         if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
-            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection status", Toast.LENGTH_LONG).show();
 
         String url = Archive.getHost() + path;
 
@@ -94,7 +94,7 @@ public class Api {
 
     public  static void Put(String path, JSONObject jsonRequest, Response.Listener<JSONObject> success, Response.ErrorListener fail){
         if(!Utils.verifyNetworkConnection(ApplicationContextRetriever.getContext()))
-            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection state", Toast.LENGTH_LONG).show();
+            Toast.makeText(ApplicationContextRetriever.getContext(), "Check your connection status", Toast.LENGTH_LONG).show();
 
         String url = Archive.getHost() + path;
 

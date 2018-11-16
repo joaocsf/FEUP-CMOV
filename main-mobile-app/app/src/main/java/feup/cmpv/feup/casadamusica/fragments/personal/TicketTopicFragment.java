@@ -74,6 +74,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
 
         if(force){
             fetchTickets();
+            listView.smoothScrollToPosition(0);
             return;
         }
 

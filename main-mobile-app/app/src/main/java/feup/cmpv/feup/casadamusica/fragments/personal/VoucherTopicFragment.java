@@ -23,6 +23,7 @@ import feup.cmpv.feup.casadamusica.utils.Archive;
 public class VoucherTopicFragment extends Fragment{
 
     ArrayAdapter adapter;
+    ListView listView;
 
     public static Fragment getInstance(){
         return new VoucherTopicFragment();
@@ -57,6 +58,7 @@ public class VoucherTopicFragment extends Fragment{
 
         if (force){
             fetchVouchers();
+            listView.smoothScrollToPosition(0);
             return;
         }
 
@@ -67,7 +69,7 @@ public class VoucherTopicFragment extends Fragment{
 
     private void InitializeView(View view) {
 
-        ListView listView = view.findViewById(R.id.show_list_view);
+        listView = view.findViewById(R.id.show_list_view);
 
         List<VoucherGroup> voucherGroups = Archive.getAllVouchers();
         adapter = new VoucherListAdapter(view.getContext(), voucherGroups, R.layout.voucher_list_item);

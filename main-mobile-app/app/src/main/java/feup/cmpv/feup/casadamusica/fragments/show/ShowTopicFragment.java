@@ -74,6 +74,7 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
 
         if(force) {
             fetchShows();
+            listView.smoothScrollToPosition(0);
             return;
         }
 
