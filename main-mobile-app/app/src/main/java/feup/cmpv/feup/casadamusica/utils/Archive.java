@@ -253,7 +253,12 @@ public class Archive {
 
     public static Set<ShowTickets> getShowTickets(){
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
-        return db.getAllShowTickets();
+        return db.getAllShowTickets(false);
+    }
+
+    public static Set<ShowTickets> getAllUsedShowTickets(){
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        return db.getAllShowTickets(true);
     }
 
     public static void addProducts(JSONArray products){
@@ -398,5 +403,12 @@ public class Archive {
     public static void deleteAllProducts() {
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         db.deleteAllProducts();
+    }
+
+    public static void updateUsedTickets(ArrayList<String> ticketsToRemove) {
+        DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
+        for(int i = 0; i < ticketsToRemove.size(); i++){
+            db.updateUsedTicket(ticketsToRemove.get(i));
+        }
     }
 }

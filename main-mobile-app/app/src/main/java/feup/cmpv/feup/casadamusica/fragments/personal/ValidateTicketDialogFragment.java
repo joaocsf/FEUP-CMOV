@@ -30,6 +30,7 @@ import feup.cmpv.feup.casadamusica.utils.Utils;
 public class ValidateTicketDialogFragment extends DialogFragment{
     private ShowTickets showTickets;
     private NumberPicker np;
+    private ArrayList<String> ticketsToRemove;
 
     public static DialogFragment getInstance(ShowTickets showTickets){
         DialogFragment fragment = new ValidateTicketDialogFragment();
@@ -43,6 +44,8 @@ public class ValidateTicketDialogFragment extends DialogFragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.validate_tickets_dialog_fragment, container,false);
+
+        ticketsToRemove = new ArrayList<>();
 
         if (getArguments() != null) {
             showTickets = (ShowTickets)getArguments().getSerializable("showTickets");
@@ -87,17 +90,18 @@ public class ValidateTicketDialogFragment extends DialogFragment{
                 return;
             getTargetFragment().onActivityResult(25,25, new Intent());
             dismiss();
+            Archive.updateUsedTickets(ticketsToRemove);
         }
     }
 
-    private static String generateMessage(ShowTickets showTickets, int numberOfTickets){
+    private String generateMessage(ShowTickets showTickets, int numberOfTickets){
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         OutputStreamWriter osw;
         JSONObject object = null;
 
         try {
-            ArrayList<String> ticketsToRemove = new ArrayList<>();
+            ticketsToRemove = new ArrayList<>();
             osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
             osw.write(Archive.getUuid());
             osw.write("_");
@@ -123,8 +127,6 @@ public class ValidateTicketDialogFragment extends DialogFragment{
             object = new JSONObject();
             object.put("tickets", ticketsString);
             object.put("validation", ticketsSign);
-
-            Archive.removeTickets(ticketsToRemove);
 
             return object.toString();
         } catch (IOException | JSONException e) {

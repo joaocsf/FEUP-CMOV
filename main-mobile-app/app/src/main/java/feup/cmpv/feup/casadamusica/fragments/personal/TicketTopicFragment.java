@@ -51,13 +51,11 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
     private void ParseTickets(JSONObject tickets){
 
         try {
-            System.out.println(tickets);
             JSONArray array = tickets.getJSONArray("tickets");
             Archive.deleteAllTickets();
             Archive.addTickets(array);
 
             Set<ShowTickets> showTickets = Archive.getShowTickets();
-            Log.d("SHOW TICKETS", showTickets.size() + "");
             adapter.clear();
             adapter.addAll(showTickets);
 

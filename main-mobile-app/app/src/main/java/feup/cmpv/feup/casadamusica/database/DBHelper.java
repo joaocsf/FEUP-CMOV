@@ -23,7 +23,7 @@ import feup.cmpv.feup.casadamusica.structures.VoucherGroup;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "casa_da_musica";
 
     public DBHelper(@Nullable Context context){
@@ -262,14 +262,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return shows;
     }
 
-    public Set<ShowTickets> getAllShowTickets() {
+    public Set<ShowTickets> getAllShowTickets(boolean used) {
         HashMap<ShowTickets, ShowTickets> showTickets = new HashMap<>();
 
-        String selectQuery = "SELECT * FROM "
-                + Show.TABLE_NAME + " JOIN " + Ticket.TABLE_NAME
-                + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
-                + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0"
-                + " ORDER BY " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID;
+        String selectQuery = "";
+
+        if(!used){
+            selectQuery = "SELECT * FROM "
+                    + Show.TABLE_NAME + " JOIN " + Ticket.TABLE_NAME
+                    + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
+                    + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "0"
+                    + " ORDER BY " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID;
+        }else{
+            selectQuery = "SELECT * FROM "
+                    + Show.TABLE_NAME + " JOIN " + Ticket.TABLE_NAME
+                    + " ON " + Show.TABLE_NAME+"."+Show.COLUMN_ID+"="+Ticket.TABLE_NAME+"."+Ticket.COLUMN_SHOW_ID
+                    + " WHERE " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_USED+"=" + "1"
+                    + " ORDER BY " + Ticket.TABLE_NAME+"."+Ticket.COLUMN_UUID;
+        }
 
         Log.d("Query" , selectQuery);
 
@@ -365,6 +375,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteAllProducts() {
          SQLiteDatabase db = getWritableDatabase();
         db.delete(Product.TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void updateUsedTicket(String uuid){
+        ContentValues cv = new ContentValues();
+        int value = 1;
+        cv.put(Ticket.COLUMN_USED, value);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(Ticket.TABLE_NAME,cv,Ticket.COLUMN_UUID+"=?", new String[]{uuid});
         db.close();
     }
 }

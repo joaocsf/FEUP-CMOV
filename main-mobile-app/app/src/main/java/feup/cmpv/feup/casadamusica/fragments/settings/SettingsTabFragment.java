@@ -9,6 +9,8 @@ import feup.cmpv.feup.casadamusica.fragments.TabFragment;
 
 public class SettingsTabFragment extends TabFragment {
 
+    private UsedTicketsFragment usedTicketsFragment;
+
     public static Fragment getInstance(){
         Fragment fragment = new SettingsTabFragment();
         Bundle b = new Bundle();
@@ -16,9 +18,19 @@ public class SettingsTabFragment extends TabFragment {
         fragment.setArguments(b);
         return fragment;
     }
+
+    @Override
+    public void onSelected() {
+        usedTicketsFragment.fetchTickets();
+    }
+
     @Override
     protected void setupViewPagerAdapter(ViewPagerAdapter pvadapter) {
         pvadapter.addFragment(
                 MainSettingsFragment.getInstance(), "Settings");
+
+        usedTicketsFragment = (UsedTicketsFragment) UsedTicketsFragment.getInstance();
+        pvadapter.addFragment(
+               usedTicketsFragment , "Used tickets");
     }
 }
