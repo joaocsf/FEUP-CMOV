@@ -391,6 +391,7 @@ public class Archive {
     }
 
     public static void removeVouchers(List<String> vouchersToRemove) {
+        if(vouchersToRemove == null) return;
         DBHelper db = new DBHelper(ApplicationContextRetriever.getContext());
         db.deleteVouchers(vouchersToRemove);
     }

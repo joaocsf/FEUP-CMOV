@@ -40,6 +40,7 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
     private List<Product> productList;
     private List<VoucherGroup> usedVouchers = new ArrayList<>();
     ArrayAdapter voucherListAdapter;
+    List<String> vouchersToRemove;
     TextView totalTV;
 
     public static BarPurchaseConfirmFragment getInstance(ArrayList<Product> products, float total, int orderNumber) {
@@ -67,7 +68,7 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         OutputStreamWriter osw = null;
         Log.d("RESULT", "Generating order");
-        List<String> vouchersToRemove = new ArrayList<>();
+        vouchersToRemove = new ArrayList<>();
         try {
 
             osw = new OutputStreamWriter(byteArrayOutputStream, "ASCII");
@@ -97,7 +98,6 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
 
             String msg = object.toString();
 
-            Archive.removeVouchers(vouchersToRemove);
 
             Intent intent = Utils.initializeTransfer(msg, "order");
             startActivityForResult(intent, 5);
@@ -193,6 +193,7 @@ public class BarPurchaseConfirmFragment extends DialogFragment {
             if(resultCode != -1 && Utils.canUseNFC())
                 return;
 
+            Archive.removeVouchers(vouchersToRemove);
             getTargetFragment().onActivityResult(25,25, new Intent());
             dismiss();
             return;

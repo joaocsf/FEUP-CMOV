@@ -88,9 +88,9 @@ public class ValidateTicketDialogFragment extends DialogFragment{
         if(requestCode == 5){
             if(resultCode != -1 && Utils.canUseNFC())
                 return;
+            Archive.updateUsedTickets(ticketsToRemove);
             getTargetFragment().onActivityResult(25,25, new Intent());
             dismiss();
-            Archive.updateUsedTickets(ticketsToRemove);
         }
     }
 

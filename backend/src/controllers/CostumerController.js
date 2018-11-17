@@ -62,26 +62,20 @@ module.exports = {
     }
   },
   async updatePassword (req, res) {
-    console.log(req.body)
-
     try {
       var costumer = await Costumer.find({
         where: {
-          uuid: req.body.uuid
+          uuid: req.get('uuid')
         }
       })
-      console.log(costumer)
 
       if (!await costumer.comparePassword(req.body.oldPassword)) {
         res.status(401).send({msg: 'Wrong password'})
         return
       }
 
-      await Costumer.update({password: req.body.newPassword}, {
-        where: {
-          uuid: req.body.uuid
-        }
-      })
+      costumer.password = req.body.newPassword
+      await costumer.save()
 
       res.status(200).send({msg: 'Updated with success'})
     } catch (error) {

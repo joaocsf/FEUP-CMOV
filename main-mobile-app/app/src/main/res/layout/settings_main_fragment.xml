@@ -9,12 +9,15 @@
     <Button
         android:id="@+id/settings_update_password"
         android:layout_width="match_parent"
+        style="?android:buttonBarButtonStyle"
         android:layout_height="wrap_content"
+        android:textColor="@color/bottomtab_3"
         android:text="@string/update_password"
         android:layout_marginBottom="15dp"/>
 
     <Button
         android:id="@+id/settings_logout"
+        style="?android:buttonBarButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_out" />

@@ -30,6 +30,19 @@ module.exports = {
     } else next()
   },
 
+  login (req, res, next) {
+    const schema = {
+      oldPassword: Joi.string().regex(config.regex.password).required().trim(),
+      newPassword: Joi.string().regex(config.regex.password).required().trim()
+    }
+
+    const {error} = Joi.validate(req.body, schema, config.joiOptions)
+
+    if (error) {
+      res.status(400).send({error: 'Structure Error'})
+    } else next()
+  },
+
   async verifyUser (req, res, next) {
     const header = {
       uuid: Joi.string().required(),

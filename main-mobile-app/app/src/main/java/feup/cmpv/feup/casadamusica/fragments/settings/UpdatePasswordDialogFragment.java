@@ -56,7 +56,6 @@ public class UpdatePasswordDialogFragment extends DialogFragment {
 
         JSONObject object = new JSONObject();
         try {
-            object.put("uuid", Archive.getUuid());
             object.put("oldPassword", oldPassword.getText().toString());
             object.put("newPassword", newPassword.getText().toString());
         } catch (JSONException e) {
