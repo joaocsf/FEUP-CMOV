@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.fragments.settings;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ public class MainSettingsFragment extends Fragment {
 
     private void updatePassword(View view) {
         UpdatePasswordDialogFragment updatePasswordDialogFragment = (UpdatePasswordDialogFragment)UpdatePasswordDialogFragment.getInstance();
+        updatePasswordDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
         updatePasswordDialogFragment.show(getFragmentManager(), "Update Password");
     }
 

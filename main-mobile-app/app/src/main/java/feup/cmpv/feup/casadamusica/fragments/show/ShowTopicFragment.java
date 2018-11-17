@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.fragments.show;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -125,6 +126,7 @@ public class ShowTopicFragment extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         BuyTicketsDialogFragment buyTicketsDialogFragment = (BuyTicketsDialogFragment) BuyTicketsDialogFragment.getInstance(adapter.getItem(position));
+        buyTicketsDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
         buyTicketsDialogFragment.show(((MainBody)Objects.requireNonNull(getContext())).getSupportFragmentManager(), "Buy Ticket");
     }
 }

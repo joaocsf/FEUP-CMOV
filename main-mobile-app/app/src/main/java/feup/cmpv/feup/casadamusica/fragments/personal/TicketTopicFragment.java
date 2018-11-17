@@ -1,5 +1,6 @@
 package feup.cmpv.feup.casadamusica.fragments.personal;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -103,6 +104,7 @@ public class TicketTopicFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         ValidateTicketDialogFragment validateTicketDialogFragment = (ValidateTicketDialogFragment) ValidateTicketDialogFragment.getInstance(adapter.getItem(position));
+        validateTicketDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_CustomDialog);
         validateTicketDialogFragment.show(getFragmentManager(), "Validate Ticket");
         validateTicketDialogFragment.setTargetFragment(this, 25);
     }

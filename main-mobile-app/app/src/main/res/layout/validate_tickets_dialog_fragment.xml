@@ -53,6 +53,7 @@
             android:id="@+id/btn_cancel_validation"
             android:layout_width="wrap_content"
             style="?android:buttonBarButtonStyle"
+            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/cancel"
