@@ -44,7 +44,12 @@ public class CostumerServices {
 
             Api.Post("/costumer/login", user, success, fail);
         } catch (Exception e){
-
+            e.printStackTrace();
         }
     }
+
+    public static void UpdatePassword(JSONObject object,  Response.Listener<JSONObject> success, Response.ErrorListener fail){
+        Api.Put("/costumer/update", object, success, fail);
+    }
+
 }

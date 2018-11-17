@@ -30,6 +30,14 @@ public class MainSettingsFragment extends Fragment {
     private void InitializeView(View view) {
         Button btn_logout = view.findViewById(R.id.settings_logout);
         btn_logout.setOnClickListener(this::logout);
+
+        Button btn_udpate_password = view.findViewById(R.id.settings_update_password);
+        btn_udpate_password.setOnClickListener(this::updatePassword);
+    }
+
+    private void updatePassword(View view) {
+        UpdatePasswordDialogFragment updatePasswordDialogFragment = (UpdatePasswordDialogFragment)UpdatePasswordDialogFragment.getInstance();
+        updatePasswordDialogFragment.show(getFragmentManager(), "Update Password");
     }
 
     private void logout(View view) {

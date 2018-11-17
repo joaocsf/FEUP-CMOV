@@ -31,6 +31,10 @@ module.exports = (app) => {
     CostumerController.login
   )
 
+  app.put('/costumer/update',
+    CostumerController.updatePassword
+  )
+
   // *************
   // * Shows
   // *************
