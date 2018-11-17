@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import java.util.Objects;
 
 import feup.cmpv.feup.casadamusica.R;
+import feup.cmpv.feup.casadamusica.application.ApplicationContextRetriever;
 import feup.cmpv.feup.casadamusica.services.TicketServices;
 import feup.cmpv.feup.casadamusica.structures.Show;
 import feup.cmpv.feup.casadamusica.utils.Archive;
@@ -128,7 +130,7 @@ public class BuyTicketsDialogFragment extends DialogFragment{
                     this.dismiss();
                 },
                 error -> {
-                    Snackbar.make(getView(), "Error When Buying Tickets", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(ApplicationContextRetriever.getContext(), "Connection Error", Toast.LENGTH_SHORT).show();
                 });
 
     }
